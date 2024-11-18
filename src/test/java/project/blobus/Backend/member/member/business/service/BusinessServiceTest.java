@@ -21,7 +21,7 @@ class BusinessServiceTest {
         BusinessDTO businessDTO = BusinessDTO.builder()
                 .userId("123-12-12345")
                 .userPw("qwerQWER1234!@#$")
-                .name("TEST")
+                .name("(주)테스트")
                 .address("부산광역시-해운대구")
                 .phoneNum("01012345678")
                 .email("asdf@test.com")

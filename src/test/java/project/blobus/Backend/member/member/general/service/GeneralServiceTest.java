@@ -23,7 +23,7 @@ class GeneralServiceTest {
         GeneralDTO generalDTO = GeneralDTO.builder()
                 .userId("test@test.com")
                 .userPw("qwerQWER1234!@#$")
-                .name("테스트")
+                .name("홍길동")
                 .phoneNum("01012345678")
                 .birthDate(LocalDate.of(1999, 9, 9))
                 .gender("M")
@@ -43,6 +43,13 @@ class GeneralServiceTest {
 
         log.info(String.valueOf(memberService.duplicate(userId1)));
         log.info(String.valueOf(memberService.duplicate(userId2)));
+    }
+
+    @Test
+    @DisplayName("회원가입 - 메일전송")
+    void test1() {
+        Long code = memberService.sendEmail("bell4916@naver.com");
+        log.info("CODE : " + code);
     }
 
 //    @Test

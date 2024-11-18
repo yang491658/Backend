@@ -22,10 +22,16 @@ public class GeneralController {
         return Map.of("id", id);
     }
 
-    // 회원정보 조회
-    @GetMapping("/{userId}")
+    // 일반계정 회원가입 - 중복계정
+    @GetMapping("/dup/{userId}")
     public boolean duplicate(@PathVariable(name = "userId") String userId) {
         return generalService.duplicate(userId);
+    }
+
+    // 일반계정 회원가입 - 메일전송
+    @PostMapping("/send/{userId}")
+    public Long sendEmail(@PathVariable(name = "userId") String userId) {
+        return generalService.sendEmail(userId);
     }
 
 //    // 회원정보 수정 + 비밀번호 변경

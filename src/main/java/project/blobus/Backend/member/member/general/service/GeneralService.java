@@ -2,6 +2,8 @@ package project.blobus.Backend.member.member.general.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,8 +12,11 @@ import project.blobus.Backend.member.member.general.dto.GeneralDTO;
 import project.blobus.Backend.member.member.general.entity.GeneralMember;
 import project.blobus.Backend.member.member.general.repository.GeneralRepository;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -20,6 +25,7 @@ import java.util.Optional;
 public class GeneralService {
     private final GeneralRepository generalRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender mailSender;
 
     // 회원가입
     public Long register(GeneralDTO generalDTO) {
@@ -42,6 +48,33 @@ public class GeneralService {
 
         // userId가 존재하면 true 반환, 존재하지 않으면 false 반환
         return optionalGeneralMember.isPresent();
+    }
+
+
+    public Long sendEmail(String to) {
+        log.info(("GeneralMember Send Email"));
+
+        // TODO 메일 제목 수정
+        String subject = "이메일 인증";
+//        to = URLDecoder.decode(to, StandardCharsets.UTF_8).split("=")[1];
+        // TODO 메일 내용 JS로 변경
+        Long code = generateCode();
+        String text = "인증코드 : " + code;
+
+        SimpleMailMessage emailMessage = new SimpleMailMessage();
+        emailMessage.setTo(to);
+        emailMessage.setSubject(subject);
+        emailMessage.setText(text);
+
+        mailSender.send(emailMessage);
+
+        return code;
+    }
+
+    private Long generateCode() {
+        Random random = new Random();
+        Long code = (long) random.nextInt(999999);
+        return code;
     }
 
 //    public EmployeeDTO get(Long enb) {
