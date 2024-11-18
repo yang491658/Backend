@@ -20,9 +20,9 @@ public class BusinessMember {
     private String userPw;
 
     private String name;
-    private String address;
     private String phoneNum;
     private String email;
+    private String address;
 
     private boolean delFlag;
     private int loginErrorCount;

@@ -18,7 +18,7 @@ class GeneralServiceTest {
     private GeneralService memberService;
 
     @Test
-    @DisplayName("회원가입 테스트")
+    @DisplayName("일반계정 회원가입 테스트")
     public void registerTest() {
         GeneralDTO generalDTO = GeneralDTO.builder()
                 .userId("test@test.com")
@@ -35,7 +35,7 @@ class GeneralServiceTest {
     }
 
     @Test
-    @DisplayName("회원가입 - 아이디 중복")
+    @DisplayName("일반계정 회원가입 - 중복 확인")
     public void duplicateTest() {
         String userId1 = "test@test.com";
         String userId2 = "test2@test.com";
@@ -46,7 +46,7 @@ class GeneralServiceTest {
     }
 
     @Test
-    @DisplayName("회원가입 - 메일전송")
+    @DisplayName("일반계정 회원가입 - 메일 전송")
     void test1() {
         Long code = memberService.sendEmail("bell4916@naver.com");
         log.info("CODE : " + code);

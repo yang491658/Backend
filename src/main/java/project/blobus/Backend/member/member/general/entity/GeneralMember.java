@@ -20,8 +20,8 @@ public class GeneralMember {
     private String userPw;
 
     private String name;
-    private String address;
     private String phoneNum;
+    private String address;
 
     private LocalDate birthDate;
     private String gender;

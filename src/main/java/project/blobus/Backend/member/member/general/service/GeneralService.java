@@ -12,8 +12,6 @@ import project.blobus.Backend.member.member.general.dto.GeneralDTO;
 import project.blobus.Backend.member.member.general.entity.GeneralMember;
 import project.blobus.Backend.member.member.general.repository.GeneralRepository;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Random;
@@ -27,7 +25,7 @@ public class GeneralService {
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
 
-    // 회원가입
+    // 일반계정 회원가입
     public Long register(GeneralDTO generalDTO) {
         log.info("GeneralMember Register");
 
@@ -39,27 +37,24 @@ public class GeneralService {
         return generalMember.getId();
     }
 
-    // 회원가입 - 아이디 중복
+    // 일반계정 회원가입 - 중복 확인
     public boolean duplicate(String userId) {
         log.info("GeneralMember Duplicate");
 
-        // userId로 GeneralMember 찾기
         Optional<GeneralMember> optionalGeneralMember = generalRepository.findByUserId(userId);
 
-        // userId가 존재하면 true 반환, 존재하지 않으면 false 반환
         return optionalGeneralMember.isPresent();
     }
 
-
+    // 일반계정 회원가입 - 메일 전송
     public Long sendEmail(String to) {
         log.info(("GeneralMember Send Email"));
 
         // TODO 메일 제목 수정
         String subject = "이메일 인증";
-//        to = URLDecoder.decode(to, StandardCharsets.UTF_8).split("=")[1];
         // TODO 메일 내용 JS로 변경
         Long code = generateCode();
-        String text = "인증코드 : " + code;
+        String text = "인증코드 : " + String.format("%06d", code);
 
         SimpleMailMessage emailMessage = new SimpleMailMessage();
         emailMessage.setTo(to);

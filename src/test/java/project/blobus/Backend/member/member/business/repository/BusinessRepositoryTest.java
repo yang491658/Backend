@@ -31,9 +31,9 @@ class BusinessRepositoryTest {
                     .userId((111 * i) + "-" + (11 * i) + "-" + (11111 * i))
                     .userPw(passwordEncoder.encode("qwerQWER1234!@#$"))
                     .name("기업" + i)
-                    .address(randomAdress(random))
                     .phoneNum(randomPhoneNum(random))
                     .email(randomEmail(random))
+                    .address(randomAdress(random))
                     .joinDate(LocalDate.now())
                     .memberRole(MemberRole.BUSINESS)
                     .build();

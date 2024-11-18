@@ -26,7 +26,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
         MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
         Map<String, Object> claims = memberDTO.getClaims();
 
-        int min = 1;
+        int min = 24 * 60;
         claims.put("accessToken", JWTUtil.generateToken(claims, min));
         claims.put("expirationTime", LocalDateTime.now().plusMinutes(min).toString());
 

@@ -15,32 +15,16 @@ public class BusinessController {
     @Autowired
     private BusinessService businessService;
 
-    // 일반계정 회원가입
+    // 기업계정 회원가입
     @PostMapping("/")
     public Map<String, Long> register(@RequestBody BusinessDTO businessDTO) {
         Long id = businessService.register(businessDTO);
         return Map.of("id", id);
     }
 
-    // 회원정보 조회
-    @GetMapping("/{userId}")
+    // 기업계정 회원가입 - 중복 확인
+    @GetMapping("/dup/{userId}")
     public boolean duplicate(@PathVariable(name = "userId") String userId) {
         return businessService.duplicate(userId);
     }
-
-//    // 회원정보 수정 + 비밀번호 변경
-//    @PutMapping("/{enb}")
-//    public Map<String, String> modify(@PathVariable(name = "enb") Long enb,
-//                                      @RequestBody EmployeeDTO employeeDTO) {
-//        employeeDTO.setEnb(enb);
-//        employeeService.modify(employeeDTO);
-//        return Map.of("result", "SUCCESS");
-//      }
-
-//    // 회사 탈퇴
-//    @DeleteMapping("/{enb}")
-//    public Map<String, String> remove(@PathVariable(name = "enb") Long enb) {
-//        employeeService.remove(enb);
-//        return Map.of("result", "SUCCESS");
-//    }
 }

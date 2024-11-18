@@ -14,8 +14,8 @@ public class ModelMapper {
                 .userId(generalMember.getUserId())
                 .userPw(generalMember.getUserPw())
                 .name(generalMember.getName())
-                .address(generalMember.getAddress())
                 .phoneNum(generalMember.getPhoneNum())
+                .address(generalMember.getAddress())
                 .birthDate(generalMember.getBirthDate())
                 .gender(generalMember.getGender())
                 .foreigner(generalMember.isForeigner())
@@ -29,8 +29,8 @@ public class ModelMapper {
                 .userId(generalDTO.getUserId())
                 .userPw(generalDTO.getUserPw())
                 .name(generalDTO.getName())
-                .address(generalDTO.getAddress())
                 .phoneNum(generalDTO.getPhoneNum())
+                .address(generalDTO.getAddress())
                 .birthDate(generalDTO.getBirthDate())
                 .gender(generalDTO.getGender())
                 .foreigner(generalDTO.isForeigner())
@@ -44,9 +44,9 @@ public class ModelMapper {
                 .userId(businessMember.getUserId())
                 .userPw(businessMember.getUserPw())
                 .name(businessMember.getName())
-                .address(businessMember.getAddress())
                 .phoneNum(businessMember.getPhoneNum())
                 .email(businessMember.getEmail())
+                .address(businessMember.getAddress())
                 .roleName(String.valueOf(MemberRole.BUSINESS))
                 .build();
     }
@@ -57,9 +57,9 @@ public class ModelMapper {
                 .userId(businessDTO.getUserId())
                 .userPw(businessDTO.getUserPw())
                 .name(businessDTO.getName())
-                .address(businessDTO.getAddress())
                 .phoneNum(businessDTO.getPhoneNum())
                 .email(businessDTO.getEmail())
+                .address(businessDTO.getAddress())
                 .memberRole(MemberRole.valueOf(businessDTO.getRoleName()))
                 .build();
     }
@@ -70,8 +70,8 @@ public class ModelMapper {
                 .userId(generalMember.getUserId())
                 .userPw(generalMember.getUserPw())
                 .name(generalMember.getName())
-                .address(generalMember.getAddress())
                 .phoneNum(generalMember.getPhoneNum())
+                .address(generalMember.getAddress())
                 .birthDate(generalMember.getBirthDate())
                 .gender(generalMember.getGender())
                 .foreigner(generalMember.isForeigner())
@@ -85,9 +85,9 @@ public class ModelMapper {
                 .userId(businessMember.getUserId())
                 .userPw(businessMember.getUserPw())
                 .name(businessMember.getName())
-                .address(businessMember.getAddress())
                 .phoneNum(businessMember.getPhoneNum())
                 .email(businessMember.getEmail())
+                .address(businessMember.getAddress())
                 .roleName(String.valueOf(MemberRole.BUSINESS))
                 .build();
     }

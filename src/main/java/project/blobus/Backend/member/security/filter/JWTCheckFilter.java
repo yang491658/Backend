@@ -51,9 +51,9 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             String userId = (String) claim.get("userId");
 
             String name = (String) claim.get("name");
-            String address = (String) claim.get("address");
             String phoneNum = (String) claim.get("phoneNum");
             String email = (String) claim.get("email");
+            String address = (String) claim.get("address");
 
             LocalDate birthDate = LocalDate.parse((String) claim.get("birthDate"));
             String gender = (String) claim.get("gender");
@@ -64,9 +64,9 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             MemberDTO memberDTO = MemberDTO.builder()
                     .userId(userId)
                     .name(name)
-                    .address(address)
                     .phoneNum(phoneNum)
                     .email(email)
+                    .address(address)
                     .birthDate(birthDate)
                     .gender(gender)
                     .foreigner(foreigner)

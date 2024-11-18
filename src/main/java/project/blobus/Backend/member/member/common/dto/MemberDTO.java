@@ -22,9 +22,9 @@ public class MemberDTO implements UserDetails {
     private String userPw;
 
     private String name;
-    private String address;
     private String phoneNum;
     private String email;
+    private String address;
 
     private LocalDate birthDate;
     private String gender;
@@ -38,13 +38,16 @@ public class MemberDTO implements UserDetails {
 
         dataMap.put("id", id);
         dataMap.put("userId", userId);
+
         dataMap.put("name", name);
-        dataMap.put("address", address);
         dataMap.put("phoneNum", phoneNum);
         dataMap.put("email", email);
+        dataMap.put("address", address);
+
         dataMap.put("birthDate", birthDate != null ? birthDate.toString() : null);
         dataMap.put("gender", gender);
         dataMap.put("foreigner", foreigner);
+
         dataMap.put("roleName", roleName);
 
         return dataMap;
