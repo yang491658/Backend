@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,5 +28,9 @@ public class FinanceDTOTest {
         this.applicationPeriodEnd = entity.getApplicationPeriodEnd().toString();
         this.contactInfo = entity.getContactInfo();
         this.contactPhone = entity.getContactPhone();
+    }
+
+    private String formatDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

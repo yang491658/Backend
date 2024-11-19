@@ -16,16 +16,18 @@ public class FinanceServiceTest {
 
     // 모든 정책 가져오기
     public List<FinanceDTOTest> getAllPolicies() {
-        return financeRepositoryTest.findAll()
+        List<FinanceDTOTest> policies = financeRepositoryTest.findAll()
                 .stream()
-                .map(FinanceDTOTest::new) // Entity -> DTO 변환
+                .map(FinanceDTOTest::new)
                 .collect(Collectors.toList());
+        System.out.println("Retrieved " + policies.size() + " policies");
+        return policies;
     }
 
     // 특정 ID의 정책 가져오기
     public FinanceDTOTest getPolicyById(Integer id) {
         return financeRepositoryTest.findById(id)
                 .map(FinanceDTOTest::new)
-                .orElse(null);
+                .orElseThrow(() -> new RuntimeException("Policy not found for ID: " + id));
     }
 }
