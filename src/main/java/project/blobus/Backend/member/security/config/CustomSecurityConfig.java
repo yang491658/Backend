@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import project.blobus.Backend.member.member.business.repository.BusinessRepository;
+import project.blobus.Backend.member.member.general.repository.GeneralRepository;
 import project.blobus.Backend.member.security.filter.JWTCheckFilter;
 import project.blobus.Backend.member.security.handler.APILoginFailHandler;
 import project.blobus.Backend.member.security.handler.APILoginSuccessHandler;
@@ -26,6 +28,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class CustomSecurityConfig {
+    private final GeneralRepository generalRepository;
+    private final BusinessRepository businessRepository;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -48,7 +53,7 @@ public class CustomSecurityConfig {
         http.formLogin(config -> {
             config.loginPage("/member/login");
             config.successHandler(new APILoginSuccessHandler());
-            config.failureHandler(new APILoginFailHandler());
+            config.failureHandler(new APILoginFailHandler(generalRepository, businessRepository));
         });
 
         http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
