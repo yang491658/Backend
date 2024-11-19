@@ -21,7 +21,6 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").permitAll() // "/api/**" 경로 인증 없이 허용
                 .anyRequest().permitAll() // 그 외 요청도 모두 허용
         );
-
         return http.build();
     }
 

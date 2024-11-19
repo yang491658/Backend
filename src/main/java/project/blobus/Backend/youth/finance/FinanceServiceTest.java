@@ -1,5 +1,7 @@
 package project.blobus.Backend.youth.finance;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,12 @@ public class FinanceServiceTest {
 
     public FinanceServiceTest(FinanceRepositoryTest financeRepositoryTest) {
         this.financeRepositoryTest = financeRepositoryTest;
+    }
+
+    // 페이징된 정책 목록 가져오기
+    public Page<FinanceDTOTest> getPagedPolicies(Pageable pageable) {
+        return financeRepositoryTest.findAll(pageable)
+                .map(FinanceDTOTest::new); // Page<Entity> -> Page<DTO>로 변환
     }
 
     // 모든 정책 가져오기
