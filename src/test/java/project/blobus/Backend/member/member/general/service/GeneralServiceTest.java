@@ -23,7 +23,7 @@ class GeneralServiceTest {
         GeneralDTO generalDTO = GeneralDTO.builder()
                 .userId("test@test.com")
                 .userPw("qwerQWER1234!@#$")
-                .name("홍길동")
+                .name("테스트")
                 .phoneNum("01012345678")
                 .birthDate(LocalDate.of(1999, 9, 9))
                 .gender("M")
