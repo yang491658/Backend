@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import project.blobus.Backend.member.member.common.dto.MemberDTO;
+import project.blobus.Backend.member.role.common.dto.MemberDTO;
 import project.blobus.Backend.member.security.util.JWTUtil;
 
 import java.io.IOException;

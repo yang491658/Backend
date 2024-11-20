@@ -7,10 +7,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.blobus.Backend.member.basic.util.ModelMapper;
-import project.blobus.Backend.member.member.business.entity.BusinessMember;
-import project.blobus.Backend.member.member.business.repository.BusinessRepository;
-import project.blobus.Backend.member.member.general.entity.GeneralMember;
-import project.blobus.Backend.member.member.general.repository.GeneralRepository;
+import project.blobus.Backend.member.role.admin.entity.AdminMember;
+import project.blobus.Backend.member.role.admin.repository.AdminRepository;
+import project.blobus.Backend.member.role.business.entity.BusinessMember;
+import project.blobus.Backend.member.role.business.repository.BusinessRepository;
+import project.blobus.Backend.member.role.general.entity.GeneralMember;
+import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 
 @Log4j2
 @Service
@@ -18,6 +20,7 @@ import project.blobus.Backend.member.member.general.repository.GeneralRepository
 public class CustomUserDetailService implements UserDetailsService {
     private final GeneralRepository generalRepository;
     private final BusinessRepository businessRepository;
+    private final AdminRepository adminRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,7 +31,15 @@ public class CustomUserDetailService implements UserDetailsService {
 
         if (generalMember == null) {
             BusinessMember businessMember = businessRepository.findByUserId(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
+                    .orElse(null);
+
+            if (businessMember == null) {
+                AdminMember adminMember = adminRepository.findByUserId(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
+
+                log.info("Admin Member Login");
+                return ModelMapper.adminToMember(adminMember);
+            }
 
             log.info("Business Member Login");
             return ModelMapper.businessToMember(businessMember);

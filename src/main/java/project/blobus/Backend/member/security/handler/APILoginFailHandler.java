@@ -10,10 +10,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import project.blobus.Backend.member.member.business.entity.BusinessMember;
-import project.blobus.Backend.member.member.business.repository.BusinessRepository;
-import project.blobus.Backend.member.member.general.entity.GeneralMember;
-import project.blobus.Backend.member.member.general.repository.GeneralRepository;
+import project.blobus.Backend.member.role.business.entity.BusinessMember;
+import project.blobus.Backend.member.role.business.repository.BusinessRepository;
+import project.blobus.Backend.member.role.general.entity.GeneralMember;
+import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;

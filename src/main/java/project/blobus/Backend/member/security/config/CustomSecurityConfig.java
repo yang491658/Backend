@@ -14,8 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import project.blobus.Backend.member.member.business.repository.BusinessRepository;
-import project.blobus.Backend.member.member.general.repository.GeneralRepository;
+import project.blobus.Backend.member.role.business.repository.BusinessRepository;
+import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.member.security.filter.JWTCheckFilter;
 import project.blobus.Backend.member.security.handler.APILoginFailHandler;
 import project.blobus.Backend.member.security.handler.APILoginSuccessHandler;

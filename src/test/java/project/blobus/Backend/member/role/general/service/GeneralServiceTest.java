@@ -1,0 +1,94 @@
+package project.blobus.Backend.member.role.general.service;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import project.blobus.Backend.member.role.common.entity.MemberRole;
+import project.blobus.Backend.member.role.general.dto.GeneralDTO;
+
+import java.time.LocalDate;
+
+@SpringBootTest
+class GeneralServiceTest {
+    private static final Logger log = LoggerFactory.getLogger(GeneralServiceTest.class);
+    @Autowired
+    private GeneralService memberService;
+
+    @Test
+    @DisplayName("일반계정 회원가입 테스트")
+    public void registerTest() {
+        GeneralDTO generalDTO = GeneralDTO.builder()
+                .userId("test@test.com")
+                .userPw("qwerQWER1234!@#$")
+                .name("테스트")
+                .phoneNum("01012345678")
+                .birthDate(LocalDate.of(1999, 9, 9))
+                .gender("M")
+                .foreigner(false)
+                .address("부산광역시-해운대구")
+                .roleName(String.valueOf(MemberRole.GENERAL))
+                .build();
+        Long id = memberService.register(generalDTO);
+
+        if (id > 0L)
+            log.info("가입 완료");
+        else
+            log.error("가입 실패");
+    }
+
+    @Test
+    @DisplayName("일반계정 회원가입 테스트 - 연락처 중복")
+    public void registerTest2() {
+        GeneralDTO generalDTO = GeneralDTO.builder()
+                .userId("test2@test.com")
+                .userPw("qwerQWER1234!@#$")
+                .name("테스트2")
+                .phoneNum("01012345678")
+                .birthDate(LocalDate.of(1999, 9, 9))
+                .gender("M")
+                .foreigner(false)
+                .address("부산광역시-해운대구")
+                .roleName(String.valueOf(MemberRole.GENERAL))
+                .build();
+        Long id = memberService.register(generalDTO);
+
+        if (id == 0L)
+            log.info("중복된 연락처");
+        else
+            log.error("가입 완료");
+    }
+
+    @Test
+    @DisplayName("일반계정 회원가입 - 중복 확인")
+    public void duplicateTest() {
+        String userId1 = "test@test.com";
+        String userId2 = "test2@test.com";
+
+        if (memberService.duplicate(userId1))
+            log.info(userId1 + " : 가입 가능");
+        else
+            log.error(userId1 + " : 가입 불가능");
+
+        if (memberService.duplicate(userId2))
+            log.error(userId2 + " : 가입 가능");
+        else
+            log.info(userId2 + " : 가입 불가능");
+    }
+
+    @Test
+    @DisplayName("일반계정 회원가입 - 메일 전송")
+    void sendEmailTest() {
+        Long code = memberService.sendEmail("bell4916@naver.com");
+        log.info("CODE : " + code);
+    }
+
+    @Test
+    @DisplayName("일반계정 아이디찾기")
+    void findTest() {
+        String userId1 = memberService.find("테스트", "01012345678");
+        log.info("검색 결과 : " + userId1);
+    }
+}

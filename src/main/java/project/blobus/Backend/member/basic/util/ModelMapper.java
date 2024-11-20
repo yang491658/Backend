@@ -1,11 +1,12 @@
-package project.blobus.Backend.member.basic.util;
+    package project.blobus.Backend.member.basic.util;
 
-import project.blobus.Backend.member.member.business.dto.BusinessDTO;
-import project.blobus.Backend.member.member.business.entity.BusinessMember;
-import project.blobus.Backend.member.member.common.dto.MemberDTO;
-import project.blobus.Backend.member.member.common.entity.MemberRole;
-import project.blobus.Backend.member.member.general.dto.GeneralDTO;
-import project.blobus.Backend.member.member.general.entity.GeneralMember;
+import project.blobus.Backend.member.role.admin.entity.AdminMember;
+import project.blobus.Backend.member.role.business.dto.BusinessDTO;
+import project.blobus.Backend.member.role.business.entity.BusinessMember;
+import project.blobus.Backend.member.role.common.dto.MemberDTO;
+import project.blobus.Backend.member.role.common.entity.MemberRole;
+import project.blobus.Backend.member.role.general.dto.GeneralDTO;
+import project.blobus.Backend.member.role.general.entity.GeneralMember;
 
 public class ModelMapper {
     public static GeneralDTO generalEntityToDTO(GeneralMember generalMember) {
@@ -95,6 +96,15 @@ public class ModelMapper {
                 .loginErrorCount(businessMember.getLoginErrorCount())
                 .delFlag(businessMember.isDelFlag())
                 .roleName(String.valueOf(MemberRole.BUSINESS))
+                .build();
+    }
+
+    public static MemberDTO adminToMember(AdminMember adminMember) {
+        return MemberDTO.builder()
+                .id(adminMember.getId())
+                .userId(adminMember.getUserId())
+                .userPw(adminMember.getUserPw())
+                .roleName(String.valueOf(MemberRole.ADMIN))
                 .build();
     }
 }

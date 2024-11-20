@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import project.blobus.Backend.member.member.common.dto.MemberDTO;
+import project.blobus.Backend.member.role.common.dto.MemberDTO;
 import project.blobus.Backend.member.security.util.JWTUtil;
 
 import java.io.IOException;
