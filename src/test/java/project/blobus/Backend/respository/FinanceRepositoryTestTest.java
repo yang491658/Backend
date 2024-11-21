@@ -28,7 +28,7 @@ public class FinanceRepositoryTestTest {
 
         // 더미 데이터 생성
         FinanceEntityTest policy = new FinanceEntityTest();
-        policy.setTitle("청년 주택 지원 정책4");
+        policy.setTitle("청년 우리는 내일도 희망희망");
         policy.setOverview("청년을 위한 주택 지원 정책4");
         policy.setApplicationPeriodStart(startDate);
         policy.setApplicationPeriodEnd(endDate);
