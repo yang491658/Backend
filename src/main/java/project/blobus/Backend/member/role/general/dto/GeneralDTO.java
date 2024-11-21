@@ -24,7 +24,7 @@ public class GeneralDTO {
 
     private LocalDate birthDate;
     private String gender;
-    private boolean foreigner;
+    private Boolean foreigner;
 
     private String roleName;
     private Collection<? extends GrantedAuthority> authorities;

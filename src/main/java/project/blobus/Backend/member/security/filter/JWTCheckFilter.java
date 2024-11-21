@@ -57,7 +57,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
             LocalDate birthDate = LocalDate.parse((String) claim.get("birthDate"));
             String gender = (String) claim.get("gender");
-            boolean foreigner = (boolean) claim.get("foreigner");
+            Boolean foreigner = (Boolean) claim.get("foreigner");
 
             boolean delFlag = (boolean) claim.get("delFlag");
             int loginErrorCount = (int) claim.get("loginErrorCount");

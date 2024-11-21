@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import project.blobus.Backend.member.role.general.dto.GeneralDTO;
 import project.blobus.Backend.member.role.general.service.GeneralService;
 
+import java.util.Map;
+
 @Log4j2
 @RestController
 @RequestMapping("/member/general")
@@ -15,8 +17,8 @@ public class GeneralController {
 
     // 일반계정 회원가입
     @PostMapping("/")
-    public Long register(@RequestBody GeneralDTO generalDTO) {
-        return generalService.register(generalDTO);
+    public Long register(@RequestBody GeneralDTO dTO) {
+        return generalService.register(dTO);
     }
 
     // 일반계정 회원가입 - 중복 확인
@@ -36,5 +38,12 @@ public class GeneralController {
     public String find(@PathVariable String name,
                        @PathVariable String phoneNum) {
         return generalService.find(name, phoneNum);
+    }
+
+    // 일반계정 비밀번호 찾기(변경)
+    @PutMapping("/find/")
+    public Map<String, String> modify(@RequestBody GeneralDTO dTO) {
+        generalService.modify(dTO);
+        return Map.of("modify", "SUCCESS");
     }
 }

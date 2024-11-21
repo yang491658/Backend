@@ -26,18 +26,18 @@ public class GeneralService {
     private final JavaMailSender mailSender;
 
     // 일반계정 회원가입
-    public Long register(GeneralDTO generalDTO) {
+    public Long register(GeneralDTO dto) {
         log.info("GeneralMember Register");
 
-        if (generalRepository.existsByPhoneNum(generalDTO.getPhoneNum()))
+        if (generalRepository.existsByPhoneNum(dto.getPhoneNum()))
             return 0L;
 
-        GeneralMember generalMember = ModelMapper.generalDtoToEntity(generalDTO);
-        generalMember.setUserPw(passwordEncoder.encode(generalDTO.getUserPw()));
-        generalMember.setJoinDate(LocalDate.now());
-        generalRepository.save(generalMember);
+        GeneralMember member = ModelMapper.generalDtoToEntity(dto);
+        member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
+        member.setJoinDate(LocalDate.now());
+        generalRepository.save(member);
 
-        return generalMember.getId();
+        return member.getId();
     }
 
     // 일반계정 회원가입 - 중복 확인
@@ -77,10 +77,37 @@ public class GeneralService {
     public String find(String name, String phoneNum) {
         log.info("GeneralMember Find ID");
 
-        GeneralMember generalMember = generalRepository.findByNameAndPhoneNum(name, phoneNum)
+        GeneralMember member = generalRepository.findByNameAndPhoneNum(name, phoneNum)
                 .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
 
 
-        return generalMember.getUserId();
+        return member.getUserId();
+    }
+
+    // 일반계정 회원정보 수정 + 비밀번호 찾기(변경)
+    public void modify(GeneralDTO dto) {
+        log.info(("GeneralMember Send Email"));
+
+        GeneralMember member = generalRepository.findByUserId(dto.getUserId()).orElseThrow();
+
+        // 비밀번호 찾기(변경)
+        if (dto.getUserPw() != null) member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
+
+        // 이름 수정
+        if (dto.getName() != null) member.setName(dto.getName());
+        // 주소 수정
+        if (dto.getAddress() != null) member.setAddress(dto.getAddress());
+        // 연락처 수정
+        if (dto.getPhoneNum() != null) member.setPhoneNum(dto.getPhoneNum());
+        // 생년월일 수정
+        if (dto.getBirthDate() != null) member.setBirthDate(dto.getBirthDate());
+        // 성별 수정
+        if (dto.getGender() != null) member.setGender(dto.getGender());
+        // 내외국인 수정
+        if (dto.getForeigner() != null) member.setForeigner(dto.getForeigner());
+
+        generalRepository.save(member);
+
+        System.out.println(member);
     }
 }

@@ -22,23 +22,21 @@ public class BusinessService {
     private final PasswordEncoder passwordEncoder;
 
     // 기업계정 회원가입
-    public Long register(BusinessDTO businessDTO) {
+    public Long register(BusinessDTO dto) {
         log.info("Business Register");
 
-        BusinessMember businessMember = ModelMapper.businessDtoToEntity(businessDTO);
-        businessMember.setUserPw(passwordEncoder.encode(businessDTO.getUserPw()));
-        businessMember.setJoinDate(LocalDate.now());
-        businessRepository.save(businessMember);
+        BusinessMember member = ModelMapper.businessDtoToEntity(dto);
+        member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
+        member.setJoinDate(LocalDate.now());
+        businessRepository.save(member);
 
-        return businessMember.getId();
+        return member.getId();
     }
 
     // 기업계정 회원가입 - 중복 확인
     public boolean duplicate(String userId) {
         log.info("Business Duplicate");
 
-        Optional<BusinessMember> optionalBusinessMember = businessRepository.findByUserId(userId);
-
-        return optionalBusinessMember.isPresent();
+        return businessRepository.findByUserId(userId).isPresent();
     }
 }

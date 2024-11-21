@@ -24,7 +24,7 @@ public class GeneralMember {
 
     private LocalDate birthDate;
     private String gender;
-    private boolean foreigner;
+    private Boolean foreigner;
 
     private boolean delFlag;
     private int loginErrorCount;

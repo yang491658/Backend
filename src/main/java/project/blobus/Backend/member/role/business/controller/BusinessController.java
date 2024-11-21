@@ -15,8 +15,8 @@ public class BusinessController {
 
     // 기업계정 회원가입
     @PostMapping("/")
-    public Long register(@RequestBody BusinessDTO businessDTO) {
-        return businessService.register(businessDTO);
+    public Long register(@RequestBody BusinessDTO dTO) {
+        return businessService.register(dTO);
     }
 
     // 기업계정 회원가입 - 중복 확인

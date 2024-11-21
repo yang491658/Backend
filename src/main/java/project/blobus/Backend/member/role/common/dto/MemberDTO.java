@@ -28,7 +28,7 @@ public class MemberDTO implements UserDetails {
 
     private LocalDate birthDate;
     private String gender;
-    private boolean foreigner;
+    private Boolean foreigner;
 
     private LocalDate joinDate;
     private int loginErrorCount;

@@ -18,42 +18,44 @@ class GeneralServiceTest {
     private GeneralService memberService;
 
     @Test
-    @DisplayName("일반계정 회원가입 테스트")
+    @DisplayName("일반계정 회원가입")
     public void registerTest() {
-        GeneralDTO generalDTO = GeneralDTO.builder()
-                .userId("test@test.com")
-                .userPw("qwerQWER1234!@#$")
-                .name("테스트")
-                .phoneNum("01012345678")
-                .birthDate(LocalDate.of(1999, 9, 9))
-                .gender("M")
-                .foreigner(false)
-                .address("부산광역시-해운대구")
-                .roleName(String.valueOf(MemberRole.GENERAL))
-                .build();
-        Long id = memberService.register(generalDTO);
+        for (int i = 1; i <= 3; i++) {
+            GeneralDTO dto = GeneralDTO.builder()
+                    .userId("test" + i + "@test.com")
+                    .userPw("asdfASDF1234!@#$")
+                    .name("테스트" + i)
+                    .phoneNum("010" + (11111111 * i))
+                    .birthDate(LocalDate.of(1980 + 10 * i, i, i))
+                    .gender("M")
+                    .foreigner(false)
+                    .address("부산광역시-해운대구")
+                    .roleName(String.valueOf(MemberRole.GENERAL))
+                    .build();
+            Long id = memberService.register(dto);
 
-        if (id > 0L)
-            log.info("가입 완료");
-        else
-            log.error("가입 실패");
+            if (id > 0L)
+                log.info("가입 완료");
+            else
+                log.error("가입 실패");
+        }
     }
 
     @Test
-    @DisplayName("일반계정 회원가입 테스트 - 연락처 중복")
-    public void registerTest2() {
-        GeneralDTO generalDTO = GeneralDTO.builder()
-                .userId("test2@test.com")
+    @DisplayName("일반계정 회원가입 - 연락처 중복")
+    public void registerFailTest() {
+        GeneralDTO dto = GeneralDTO.builder()
+                .userId("test4@test.com")
                 .userPw("qwerQWER1234!@#$")
-                .name("테스트2")
-                .phoneNum("01012345678")
+                .name("테스트4")
+                .phoneNum("01011111111")
                 .birthDate(LocalDate.of(1999, 9, 9))
                 .gender("M")
-                .foreigner(false)
+                .foreigner(true)
                 .address("부산광역시-해운대구")
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
-        Long id = memberService.register(generalDTO);
+        Long id = memberService.register(dto);
 
         if (id == 0L)
             log.info("중복된 연락처");
@@ -64,31 +66,43 @@ class GeneralServiceTest {
     @Test
     @DisplayName("일반계정 회원가입 - 중복 확인")
     public void duplicateTest() {
-        String userId1 = "test@test.com";
-        String userId2 = "test2@test.com";
+        String userId1 = "test1@test.com";
+        String userId2 = "test4@test.com";
 
         if (memberService.duplicate(userId1))
-            log.info(userId1 + " : 가입 가능");
+            log.info(userId1 + " : 가입 불가능 (테스트 성공)");
         else
-            log.error(userId1 + " : 가입 불가능");
+            log.error(userId1 + " : 가입 가능 (테스트 실패)");
 
         if (memberService.duplicate(userId2))
-            log.error(userId2 + " : 가입 가능");
+            log.info(userId2 + " : 가입 가능 (테스트 성공)");
         else
-            log.info(userId2 + " : 가입 불가능");
+            log.error(userId2 + " : 가입 불가능 (테스트 실패)");
     }
 
     @Test
     @DisplayName("일반계정 회원가입 - 메일 전송")
     void sendEmailTest() {
         Long code = memberService.sendEmail("bell4916@naver.com");
+
         log.info("CODE : " + code);
     }
 
     @Test
-    @DisplayName("일반계정 아이디찾기")
+    @DisplayName("일반계정 아이디 찾기")
     void findTest() {
-        String userId1 = memberService.find("테스트", "01012345678");
-        log.info("검색 결과 : " + userId1);
+        String userId = memberService.find("테스트1", "01011111111");
+
+        log.info("검색 결과 : " + userId);
+    }
+
+    @Test
+    @DisplayName("일반계정 비밀번호 찾기(변경)")
+    void mofigyPwTest() {
+        GeneralDTO dto = GeneralDTO.builder()
+                .userId("test3@test.com")
+                .userPw("asdf")
+                .build();
+        memberService.modify(dto);
     }
 }

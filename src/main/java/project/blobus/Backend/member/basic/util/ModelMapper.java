@@ -19,7 +19,7 @@ public class ModelMapper {
                 .address(generalMember.getAddress())
                 .birthDate(generalMember.getBirthDate())
                 .gender(generalMember.getGender())
-                .foreigner(generalMember.isForeigner())
+                .foreigner(generalMember.getForeigner())
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
     }
@@ -34,7 +34,7 @@ public class ModelMapper {
                 .address(generalDTO.getAddress())
                 .birthDate(generalDTO.getBirthDate())
                 .gender(generalDTO.getGender())
-                .foreigner(generalDTO.isForeigner())
+                .foreigner(generalDTO.getForeigner())
                 .memberRole(MemberRole.valueOf(generalDTO.getRoleName()))
                 .build();
     }
@@ -75,7 +75,7 @@ public class ModelMapper {
                 .address(generalMember.getAddress())
                 .birthDate(generalMember.getBirthDate())
                 .gender(generalMember.getGender())
-                .foreigner(generalMember.isForeigner())
+                .foreigner(generalMember.getForeigner())
                 .joinDate(generalMember.getJoinDate())
                 .loginErrorCount(generalMember.getLoginErrorCount())
                 .delFlag(generalMember.isDelFlag())
