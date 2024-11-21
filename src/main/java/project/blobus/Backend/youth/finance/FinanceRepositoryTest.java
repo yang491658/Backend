@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface FinanceRepositoryTest extends JpaRepository<FinanceEntityTest, Integer> {
     // 필요한 경우 추가 메서드 정의 가능
     Page<FinanceEntityTest> findAll(Pageable pageable);
+
+    // 제목(title)에서 검색
+    Page<FinanceEntityTest> findByTitleContaining(String keyword, Pageable pageable);
 }

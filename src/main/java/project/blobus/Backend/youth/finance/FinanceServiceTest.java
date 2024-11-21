@@ -17,9 +17,18 @@ public class FinanceServiceTest {
     }
 
     // 페이징된 정책 목록 가져오기
-    public Page<FinanceDTOTest> getPagedPolicies(Pageable pageable) {
-        return financeRepositoryTest.findAll(pageable)
-                .map(FinanceDTOTest::new); // Page<Entity> -> Page<DTO>로 변환
+    public Page<FinanceDTOTest> getPagedPolicies(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            // 검색어가 없으면 전체 데이터를 페이징 처리
+            return financeRepositoryTest.findAll(pageable)
+                    .map(FinanceDTOTest::new);
+        }
+        // 검색어가 있으면 제목에서 검색
+        return financeRepositoryTest.findByTitleContaining(keyword, pageable)
+                .map(FinanceDTOTest::new);
+
+//        return financeRepositoryTest.findAll(pageable)
+//                .map(FinanceDTOTest::new); // Page<Entity> -> Page<DTO>로 변환
     }
 
     // 모든 정책 가져오기
