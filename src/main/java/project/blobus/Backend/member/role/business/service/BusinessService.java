@@ -11,7 +11,6 @@ import project.blobus.Backend.member.role.business.entity.BusinessMember;
 import project.blobus.Backend.member.role.business.repository.BusinessRepository;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Slf4j
 @Service

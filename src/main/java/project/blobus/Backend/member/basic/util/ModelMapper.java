@@ -1,4 +1,4 @@
-    package project.blobus.Backend.member.basic.util;
+package project.blobus.Backend.member.basic.util;
 
 import project.blobus.Backend.member.role.admin.entity.AdminMember;
 import project.blobus.Backend.member.role.business.dto.BusinessDTO;
