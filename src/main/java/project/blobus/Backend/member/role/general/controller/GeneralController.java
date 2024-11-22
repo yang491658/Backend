@@ -41,9 +41,15 @@ public class GeneralController {
     }
 
     // 일반계정 비밀번호 찾기(변경)
-    @PutMapping("/find/")
+    @PutMapping("/modify/")
     public Map<String, String> modify(@RequestBody GeneralDTO dTO) {
         generalService.modify(dTO);
         return Map.of("modify", "SUCCESS");
+    }
+
+    // 일반계정 회원정보 조회
+    @GetMapping("/info/{userId}")
+    public GeneralDTO get(@PathVariable String userId) {
+        return generalService.get(userId);
     }
 }

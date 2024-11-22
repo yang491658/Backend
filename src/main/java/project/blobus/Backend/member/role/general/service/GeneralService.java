@@ -110,4 +110,12 @@ public class GeneralService {
 
         System.out.println(member);
     }
+
+    public GeneralDTO get(String userId) {
+        log.info("Get One");
+
+        GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
+
+        return ModelMapper.generalEntityToDTO(member);
+    }
 }

@@ -105,4 +105,15 @@ class GeneralServiceTest {
                 .build();
         memberService.modify(dto);
     }
+
+    @Test
+    @DisplayName("일반계정 회원정보 조회")
+    void getTest() {
+        for (int i = 1; i <= 3; i++) {
+            String userId = "test" + i + "@test.com";
+            GeneralDTO dto = memberService.get(userId);
+
+            log.info(dto.toString());
+        }
+    }
 }
