@@ -16,9 +16,9 @@ public class GeneralController {
     private GeneralService generalService;
 
     // 일반계정 회원가입
-    @PostMapping("/")
-    public Long register(@RequestBody GeneralDTO dTO) {
-        return generalService.register(dTO);
+    @PostMapping("/register")
+    public Long register(@RequestBody GeneralDTO dto) {
+        return generalService.register(dto);
     }
 
     // 일반계정 회원가입 - 중복 확인
@@ -40,16 +40,23 @@ public class GeneralController {
         return generalService.find(name, phoneNum);
     }
 
-    // 일반계정 비밀번호 찾기(변경)
-    @PutMapping("/modify/")
-    public Map<String, String> modify(@RequestBody GeneralDTO dTO) {
-        generalService.modify(dTO);
+    // 일반계정 비밀번호 찾기(변경) + 회원정보 수정
+    @PutMapping("/modify")
+    public Map<String, String> modify(@RequestBody GeneralDTO dto) {
+        generalService.modify(dto);
         return Map.of("modify", "SUCCESS");
     }
 
     // 일반계정 회원정보 조회
     @GetMapping("/info/{userId}")
-    public GeneralDTO get(@PathVariable String userId) {
+    public GeneralDTO getInfo(@PathVariable String userId) {
         return generalService.get(userId);
+    }
+
+    // 일반계정 회원탈퇴
+    @DeleteMapping("/del/{userId}")
+    public Map<String, String> deleteId(@PathVariable String userId) {
+        generalService.deleteId(userId);
+        return Map.of("delete", "SUCCESS");
     }
 }

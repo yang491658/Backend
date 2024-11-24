@@ -38,12 +38,14 @@ public class APILoginFailHandler implements AuthenticationFailureHandler {
         log.info("API Login Fail Handler");
 
         String userId = request.getParameter("username");
+        boolean isDel;
         boolean lock;
         try {
             GeneralMember generalMember = generalRepository.findByUserId(userId)
                     .orElse(null);
 
             if (generalMember != null) {
+                isDel = generalMember.isDelFlag();
                 lock = generalMember.getLoginErrorCount() >= 5;
                 generalMember.setLoginErrorCount(generalMember.getLoginErrorCount() + 1);
                 generalRepository.save(generalMember);
@@ -51,6 +53,7 @@ public class APILoginFailHandler implements AuthenticationFailureHandler {
                 BusinessMember businessMember = businessRepository.findByUserId(userId)
                         .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
 
+                isDel = businessMember.isDelFlag();
                 lock = businessMember.getLoginErrorCount() >= 5;
                 businessMember.setLoginErrorCount(businessMember.getLoginErrorCount() + 1);
                 businessRepository.save(businessMember);
@@ -62,7 +65,7 @@ public class APILoginFailHandler implements AuthenticationFailureHandler {
 
         Gson gson = new Gson();
 
-        String jsonStr = gson.toJson(Map.of("error", lock ? "LOCK" : "ERROR_LOGIN"));
+        String jsonStr = gson.toJson(Map.of("error", isDel ? "DELETE" : lock ? "LOCK" : "ERROR_LOGIN"));
 
         response.setContentType("application/json");
         PrintWriter printWriter = response.getWriter();

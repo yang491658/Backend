@@ -80,11 +80,16 @@ public class GeneralService {
         GeneralMember member = generalRepository.findByNameAndPhoneNum(name, phoneNum)
                 .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
 
+        if (member.isDelFlag())
+            return "DELETE";
+        if (member.getLoginErrorCount() > 5)
+            return "LOCK";
+
 
         return member.getUserId();
     }
 
-    // 일반계정 회원정보 수정 + 비밀번호 찾기(변경)
+    // 일반계정 비밀번호 찾기(변경) + 회원정보 수정
     public void modify(GeneralDTO dto) {
         log.info(("GeneralMember Send Email"));
 
@@ -111,11 +116,22 @@ public class GeneralService {
         System.out.println(member);
     }
 
+    // 일반계정 회원정보 조회
     public GeneralDTO get(String userId) {
-        log.info("Get One");
+        log.info("GeneralMember Get Info");
 
         GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
 
         return ModelMapper.generalEntityToDTO(member);
+    }
+
+    // 일반계정 회원탈퇴
+    public void deleteId(String userId) {
+        log.info("GeneralMember Delete Id");
+
+        GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
+
+        member.setDelFlag(true);
+        generalRepository.save(member);
     }
 }

@@ -23,13 +23,13 @@ class GeneralServiceTest {
         for (int i = 1; i <= 3; i++) {
             GeneralDTO dto = GeneralDTO.builder()
                     .userId("test" + i + "@test.com")
-                    .userPw("asdfASDF1234!@#$")
+                    .userPw("qwerQWER1234!@#$")
                     .name("테스트" + i)
                     .phoneNum("010" + (11111111 * i))
+                    .address("부산광역시-해운대구")
                     .birthDate(LocalDate.of(1980 + 10 * i, i, i))
                     .gender("M")
                     .foreigner(false)
-                    .address("부산광역시-해운대구")
                     .roleName(String.valueOf(MemberRole.GENERAL))
                     .build();
             Long id = memberService.register(dto);
@@ -49,10 +49,10 @@ class GeneralServiceTest {
                 .userPw("qwerQWER1234!@#$")
                 .name("테스트4")
                 .phoneNum("01011111111")
+                .address("부산광역시-해운대구")
                 .birthDate(LocalDate.of(1999, 9, 9))
                 .gender("M")
                 .foreigner(true)
-                .address("부산광역시-해운대구")
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
         Long id = memberService.register(dto);
@@ -91,17 +91,22 @@ class GeneralServiceTest {
     @Test
     @DisplayName("일반계정 아이디 찾기")
     void findTest() {
-        String userId = memberService.find("테스트1", "01011111111");
+        String userId = memberService.find("테스트3", "01033333333");
 
         log.info("검색 결과 : " + userId);
     }
 
     @Test
-    @DisplayName("일반계정 비밀번호 찾기(변경)")
+    @DisplayName("일반계정 비밀번호 찾기(변경) + 회원정보 수정")
     void mofigyPwTest() {
         GeneralDTO dto = GeneralDTO.builder()
-                .userId("test3@test.com")
+                .userId("test2@test.com")
                 .userPw("asdf")
+                .name("테스트2")
+                .address("서울특별시-강남구")
+                .birthDate(LocalDate.of(1999, 9, 9))
+                .gender("F")
+                .foreigner(true)
                 .build();
         memberService.modify(dto);
     }
@@ -115,5 +120,12 @@ class GeneralServiceTest {
 
             log.info(dto.toString());
         }
+    }
+
+    @Test
+    @DisplayName("일반계정 회원탈퇴")
+    void deleteTest() {
+        String userId = "test1@test.com";
+        memberService.deleteId(userId);
     }
 }

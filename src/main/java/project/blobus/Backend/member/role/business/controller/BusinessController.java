@@ -14,7 +14,7 @@ public class BusinessController {
     private BusinessService businessService;
 
     // 기업계정 회원가입
-    @PostMapping("/")
+    @PostMapping("/register")
     public Long register(@RequestBody BusinessDTO dTO) {
         return businessService.register(dTO);
     }
