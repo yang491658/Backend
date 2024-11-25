@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import project.blobus.Backend.member.role.admin.repository.AdminRepository;
 import project.blobus.Backend.member.role.business.repository.BusinessRepository;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.member.security.filter.JWTCheckFilter;
@@ -30,6 +31,7 @@ import java.util.Arrays;
 public class CustomSecurityConfig {
     private final GeneralRepository generalRepository;
     private final BusinessRepository businessRepository;
+    private final AdminRepository adminRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -52,7 +54,7 @@ public class CustomSecurityConfig {
 
         http.formLogin(config -> {
             config.loginPage("/member/login");
-            config.successHandler(new APILoginSuccessHandler());
+            config.successHandler(new APILoginSuccessHandler(generalRepository, businessRepository, adminRepository));
             config.failureHandler(new APILoginFailHandler(generalRepository, businessRepository));
         });
 

@@ -47,6 +47,7 @@ public class APILoginFailHandler implements AuthenticationFailureHandler {
             if (generalMember != null) {
                 isDel = generalMember.isDelFlag();
                 lock = generalMember.getLoginErrorCount() >= 5;
+
                 generalMember.setLoginErrorCount(generalMember.getLoginErrorCount() + 1);
                 generalRepository.save(generalMember);
             } else {
@@ -55,6 +56,7 @@ public class APILoginFailHandler implements AuthenticationFailureHandler {
 
                 isDel = businessMember.isDelFlag();
                 lock = businessMember.getLoginErrorCount() >= 5;
+
                 businessMember.setLoginErrorCount(businessMember.getLoginErrorCount() + 1);
                 businessRepository.save(businessMember);
             }
