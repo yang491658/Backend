@@ -19,7 +19,7 @@ class CommunityFreeBoardRepositoryTest {
     public void test() {
         Random random = new Random();
 
-        int max = 500;
+        int max = 50;
         for (int i = 1; i <= max; i++) {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
