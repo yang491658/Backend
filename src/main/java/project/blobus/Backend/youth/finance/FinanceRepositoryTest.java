@@ -12,4 +12,10 @@ public interface FinanceRepositoryTest extends JpaRepository<FinanceEntityTest, 
 
     // 제목(title)에서 검색
     Page<FinanceEntityTest> findByTitleContaining(String keyword, Pageable pageable);
+
+    // 내용(overview)에서 검색
+    Page<FinanceEntityTest> findByOverviewContaining(String keyword, Pageable pageable);
+
+    // 제목 또는 내용에서 검색
+    Page<FinanceEntityTest> findByTitleContainingOrOverviewContaining(String titleKeyword, String overviewKeyword, Pageable pageable);
 }
