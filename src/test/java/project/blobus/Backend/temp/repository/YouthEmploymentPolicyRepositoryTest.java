@@ -27,10 +27,10 @@ class YouthEmploymentPolicyRepositoryTest {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
             YouthEmploymentPolicy temp = YouthEmploymentPolicy.builder()
-                    .title("정책명" + i)
+                    .title("일자리정책" + i)
                     .description("상세설명" + i)
-                    .startDate(date.minusDays(random.nextInt(7)))
-                    .endDate(date.plusDays(random.nextInt(7)))
+                    .startDate(date.minusDays(random.nextInt(10)))
+                    .endDate(date.plusDays(random.nextInt(10)))
                     .region(randomAdress(random))
                     .eligibility("지원자격" + i)
                     .supportContent("지원내용" + i)

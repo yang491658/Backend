@@ -34,7 +34,7 @@ class YouthJobPostingRepositoryTest {
                     .location(randomAdress(random))
                     .salary("급여정보" + i)
                     .qualification("지원자격" + i)
-                    .applicationDeadline(date.plusDays(random.nextInt(7)))
+                    .applicationDeadline(date.plusDays(random.nextInt(10)))
                     .contactInfo("문의처" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))

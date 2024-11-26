@@ -27,14 +27,14 @@ class YouthEducationPolicyRepositoryTest {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
             YouthEducationPolicy temp = YouthEducationPolicy.builder()
-                    .programName("정책명" + i)
+                    .programName("교육정책" + i)
                     .overview("정책개요" + i)
                     .supportAmount("상세혜텍" + i)
                     .supportType("교육형태" + i)
                     .ageRequirement("연령조건" + i)
                     .academicRequirement("학력/직업" + i)
-                    .applicationPeriodStart(date.minusDays(random.nextInt(7)))
-                    .applicationPeriodEnd(date.plusDays(random.nextInt(7)))
+                    .applicationPeriodStart(date.minusDays(random.nextInt(10)))
+                    .applicationPeriodEnd(date.plusDays(random.nextInt(10)))
                     .applicationMethod("신청방법" + i)
                     .requiredDocuments("필요서류" + i)
                     .curriculum("교육내용" + i)

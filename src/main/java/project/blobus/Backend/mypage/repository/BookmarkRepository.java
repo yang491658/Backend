@@ -1,7 +1,7 @@
-package project.blobus.Backend.mypage.bookmark.repository;
+package project.blobus.Backend.mypage.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.blobus.Backend.mypage.bookmark.entity.Bookmark;
+import project.blobus.Backend.mypage.entity.Bookmark;
 
 import java.util.List;
 

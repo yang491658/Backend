@@ -1,4 +1,4 @@
-package project.blobus.Backend.mypage.custom.dto;
+package project.blobus.Backend.mypage.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomDTO {
+public class BookmarkDTO {
     private Long id;
     private String title;
     private String content;
-    private String type;
+    private String mainCategory;
+    private String subCategory;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime atTime;
 }

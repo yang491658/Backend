@@ -17,7 +17,7 @@ class ResourceSupportRepositoryTest {
     private ResourceSupportRepository repository;
 
     @Test
-    @DisplayName("지역자원 문화")
+    @DisplayName("지역자원 지원")
     public void test() {
         Random random = new Random();
         String[] categoryList = {"문화", "관광", "자원"};
@@ -28,7 +28,7 @@ class ResourceSupportRepositoryTest {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
             ResourceSupport temp = ResourceSupport.builder()
-                    .title("제목" + i)
+                    .title("지원이름" + i)
                     .content("내용" + i)
                     .address(randomAdress(random))
                     .applicationPeriod("신청기간" + i)

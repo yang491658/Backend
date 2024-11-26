@@ -1,4 +1,4 @@
-package project.blobus.Backend.mypage.bookmark.entity;
+package project.blobus.Backend.mypage.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

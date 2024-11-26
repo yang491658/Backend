@@ -1,4 +1,4 @@
-package project.blobus.Backend.mypage.bookmark.service;
+package project.blobus.Backend.mypage.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
-import project.blobus.Backend.mypage.bookmark.dto.BookmarkDTO;
-import project.blobus.Backend.mypage.bookmark.entity.Bookmark;
-import project.blobus.Backend.mypage.bookmark.repository.BookmarkRepository;
+import project.blobus.Backend.mypage.dto.BookmarkDTO;
+import project.blobus.Backend.mypage.entity.Bookmark;
+import project.blobus.Backend.mypage.repository.BookmarkRepository;
 import project.blobus.Backend.temp.entity.*;
 import project.blobus.Backend.temp.repository.*;
 
@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class BookmarkService {
-    private final YouthEmploymentPolicyRepository youthEmplRepository;
-    private final YouthJobPostingRepository youthJobRepository;
-    private final YouthHousingPolicyRepository youthHousingRepository;
-    private final YouthFinancialPolicyRepository youthFinanRepository;
-    private final YouthEducationPolicyRepository youthEduRepository;
-    private final YouthStartupPolicyRepository youthStartupRepository;
-    private final ResourceCultureRepository resourceCulRepository;
-    private final ResourceSupportRepository resourceSupRepository;
+    private final YouthEmploymentPolicyRepository youthEmploymentRepository;
+    private final YouthJobPostingRepository youthJobPostingRepository;
+    private final YouthHousingPolicyRepository youthHousingPolicyRepository;
+    private final YouthFinancialPolicyRepository youthFinancialPolicyRepository;
+    private final YouthEducationPolicyRepository youthEducationPolicyRepository;
+    private final YouthStartupPolicyRepository youthStartupPolicyRepository;
+    private final ResourceCultureRepository resourceCultureRepository;
+    private final ResourceSupportRepository resourceSupportRepository;
 
     private final BookmarkRepository bookmarkRepository;
 
@@ -48,6 +48,11 @@ public class BookmarkService {
                 .map(bookmark -> toDTO(bookmark))
                 .collect(Collectors.toList());
 
+        bookmarkList = bookmarkList.stream()
+                .sorted((b1, b2) -> b2.getAtTime().compareTo(b1.getAtTime()))
+                .collect(Collectors.toList());
+
+
         int totalCount = bookmarkList.size();
 
         int startIndex = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
@@ -62,70 +67,59 @@ public class BookmarkService {
     }
 
     private BookmarkDTO toDTO(Bookmark bookmark) {
-        String title = null;
-        String content = null;
+        String title = "임시 제목";
+        String content = "임시 내용";
         String mainCategory = bookmark.getMainCategory();
         String subCategory = bookmark.getSubCategory();
 
         Long targeId = bookmark.getTargetId();
         LocalDate startDate = null;
         LocalDate endDate = null;
-        LocalDateTime createdAt = null;
-        LocalDateTime updatedAt = null;
+        LocalDateTime atTime = bookmark.getAtTime();
 
         if (mainCategory.equals("청년") && subCategory.equals("일자리")) {
-            YouthEmploymentPolicy entity = youthEmplRepository.findById(targeId).orElseThrow();
+            YouthEmploymentPolicy entity = youthEmploymentRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getDescription();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
         } else if (mainCategory.equals("청년") && subCategory.equals("구인")) {
-            YouthJobPosting entity = youthJobRepository.findById(targeId).orElseThrow();
-            title = entity.getCompanyName() + " 구인 공고";
+            YouthJobPosting entity = youthJobPostingRepository.findById(targeId).orElseThrow();
+            title = entity.getCompanyName() + " 구인";
             content = entity.getJobTitle() + " / " + entity.getJobDescription() + " / " + entity.getJobType();
             endDate = entity.getApplicationDeadline();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
         } else if (mainCategory.equals("청년") && subCategory.equals("주거")) {
-            YouthHousingPolicy entity = youthHousingRepository.findById(targeId).orElseThrow();
+            YouthHousingPolicy entity = youthHousingPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getDescription();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
         } else if (mainCategory.equals("청년") && subCategory.equals("금융")) {
-            YouthFinancialPolicy entity = youthFinanRepository.findById(targeId).orElseThrow();
+            YouthFinancialPolicy entity = youthFinancialPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getOverview() + " / " + entity.getBenefitAmount() + " / " + entity.getBenefitType();
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
         } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
-            YouthEducationPolicy entity = youthEduRepository.findById(targeId).orElseThrow();
+            YouthEducationPolicy entity = youthEducationPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getProgramName();
             content = entity.getOverview() + " / " + entity.getSupportAmount() + " / " + entity.getSupportType();
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
         } else if (mainCategory.equals("청년") && subCategory.equals("창업")) {
-            YouthStartupPolicy entity = youthStartupRepository.findById(targeId).orElseThrow();
+            YouthStartupPolicy entity = youthStartupPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getProgramName();
             content = entity.getOverview() + " / " + entity.getSupportAmount() + " / " + entity.getSupportType();
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
-        } else if (mainCategory.equals("지역") ) {
-            ResourceSupport entity = resourceSupRepository.findById(targeId).orElseThrow();
+        } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
+            ResourceCulture entity = resourceCultureRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getContent();
-            createdAt = entity.getCreatedAt();
-            updatedAt = entity.getUpdatedAt();
+        } else if (mainCategory.equals("지역") && subCategory.equals("지원")) {
+            ResourceSupport entity = resourceSupportRepository.findById(targeId).orElseThrow();
+            title = entity.getTitle();
+            content = entity.getContent();
         }
 
         return BookmarkDTO.builder()
@@ -136,8 +130,7 @@ public class BookmarkService {
                 .subCategory(subCategory)
                 .startDate(startDate)
                 .endDate(endDate)
-                .createdAt(createdAt)
-                .updatedAt(updatedAt)
+                .atTime(atTime)
                 .build();
     }
 }

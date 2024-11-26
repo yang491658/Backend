@@ -27,15 +27,15 @@ class YouthFinancialPolicyRepositoryTest {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
             YouthFinancialPolicy temp = YouthFinancialPolicy.builder()
-                    .title("정책명" + i)
+                    .title("금융정책" + i)
                     .overview("정책개요" + i)
                     .benefitAmount("상세혜택" + i)
                     .benefitType("지원형태" + i)
                     .ageRequirement("연령조건" + i)
                     .incomeRequirement("소득기준")
                     .residenceRequirement(randomAdress(random))
-                    .applicationPeriodStart(date.minusDays(random.nextInt(7)))
-                    .applicationPeriodEnd(date.plusDays(random.nextInt(7)))
+                    .applicationPeriodStart(date.minusDays(random.nextInt(10)))
+                    .applicationPeriodEnd(date.plusDays(random.nextInt(10)))
                     .applicationMethod("신청방법" + i)
                     .requiredDocuments("필요서류" + i)
                     .selectionProcess("선정절차" + i)

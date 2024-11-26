@@ -27,15 +27,15 @@ class YouthStartupPolicyRepositoryTest {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
             YouthStartupPolicy temp = YouthStartupPolicy.builder()
-                    .programName("정책명" + i)
+                    .programName("창업정책" + i)
                     .overview("정책개요" + i)
                     .supportAmount("상세혜텍" + i)
                     .supportType("지원형태" + i)
                     .ageRequirement("연령조건" + i)
                     .startupStatus("창업상태" + i)
                     .locationRequirement(randomAdress(random))
-                    .applicationPeriodStart(date.minusDays(random.nextInt(7)))
-                    .applicationPeriodEnd(date.plusDays(random.nextInt(7)))
+                    .applicationPeriodStart(date.minusDays(random.nextInt(10)))
+                    .applicationPeriodEnd(date.plusDays(random.nextInt(10)))
                     .applicationMethod("신청방법" + i)
                     .requiredDocuments("필요서류" + i)
                     .mentoringContent("멘토링" + i)

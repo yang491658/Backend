@@ -1,4 +1,4 @@
-package project.blobus.Backend.mypage.bookmark.repository;
+package project.blobus.Backend.mypage.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
-import project.blobus.Backend.mypage.bookmark.entity.Bookmark;
+import project.blobus.Backend.mypage.entity.Bookmark;
+import project.blobus.Backend.mypage.repository.BookmarkRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +29,9 @@ class BookmarkRepositoryTest {
 
         String[] mainList = {"청년", "기업", "지역"};
 
-        String[] youthList = {"일자리", "구인", "주거", "금유", "교육", "창업"};
+        String[] youthList = {"일자리", "구인", "주거", "금융", "교육", "창업"};
         String[] enterpriseList = {"기업1", "기업2", "기업3"};
-        String[] resouceList = {"문화", "관광", "지원"};
+        String[] resouceList = {"문화", "지원"};
 
 
         Map<String, String[]> subMap = new HashMap<>();
@@ -37,7 +39,10 @@ class BookmarkRepositoryTest {
         subMap.put("기업", enterpriseList);
         subMap.put("지역", resouceList);
 
-        for (int i = 1; i <= 20; i++) {
+        int max = 50;
+        for (int i = 1; i <= max; i++) {
+            LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
+
             String userId = "test" + (random.nextInt(3) + 1) + "@test.com";
             GeneralMember member = generalRepository.findByUserId(userId)
                     .orElseThrow();
@@ -54,7 +59,7 @@ class BookmarkRepositoryTest {
                     .mainCategory(mainCategory)
                     .subCategory(subCategory)
                     .targetId(targetId)
-                    .atTime(LocalDateTime.now())
+                    .atTime(dateTime)
                     .build();
             bookmarkRepository.save(bookmark);
         }

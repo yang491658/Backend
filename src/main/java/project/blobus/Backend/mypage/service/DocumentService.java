@@ -1,4 +1,4 @@
-package project.blobus.Backend.mypage.doc.service;
+package project.blobus.Backend.mypage.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
-import project.blobus.Backend.mypage.doc.dto.DocumentdDTO;
+import project.blobus.Backend.mypage.dto.DocumentdDTO;
 import project.blobus.Backend.temp.entity.CommunityFreeBoard;
 import project.blobus.Backend.temp.entity.CommunitySuggestBoard;
 import project.blobus.Backend.temp.repository.CommunityFreeBoardRepository;

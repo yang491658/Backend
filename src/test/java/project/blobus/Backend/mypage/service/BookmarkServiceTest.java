@@ -1,4 +1,4 @@
-package project.blobus.Backend.mypage.bookmark.service;
+package project.blobus.Backend.mypage.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
-import project.blobus.Backend.mypage.bookmark.dto.BookmarkDTO;
+import project.blobus.Backend.mypage.dto.BookmarkDTO;
 
 @SpringBootTest
 class BookmarkServiceTest {

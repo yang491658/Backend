@@ -28,7 +28,7 @@ class ResourceCultureRepositoryTest {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
             ResourceCulture temp = ResourceCulture.builder()
-                    .title("제목" + i)
+                    .title("문화이름" + i)
                     .content("내용" + i)
                     .address(randomAdress(random))
                     .imageUUID("이미지" + i)
