@@ -6,12 +6,20 @@ import java.util.List;
 
 public interface PostService {
 
+    // 게시글 작성
+    PostDTO createPost(PostDTO postDTO);
+
     // 게시글 단건 조회
     PostDTO getPostById(Long postId);
 
     // 게시글 목록 조회
-    List<PostDTO> getAllPosts();
+    List<PostDTO> getAllPosts(int page, int size, String boardType, String userType, String searchTerm);
 
     // 특정 게시판(자유/건의) 게시글 조회
     List<PostDTO> getPostsByBoardType(String boardType);
+
+    boolean remove(Long postId);
+
+
+
 }

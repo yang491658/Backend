@@ -16,18 +16,20 @@ public class PostRepositoryTest {
 
     @Test
     public void testInsert() {
-        for(int i =1; i < 100; ++i){
+        // 1부터 10까지의 authorId로 더미 데이터를 생성
+        for (int i = 1; i < 100; ++i) {
+            // authorId가 null이 아닌지 확인하기 위해 1부터 10까지 순차적으로 설정
             Post post = Post.builder()
+                    .authorId((long) (i % 10)) // authorId를 1부터 10까지 순차적으로 설정
                     .title("게시글 제목.." + i)
-                    .content("게시글 내용..." + i)  // content 추가
-                    .authorId((long) (i % 10))  // authorId를 10명으로 제한 (예시)
-                    .boardType(i % 2 == 0 ? Post.BoardType.FREE : Post.BoardType.SUGGESTION)  // boardType을 Youth와 Corporate로 나누기
-                    .userType(i % 2 == 0 ? Post.UserType.YOUTH : Post.UserType.CORPORATE)  // userType을 Youth와 Corporate로 나누기
-                    .createdAt(LocalDateTime.of(2024, 12, 24, 00, 00))  // 생성일자
+                    .content("게시글 내용..." + i)
+                    .boardType(i % 2 == 0 ? Post.BoardType.FREE : Post.BoardType.SUGGESTION)
+                    .userType(i % 2 == 0 ? Post.UserType.YOUTH : Post.UserType.CORPORATE)
+                    .createdAt(LocalDateTime.now()) // 생성일자
                     .build();
 
-            // 게시글 저장
-            postRepository.save(post);
+            System.out.println(post);
+            postRepository.save(post);  // 게시글 저장
         }
     }
 }

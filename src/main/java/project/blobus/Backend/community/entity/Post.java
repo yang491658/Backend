@@ -1,11 +1,8 @@
 package project.blobus.Backend.community.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,8 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
+@NoArgsConstructor // 기본 생성자 추가
+@AllArgsConstructor // 모든 필드를 받는 생성자 추가
 @Table(name = "posts") // posts 테이블에 매핑
 public class Post {
 
@@ -66,4 +65,6 @@ public class Post {
         YOUTH,      // 청년
         CORPORATE   // 기업
     }
+
+
 }
