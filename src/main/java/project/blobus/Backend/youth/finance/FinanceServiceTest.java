@@ -19,11 +19,10 @@ public class FinanceServiceTest {
     // 페이징된 정책 목록 가져오기
     public Page<FinanceDTOTest> getPagedPolicies(String keyword, String category, Pageable pageable) {
         if (keyword == null || keyword.trim().isEmpty()) {
-            // 검색어가 없으면 전체 데이터 페이징 처리
+            // 검색어가 없으면 전체 데이터를 페이징 처리
             return financeRepositoryTest.findAll(pageable)
                     .map(FinanceDTOTest::new);
         }
-
         // 카테고리에 따라 다른 검색 수행
         switch (category) {
             case "제목":

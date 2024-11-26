@@ -28,12 +28,12 @@ public class FinanceRepositoryTestTest {
 
         // 더미 데이터 생성
         FinanceEntityTest policy = new FinanceEntityTest();
-        policy.setTitle("청년 희망 계좌 적금");
-        policy.setOverview("청년을 위한 계좌 발급 절망");
+        policy.setTitle("청년 우리는 내일도 절망절망");
+        policy.setOverview("청년을 위한 주택 희망");
         policy.setApplicationPeriodStart(startDate);
         policy.setApplicationPeriodEnd(endDate);
-        policy.setContactInfo("주택공사57");
-        policy.setContactPhone("010-1234-1236");
+        policy.setContactInfo("주택공사4");
+        policy.setContactPhone("010-1234-1234");
 
         // 데이터 저장
         FinanceEntityTest savedPolicy = financeRepositoryTest.save(policy);
@@ -59,11 +59,11 @@ public class FinanceRepositoryTestTest {
         Date endDate = dateFormat.parse("2024-12-31");
 
         // 50개의 더미 데이터 생성
-        for (int i = 51; i <= 55; i++) {
+        for (int i = 0; i <= 50; i++) {
             // 더미 데이터 생성
             FinanceEntityTest policy = new FinanceEntityTest();
-            policy.setTitle("청년 주택 지원 정책 희망" + i);
-            policy.setOverview("청년을 위한 주택 지원 정책 희망" + i);
+            policy.setTitle("청년 주택 지원 정책 " + i);
+            policy.setOverview("청년을 위한 주택 지원 정책 " + i);
             policy.setApplicationPeriodStart(startDate);
             policy.setApplicationPeriodEnd(endDate);
             policy.setContactInfo("주택공사 " + i);
