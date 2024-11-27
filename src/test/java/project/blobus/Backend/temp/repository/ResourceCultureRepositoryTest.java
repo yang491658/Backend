@@ -22,7 +22,7 @@ class ResourceCultureRepositoryTest {
         Random random = new Random();
         String[] categoryList = {"문화", "관광", "자원"};
 
-        int max = 10;
+        int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);

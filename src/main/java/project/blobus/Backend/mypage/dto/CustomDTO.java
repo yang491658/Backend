@@ -1,5 +1,8 @@
 package project.blobus.Backend.mypage.dto;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +19,10 @@ public class CustomDTO {
     private Long id;
     private String title;
     private String content;
-    private String type;
+    private String address;
+    private String mainCategory;
+    private String subCategory;
+    private Long targetId;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDateTime createdAt;

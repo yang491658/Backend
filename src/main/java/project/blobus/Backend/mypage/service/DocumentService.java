@@ -28,7 +28,7 @@ public class DocumentService {
                                                  String authorId,
                                                  String boardType,
                                                  String boardCategory) {
-        log.info("Community Get BoardList");
+        log.info("Document Get List");
 
         List<DocumentdDTO> boardList;
         if ("FREE".equalsIgnoreCase(boardType)) {

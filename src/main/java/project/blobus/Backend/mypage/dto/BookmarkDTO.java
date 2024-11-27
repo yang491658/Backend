@@ -16,6 +16,7 @@ public class BookmarkDTO {
     private Long id;
     private String title;
     private String content;
+    private String address;
     private String mainCategory;
     private String subCategory;
     private LocalDate startDate;

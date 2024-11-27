@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
+import project.blobus.Backend.mypage.dto.CustomDTO;
 import project.blobus.Backend.mypage.dto.DocumentdDTO;
 import project.blobus.Backend.mypage.service.BookmarkService;
+import project.blobus.Backend.mypage.service.CustomService;
 import project.blobus.Backend.mypage.service.DocumentService;
 
 @Log4j2
@@ -18,9 +20,22 @@ import project.blobus.Backend.mypage.service.DocumentService;
 @RequestMapping("/mypage")
 public class MypageController {
     @Autowired
+    private CustomService customService;
+    @Autowired
     private BookmarkService bookmarkService;
     @Autowired
     private DocumentService documentService;
+
+
+    @GetMapping("/custom")
+    public PageResponseDTO<CustomDTO> getCustom(PageRequestDTO pageRequestDTO,
+                                                @RequestParam String address,
+                                                @RequestParam String yListStr,
+                                                @RequestParam String eListStr,
+                                                @RequestParam String rListStr,
+                                                @RequestParam String kListStr) {
+        return customService.getList(pageRequestDTO, address, yListStr, eListStr, rListStr, kListStr);
+    }
 
     @GetMapping("/bookmark")
     public PageResponseDTO<BookmarkDTO> getBookmark(PageRequestDTO pageRequestDTO,

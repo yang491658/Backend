@@ -21,7 +21,7 @@ class YouthFinancialPolicyRepositoryTest {
     public void test() {
         Random random = new Random();
 
-        int max = 10;
+        int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
@@ -31,6 +31,7 @@ class YouthFinancialPolicyRepositoryTest {
                     .overview("정책개요" + i)
                     .benefitAmount("상세혜택" + i)
                     .benefitType("지원형태" + i)
+
                     .ageRequirement("연령조건" + i)
                     .incomeRequirement("소득기준")
                     .residenceRequirement(randomAdress(random))
@@ -43,7 +44,7 @@ class YouthFinancialPolicyRepositoryTest {
                     .supportDuration("지원기간" + i)
                     .contactInfo("문의처" + i)
                     .contactEmail("이메일" + i)
-                    .contactInfo("연락처" + i)
+                    .contactPhone("연락처" + i)
                     .referenceMaterials("참고링크" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))

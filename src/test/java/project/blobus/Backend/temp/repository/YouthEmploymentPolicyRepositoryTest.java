@@ -21,7 +21,7 @@ class YouthEmploymentPolicyRepositoryTest {
     public void test() {
         Random random = new Random();
 
-        int max = 10;
+        int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);

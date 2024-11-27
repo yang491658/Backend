@@ -21,7 +21,7 @@ class YouthStartupPolicyRepositoryTest {
     public void test() {
         Random random = new Random();
 
-        int max = 10;
+        int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
@@ -44,7 +44,7 @@ class YouthStartupPolicyRepositoryTest {
                     .successSupport("창업후지원" + i)
                     .contactInfo("문의처" + i)
                     .contactEmail("이메일" + i)
-                    .contactInfo("연락처" + i)
+                    .contactPhone("연락처" + i)
                     .referenceMaterials("참고링크" + i)
                     .businessPlanTips("사업계획서" + i)
                     .createdAt(dateTime)

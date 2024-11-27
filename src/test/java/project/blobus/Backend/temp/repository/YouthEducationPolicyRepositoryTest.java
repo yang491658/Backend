@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.blobus.Backend.temp.entity.YouthEducationPolicy;
-import project.blobus.Backend.temp.repository.YouthEducationPolicyRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +20,7 @@ class YouthEducationPolicyRepositoryTest {
     public void test() {
         Random random = new Random();
 
-        int max = 10;
+        int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
@@ -42,9 +41,10 @@ class YouthEducationPolicyRepositoryTest {
                     .location(randomAdress(random))
                     .duration("교육기간" + i)
                     .selectionCriteria("선발기준" + i)
+                    .postProgramBenefits("지원후혜택" + i)
                     .contactInfo("문의처" + i)
                     .contactEmail("이메일" + i)
-                    .contactInfo("연락처" + i)
+                    .contactPhone("연락처" + i)
                     .referenceMaterials("참고링크" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
