@@ -25,7 +25,7 @@ class BookmarkServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<BookmarkDTO> result = service.getList(pageRequestDTO, userId,"");
+        PageResponseDTO<BookmarkDTO> result = service.getList(pageRequestDTO, userId, "");
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
@@ -38,7 +38,7 @@ class BookmarkServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<BookmarkDTO> result = service.getList(pageRequestDTO, userId,"청년");
+        PageResponseDTO<BookmarkDTO> result = service.getList(pageRequestDTO, userId, "청년");
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 }

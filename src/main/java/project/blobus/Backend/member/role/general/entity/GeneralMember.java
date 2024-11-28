@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import project.blobus.Backend.member.role.common.entity.MemberRole;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,6 +29,8 @@ public class GeneralMember {
     private LocalDate birthDate;
     private String gender;
     private Boolean foreigner;
+
+    private String customSetting;
 
     private boolean delFlag;
     private int loginErrorCount;

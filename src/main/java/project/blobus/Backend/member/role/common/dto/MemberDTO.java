@@ -30,9 +30,11 @@ public class MemberDTO implements UserDetails {
     private String gender;
     private Boolean foreigner;
 
-    private LocalDate joinDate;
-    private int loginErrorCount;
+    private String customSetting;
+
     private boolean delFlag;
+    private int loginErrorCount;
+    private LocalDate joinDate;
 
     private String roleName;
     private Collection<? extends GrantedAuthority> authorities;
@@ -51,6 +53,8 @@ public class MemberDTO implements UserDetails {
         dataMap.put("birthDate", birthDate != null ? birthDate.toString() : null);
         dataMap.put("gender", gender);
         dataMap.put("foreigner", foreigner);
+
+        dataMap.put("customSetting", customSetting);
 
         dataMap.put("joinDate", joinDate != null ? joinDate.toString() : null);
         dataMap.put("loginErrorCount", loginErrorCount);

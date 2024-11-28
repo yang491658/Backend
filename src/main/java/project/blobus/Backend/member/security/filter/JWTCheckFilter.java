@@ -59,6 +59,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             String gender = (String) claim.get("gender");
             Boolean foreigner = (Boolean) claim.get("foreigner");
 
+            String customSetting = (String) claim.get("customSetting");
+
             boolean delFlag = (boolean) claim.get("delFlag");
             int loginErrorCount = (int) claim.get("loginErrorCount");
             LocalDate joinDate = LocalDate.parse((String) claim.get("joinDate"));
@@ -74,9 +76,10 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                     .birthDate(birthDate)
                     .gender(gender)
                     .foreigner(foreigner)
-                    .joinDate(joinDate)
-                    .loginErrorCount(loginErrorCount)
+                    .customSetting(customSetting)
                     .delFlag(delFlag)
+                    .loginErrorCount(loginErrorCount)
+                    .joinDate(joinDate)
                     .roleName(roleName)
                     .build();
 

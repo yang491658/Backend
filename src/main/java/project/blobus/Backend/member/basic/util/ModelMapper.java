@@ -76,9 +76,10 @@ public class ModelMapper {
                 .birthDate(generalMember.getBirthDate())
                 .gender(generalMember.getGender())
                 .foreigner(generalMember.getForeigner())
-                .joinDate(generalMember.getJoinDate())
-                .loginErrorCount(generalMember.getLoginErrorCount())
+                .customSetting(generalMember.getCustomSetting())
                 .delFlag(generalMember.isDelFlag())
+                .loginErrorCount(generalMember.getLoginErrorCount())
+                .joinDate(generalMember.getJoinDate())
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
     }
@@ -92,9 +93,9 @@ public class ModelMapper {
                 .phoneNum(businessMember.getPhoneNum())
                 .email(businessMember.getEmail())
                 .address(businessMember.getAddress())
-                .joinDate(businessMember.getJoinDate())
-                .loginErrorCount(businessMember.getLoginErrorCount())
                 .delFlag(businessMember.isDelFlag())
+                .loginErrorCount(businessMember.getLoginErrorCount())
+                .joinDate(businessMember.getJoinDate())
                 .roleName(String.valueOf(MemberRole.BUSINESS))
                 .build();
     }

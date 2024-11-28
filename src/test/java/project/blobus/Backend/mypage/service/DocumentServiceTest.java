@@ -11,25 +11,25 @@ import project.blobus.Backend.member.basic.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.DocumentdDTO;
 
 @SpringBootTest
-        class DocumentServiceTest {
-            private static final Logger log = LoggerFactory.getLogger(DocumentServiceTest.class);
-            @Autowired
-            private DocumentService service;
+class DocumentServiceTest {
+    private static final Logger log = LoggerFactory.getLogger(DocumentServiceTest.class);
+    @Autowired
+    private DocumentService service;
 
-            @Test
-            @DisplayName("전체게시판 조회 테스트")
-            public void test1() {
-                String userId = "test1@test.com";
-                String boardType = null;
-                String boardCategory = null;
+    @Test
+    @DisplayName("전체게시판 조회 테스트")
+    public void test1() {
+        String userId = "test1@test.com";
+        String boardType = null;
+        String boardCategory = null;
 
-                PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                        .page(1)
-                        .size(10)
-                        .build();
-                PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
-                result.getDtoList().forEach(dto -> log.info(dto.toString()));
-            }
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .build();
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
+        result.getDtoList().forEach(dto -> log.info(dto.toString()));
+    }
 
     @Test
     @DisplayName("자유게시판 조회 테스트")

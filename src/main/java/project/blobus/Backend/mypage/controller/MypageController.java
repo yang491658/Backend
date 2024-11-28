@@ -1,11 +1,8 @@
 package project.blobus.Backend.mypage.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
@@ -15,19 +12,35 @@ import project.blobus.Backend.mypage.service.BookmarkService;
 import project.blobus.Backend.mypage.service.CustomService;
 import project.blobus.Backend.mypage.service.DocumentService;
 
+import java.util.Map;
+
 @Log4j2
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/mypage")
 public class MypageController {
-    @Autowired
-    private CustomService customService;
-    @Autowired
-    private BookmarkService bookmarkService;
-    @Autowired
-    private DocumentService documentService;
+    private final CustomService customService;
+    private final BookmarkService bookmarkService;
+    private final DocumentService documentService;
 
+    // 커스텀 설정 불러오기
+    @GetMapping("/custom/setting")
+    public Map<String, String> loadCustom(@RequestParam String userId) {
+        return customService.loadSetting(userId);
+    }
 
-    @GetMapping("/custom")
+    // 커스텀 설정 저장
+    @PostMapping("/custom/setting")
+    public void saveCustom(@RequestParam String userId,
+                           @RequestParam String yListStr,
+                           @RequestParam String eListStr,
+                           @RequestParam String rListStr,
+                           @RequestParam String kListStr) {
+        customService.saveSetting(userId, yListStr, eListStr, rListStr, kListStr);
+    }
+
+    // 커스텀 정보 조회
+    @GetMapping("/custom/list")
     public PageResponseDTO<CustomDTO> getCustom(PageRequestDTO pageRequestDTO,
                                                 @RequestParam String address,
                                                 @RequestParam String yListStr,
@@ -37,6 +50,7 @@ public class MypageController {
         return customService.getList(pageRequestDTO, address, yListStr, eListStr, rListStr, kListStr);
     }
 
+    // 즐겨찾기 조회
     @GetMapping("/bookmark")
     public PageResponseDTO<BookmarkDTO> getBookmark(PageRequestDTO pageRequestDTO,
                                                     @RequestParam String userId,
@@ -44,6 +58,7 @@ public class MypageController {
         return bookmarkService.getList(pageRequestDTO, userId, category);
     }
 
+    // 작성글 조회
     @GetMapping("/doc")
     public PageResponseDTO<DocumentdDTO> list(PageRequestDTO pageRequestDTO,
                                               @RequestParam String userId,

@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
+import project.blobus.Backend.member.role.general.entity.GeneralMember;
+import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.CustomDTO;
 import project.blobus.Backend.temp.entity.*;
 import project.blobus.Backend.temp.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class CustomService {
-    private static Long idCount = 1L;
+    private final GeneralRepository generalRepository;
 
     private final YouthEmploymentPolicyRepository youthEmploymentPolicyRepository;
     private final YouthJobPostingRepository youthJobPostingRepository;
@@ -33,6 +33,57 @@ public class CustomService {
     private final ResourceCultureRepository resourceCultureRepository;
     private final ResourceSupportRepository resourceSupportRepository;
 
+    // 커스텀 설정 불러오기
+    public Map<String, String> loadSetting(String userId) {
+        log.info("Custom Load Setting");
+
+        GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
+
+        Map<String, String> result = new HashMap<>();
+
+        if (member.getCustomSetting() != null) {
+            String[] setting = member.getCustomSetting().split("-");
+
+            setSetting(result, setting, "청년", 0);
+            setSetting(result, setting, "기업", 1);
+            setSetting(result, setting, "지역", 2);
+            setSetting(result, setting, "키워드", 3);
+        }
+
+        return result;
+    }
+
+    // 설정 함수
+    private void setSetting(Map<String, String> result,
+                            String[] setting,
+                            String name,
+                            int num) {
+        if (setting[num].split(":").length == 1)
+            result.put(name, null);
+        else
+            result.put(name, setting[num].split(":")[1]);
+    }
+
+    // 커스텀 설정 저장
+    public void saveSetting(String userId,
+                            String yListStr,
+                            String eListStr,
+                            String rListStr,
+                            String kListStr) {
+        log.info("Custom Save Setting");
+
+        GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
+
+        String setting
+                = "청년:" + yListStr
+                + "-기업:" + eListStr
+                + "-지역:" + rListStr
+                + "-키워드:" + kListStr;
+        member.setCustomSetting(setting);
+        generalRepository.save(member);
+    }
+
+    // 커스텀 정보 조회
     public PageResponseDTO<CustomDTO> getList(PageRequestDTO pageRequestDTO,
                                               String address,
                                               String yListStr,
@@ -58,7 +109,7 @@ public class CustomService {
         int endIndex = Math.min(startIndex + pageRequestDTO.getSize(), totalCount);
         List<CustomDTO> dtoList = newCustomList.subList(startIndex, endIndex);
 
-        idCount = 1L;
+        dtoList.forEach(data -> System.out.println(data));
 
         return PageResponseDTO.<CustomDTO>withAll()
                 .dtoList(dtoList)
@@ -67,6 +118,7 @@ public class CustomService {
                 .build();
     }
 
+    // 필터 함수
     private List<CustomDTO> filterDTO(String address,
                                       String yListStr,
                                       String eListStr,
@@ -205,6 +257,7 @@ public class CustomService {
         return customList;
     }
 
+    // 키워드 검색 함수
     private boolean searchByKeyward(Object data, String keyword) {
         if (data == null || keyword == null || keyword.isEmpty()) {
             return false;
@@ -223,6 +276,7 @@ public class CustomService {
         return false;
     }
 
+    // 매핑 함수
     private CustomDTO toDTO(
             YouthEmploymentPolicy youthEmploymentPolicy,
             YouthJobPosting youthJobPosting,
@@ -243,7 +297,6 @@ public class CustomService {
         LocalDate endDate = null;
         LocalDateTime createdAt = null;
         LocalDateTime updatedAt = null;
-
 
         if (youthEmploymentPolicy != null) {
             title = youthEmploymentPolicy.getTitle();
@@ -331,7 +384,6 @@ public class CustomService {
         }
 
         return CustomDTO.builder()
-                .id(idCount++)
                 .title(title)
                 .content(content)
                 .address(address)
