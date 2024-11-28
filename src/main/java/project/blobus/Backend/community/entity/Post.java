@@ -27,7 +27,7 @@ public class Post {
     private String content;
 
     @Column(nullable = false) // 작성자 ID
-    private Long authorId;
+    private String authorId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false) // 게시글 유형

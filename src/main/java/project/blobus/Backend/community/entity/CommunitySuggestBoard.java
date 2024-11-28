@@ -20,7 +20,7 @@ public class  CommunitySuggestBoard extends Post {
     // 게시글 공개 여부
     private Visibility visibility;
 
-    CommunitySuggestBoard(Long id, String title, String content, Long authorId, BoardType boardType, UserType userType, LocalDateTime createdAt, LocalDateTime updatedAt, List<CommunityComment> comments) {
+    CommunitySuggestBoard(Long id, String title, String content, String authorId, BoardType boardType, UserType userType, LocalDateTime createdAt, LocalDateTime updatedAt, List<CommunityComment> comments) {
         super(id, title, content, authorId, boardType, userType, createdAt, updatedAt, comments);
     }
 
