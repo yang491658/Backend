@@ -7,9 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.entity.Bookmark;
-import project.blobus.Backend.mypage.repository.BookmarkRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;

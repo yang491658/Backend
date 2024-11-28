@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import project.blobus.Backend.member.role.common.entity.MemberRole;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Data
