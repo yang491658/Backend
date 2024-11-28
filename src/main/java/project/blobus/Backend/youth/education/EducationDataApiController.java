@@ -1,4 +1,4 @@
-package project.blobus.Backend.youth.finance;
+package project.blobus.Backend.youth.education;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -12,34 +12,36 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+//온통청년 API를 사용해서 지역 : 부산, 카테고리 : 교육으로 데이터 가져오는 로직
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/education")
-public class DataApiController {
+@RequestMapping("/education1")
+public class EducationDataApiController {
 
-    @Value("${serviceKey}")
-    private String serviceKey;
+    @Value("${serviceKey1}")
+    private String serviceKey1;
 
     private final RestTemplate restTemplate;
-    private static final String FINANCE_POLICY_URL = "https://www.youthcenter.go.kr/opi/youthPlcyList.do";
+    private static final String POLICY_URL = "https://www.youthcenter.go.kr/opi/youthPlcyList.do";
 
     @GetMapping("/policies")
     public ResponseEntity<String> getFinancePolicy(
-            @RequestParam(defaultValue = "10") int display, // 출력 건수, 기본값 10
+            @RequestParam(defaultValue = "100") int display, // 출력 건수, 기본값 10
             @RequestParam(defaultValue = "1") int pageIndex, // 페이지 번호, 기본값 1
             @RequestParam(defaultValue = "023030") String bizTycdSel, // 교육 분야
             @RequestParam(defaultValue = "003002002") String srchPolyBizSecd // 부산지역
     ) {
         try {
             // URL 생성
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(FINANCE_POLICY_URL)
-                    .queryParam("openApiVlak", serviceKey)
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(POLICY_URL)
+                    .queryParam("openApiVlak", serviceKey1)
                     .queryParam("display", display)
                     .queryParam("pageIndex", pageIndex)
                     .queryParam("srchPolyBizSecd", srchPolyBizSecd)
                     .queryParam("bizTycdSel", bizTycdSel);
 
             String url = builder.toUriString();
+            System.out.println(url);
 
             // 외부 API 호출
             String response = restTemplate.getForObject(url, String.class);
