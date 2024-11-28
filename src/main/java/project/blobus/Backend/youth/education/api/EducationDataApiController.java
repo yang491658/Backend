@@ -1,6 +1,7 @@
-package project.blobus.Backend.youth.education;
+package project.blobus.Backend.youth.education.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ public class EducationDataApiController {
     private String serviceKey1;
 
     private final RestTemplate restTemplate;
+    private final EducationDataApiService educationDataApiService;
     private static final String POLICY_URL = "https://www.youthcenter.go.kr/opi/youthPlcyList.do";
 
     @GetMapping("/policies")
@@ -49,6 +51,13 @@ public class EducationDataApiController {
             // XML 응답을 JSON으로 변환
             XmlMapper xmlMapper = new XmlMapper();
             JsonNode jsonNode = xmlMapper.readTree(response.getBytes());
+
+            // JSON 데이터를 DTO로 변환하고 서비스 계층을 통해 저장
+            // 저장되는 로직 추가는 했는데 아직 안돌려봄.
+            // 즉, 코드는 짰는데 동작은 안시켜봄. 나중에 동작해봐야함
+            // 꼭 주석풀고 해봐야됨!!!!
+//            EducationDataApiDTO educationDataApiDTO = new ObjectMapper().treeToValue(jsonNode, EducationDataApiDTO.class);
+//            educationDataApiService.savePolicy(educationDataApiDTO);
 
             // 성공적인 응답 반환
             return ResponseEntity.ok(jsonNode.toString());

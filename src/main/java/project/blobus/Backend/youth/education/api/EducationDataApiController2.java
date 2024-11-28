@@ -1,4 +1,4 @@
-package project.blobus.Backend.youth.education;
+package project.blobus.Backend.youth.education.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class EducationDataApiController2 {
 
     @GetMapping("/policies")
     public ResponseEntity<String> getFinancePolicy(
-            @RequestParam(defaultValue = "1") int page, // 페이지 번호, 기본값 1
+            @RequestParam(defaultValue = "2") int page, // 페이지 번호, 기본값 1
             @RequestParam(defaultValue = "100") int perPage // 출력 건수, 기본값 10
     ) {
         try {
