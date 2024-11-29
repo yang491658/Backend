@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResourceSupport {
+public class TempResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

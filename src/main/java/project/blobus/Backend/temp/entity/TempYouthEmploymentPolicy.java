@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class YouthHousingPolicy {
+public class TempYouthEmploymentPolicy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long policyId;
@@ -33,4 +33,5 @@ public class YouthHousingPolicy {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String status;
+    private String likeState;
 }

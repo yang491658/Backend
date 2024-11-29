@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,21 +16,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class YouthEmploymentPolicy {
+public class TempCommunitySuggestBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long policyId;
+    private Long id;
+
     private String title;
-    private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String region;
-    private String eligibility;
-    private String supportContent;
-    private String applicationMethod;
-    private String contactInfo;
+    private String content;
+
+    private String authorId;
+    private String boardCategory;
+    private String visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String status;
-    private String likeState;
 }

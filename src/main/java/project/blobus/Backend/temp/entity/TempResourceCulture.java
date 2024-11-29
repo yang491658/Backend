@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,20 +16,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class YouthJobPosting {
+public class TempResourceCulture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long policyId;
-    private String companyName;
-    private String jobTitle;
-    private String jobDescription;
-    private String jobType;
-    private String location;
-    private String salary;
-    private String qualification;
-    private LocalDate applicationDeadline;
-    private String contactInfo;
+    private Long id;
+    private String title;
+    private String content;
+    private String address;
+    private String imageUUID;
+    private String category;
+    private String subcategory;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String status;
 }

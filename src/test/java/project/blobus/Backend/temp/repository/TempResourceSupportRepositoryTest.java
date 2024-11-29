@@ -4,41 +4,38 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.YouthJobPosting;
-import project.blobus.Backend.temp.repository.YouthJobPostingRepository;
+import project.blobus.Backend.temp.entity.TempResourceSupport;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class YouthJobPostingRepositoryTest {
+class TempResourceSupportRepositoryTest {
     @Autowired
-    private YouthJobPostingRepository repository;
+    private ResourceSupportRepository repository;
 
     @Test
-    @DisplayName("청년 일자리 구인")
+    @DisplayName("지역자원 지원")
     public void test() {
         Random random = new Random();
+        String[] categoryList = {"문화", "관광", "자원"};
 
         int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            YouthJobPosting temp = YouthJobPosting.builder()
-                    .companyName("회사이름" + i)
-                    .jobTitle("모집직무" + i)
-                    .jobDescription("직무설명" + i)
-                    .jobType("고용형태" + i)
-                    .location(randomAdress(random))
-                    .salary("급여정보" + i)
-                    .qualification("지원자격" + i)
-                    .applicationDeadline(date.plusDays(random.nextInt(10)))
-                    .contactInfo("문의처" + i)
+            TempResourceSupport temp = TempResourceSupport.builder()
+                    .title("지원이름" + i)
+                    .content("내용" + i)
+                    .address(randomAdress(random))
+                    .applicationPeriod("신청기간" + i)
+                    .imageUUID("이미지" + i)
+                    .category(categoryList[random.nextInt(categoryList.length)])
+                    .subcategory("서브카테고리" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
-                    .status("구인상태" + i)
                     .build();
             repository.save(temp);
         }

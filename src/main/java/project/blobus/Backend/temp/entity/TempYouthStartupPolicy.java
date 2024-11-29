@@ -17,28 +17,31 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class YouthFinancialPolicy {
+public class TempYouthStartupPolicy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long policyId;
-    private String title;
+    private Long programId;
+    private String programName;
     private String overview;
-    private String benefitAmount;
-    private String benefitType;
+    private String supportType;
+    private String supportAmount;
     private String ageRequirement;
-    private String incomeRequirement;
-    private String residenceRequirement;
+    private String startupStatus;
+    private String locationRequirement;
     private LocalDate applicationPeriodStart;
     private LocalDate applicationPeriodEnd;
     private String applicationMethod;
     private String requiredDocuments;
-    private String selectionProcess;
-    private String resultAnnouncement;
     private String supportDuration;
+    private String mentoringContent;
+    private String workspaceSupport;
+    private String postProgramSupport;
+    private String successSupport;
     private String contactInfo;
     private String contactEmail;
     private String contactPhone;
     private String referenceMaterials;
+    private String businessPlanTips;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

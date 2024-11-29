@@ -4,14 +4,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.CommunitySuggestBoard;
-import project.blobus.Backend.temp.repository.CommunitySuggestBoardRepository;
+import project.blobus.Backend.temp.entity.TempCommunitySuggestBoard;
 
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class CommunitySuggestBoardRepositoryTest {
+class TempCommunitySuggestBoardRepositoryTest {
     @Autowired
     private CommunitySuggestBoardRepository repository;
 
@@ -24,7 +23,7 @@ class CommunitySuggestBoardRepositoryTest {
         for (int i = 1; i <= max; i++) {
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            CommunitySuggestBoard board = CommunitySuggestBoard.builder()
+            TempCommunitySuggestBoard board = TempCommunitySuggestBoard.builder()
                     .title("건의게시글" + i)
                     .content("건의 내용 " + i)
                     .boardCategory(random.nextInt(2) == 0 ? "YOUTH" : "ENTERPRISE")

@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.member.basic.dto.PageRequestDTO;
 import project.blobus.Backend.member.basic.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.DocumentdDTO;
-import project.blobus.Backend.temp.entity.CommunityFreeBoard;
-import project.blobus.Backend.temp.entity.CommunitySuggestBoard;
+import project.blobus.Backend.temp.entity.TempCommunityFreeBoard;
+import project.blobus.Backend.temp.entity.TempCommunitySuggestBoard;
 import project.blobus.Backend.temp.repository.CommunityFreeBoardRepository;
 import project.blobus.Backend.temp.repository.CommunitySuggestBoardRepository;
 
@@ -83,8 +83,8 @@ public class DocumentService {
                 .build();
     }
 
-    private DocumentdDTO toDTO(CommunityFreeBoard freeBoard,
-                               CommunitySuggestBoard suggestBoard,
+    private DocumentdDTO toDTO(TempCommunityFreeBoard freeBoard,
+                               TempCommunitySuggestBoard suggestBoard,
                                String boardType) {
         if (freeBoard != null) {
             return DocumentdDTO.builder()

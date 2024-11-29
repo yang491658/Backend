@@ -4,19 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.YouthEducationPolicy;
+import project.blobus.Backend.temp.entity.TempYouthHousingPolicy;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class YouthEducationPolicyRepositoryTest {
+class TempYouthHousingPolicyRepositoryTest {
     @Autowired
-    private YouthEducationPolicyRepository repository;
+    private YouthHousingPolicyRepository repository;
 
     @Test
-    @DisplayName("청년 교육 정책")
+    @DisplayName("청년 주거 정책")
     public void test() {
         Random random = new Random();
 
@@ -25,29 +25,19 @@ class YouthEducationPolicyRepositoryTest {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            YouthEducationPolicy temp = YouthEducationPolicy.builder()
-                    .programName("교육정책" + i)
-                    .overview("정책개요" + i)
-                    .supportAmount("상세혜텍" + i)
-                    .supportType("교육형태" + i)
-                    .ageRequirement("연령조건" + i)
-                    .academicRequirement("학력/직업" + i)
-                    .applicationPeriodStart(date.minusDays(random.nextInt(10)))
-                    .applicationPeriodEnd(date.plusDays(random.nextInt(10)))
+            TempYouthHousingPolicy temp = TempYouthHousingPolicy.builder()
+                    .title("주거정책" + i)
+                    .description("상세설명" + i)
+                    .startDate(date.minusDays(random.nextInt(10)))
+                    .endDate(date.plusDays(random.nextInt(10)))
+                    .region(randomAdress(random))
+                    .eligibility("지원자격" + i)
+                    .supportContent("지원내용" + i)
                     .applicationMethod("신청방법" + i)
-                    .requiredDocuments("필요서류" + i)
-                    .curriculum("교육내용" + i)
-                    .schedule("교육일정")
-                    .location(randomAdress(random))
-                    .duration("교육기간" + i)
-                    .selectionCriteria("선발기준" + i)
-                    .postProgramBenefits("지원후혜택" + i)
                     .contactInfo("문의처" + i)
-                    .contactEmail("이메일" + i)
-                    .contactPhone("연락처" + i)
-                    .referenceMaterials("참고링크" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
+                    .status("정책상태" + i)
                     .build();
             repository.save(temp);
         }

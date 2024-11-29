@@ -79,53 +79,53 @@ public class BookmarkService {
         LocalDateTime atTime = bookmark.getAtTime();
 
         if (mainCategory.equals("청년") && subCategory.equals("일자리")) {
-            YouthEmploymentPolicy entity = youthEmploymentRepository.findById(targeId).orElseThrow();
+            TempYouthEmploymentPolicy entity = youthEmploymentRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getDescription();
             address = entity.getRegion();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
         } else if (mainCategory.equals("청년") && subCategory.equals("구인")) {
-            YouthJobPosting entity = youthJobPostingRepository.findById(targeId).orElseThrow();
+            TempYouthJobPosting entity = youthJobPostingRepository.findById(targeId).orElseThrow();
             title = entity.getCompanyName() + " 구인";
             content = entity.getJobTitle() + " [" + entity.getJobType() + "]";
             address = entity.getLocation();
             endDate = entity.getApplicationDeadline();
         } else if (mainCategory.equals("청년") && subCategory.equals("주거")) {
-            YouthHousingPolicy entity = youthHousingPolicyRepository.findById(targeId).orElseThrow();
+            TempYouthHousingPolicy entity = youthHousingPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getDescription();
             address = entity.getRegion();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
         } else if (mainCategory.equals("청년") && subCategory.equals("금융")) {
-            YouthFinancialPolicy entity = youthFinancialPolicyRepository.findById(targeId).orElseThrow();
+            TempYouthFinancialPolicy entity = youthFinancialPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getOverview() + " [" + entity.getBenefitType() + "]";
             address = entity.getResidenceRequirement();
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
         } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
-            YouthEducationPolicy entity = youthEducationPolicyRepository.findById(targeId).orElseThrow();
+            TempYouthEducationPolicy entity = youthEducationPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getProgramName();
             content = entity.getOverview() + " [" + entity.getSupportType() + "]";
             address = entity.getLocation();
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
         } else if (mainCategory.equals("청년") && subCategory.equals("창업")) {
-            YouthStartupPolicy entity = youthStartupPolicyRepository.findById(targeId).orElseThrow();
+            TempYouthStartupPolicy entity = youthStartupPolicyRepository.findById(targeId).orElseThrow();
             title = entity.getProgramName();
             content = entity.getOverview() + " [" + entity.getSupportType() + "]";
             address = entity.getLocationRequirement();
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
         } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
-            ResourceCulture entity = resourceCultureRepository.findById(targeId).orElseThrow();
+            TempResourceCulture entity = resourceCultureRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getContent();
             address = entity.getAddress();
         } else if (mainCategory.equals("지역") && subCategory.equals("지원")) {
-            ResourceSupport entity = resourceSupportRepository.findById(targeId).orElseThrow();
+            TempResourceSupport entity = resourceSupportRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getContent();
             address = entity.getAddress();

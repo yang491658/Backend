@@ -4,20 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.YouthEmploymentPolicy;
-import project.blobus.Backend.temp.repository.YouthEmploymentPolicyRepository;
+import project.blobus.Backend.temp.entity.TempYouthJobPosting;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class YouthEmploymentPolicyRepositoryTest {
+class TempYouthJobPostingRepositoryTest {
     @Autowired
-    private YouthEmploymentPolicyRepository repository;
+    private YouthJobPostingRepository repository;
 
     @Test
-    @DisplayName("청년 일자리 정책")
+    @DisplayName("청년 일자리 구인")
     public void test() {
         Random random = new Random();
 
@@ -26,20 +25,19 @@ class YouthEmploymentPolicyRepositoryTest {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            YouthEmploymentPolicy temp = YouthEmploymentPolicy.builder()
-                    .title("일자리정책" + i)
-                    .description("상세설명" + i)
-                    .startDate(date.minusDays(random.nextInt(10)))
-                    .endDate(date.plusDays(random.nextInt(10)))
-                    .region(randomAdress(random))
-                    .eligibility("지원자격" + i)
-                    .supportContent("지원내용" + i)
-                    .applicationMethod("신청방법" + i)
+            TempYouthJobPosting temp = TempYouthJobPosting.builder()
+                    .companyName("회사이름" + i)
+                    .jobTitle("모집직무" + i)
+                    .jobDescription("직무설명" + i)
+                    .jobType("고용형태" + i)
+                    .location(randomAdress(random))
+                    .salary("급여정보" + i)
+                    .qualification("지원자격" + i)
+                    .applicationDeadline(date.plusDays(random.nextInt(10)))
                     .contactInfo("문의처" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
-                    .status("정책상태" + i)
-                    .likeState("즐겨찾기" + i)
+                    .status("구인상태" + i)
                     .build();
             repository.save(temp);
         }

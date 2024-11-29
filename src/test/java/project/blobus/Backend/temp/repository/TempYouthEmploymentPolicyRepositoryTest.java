@@ -4,38 +4,41 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.ResourceCulture;
-import project.blobus.Backend.temp.repository.ResourceCultureRepository;
+import project.blobus.Backend.temp.entity.TempYouthEmploymentPolicy;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class ResourceCultureRepositoryTest {
+class TempYouthEmploymentPolicyRepositoryTest {
     @Autowired
-    private ResourceCultureRepository repository;
+    private YouthEmploymentPolicyRepository repository;
 
     @Test
-    @DisplayName("지역자원 문화")
+    @DisplayName("청년 일자리 정책")
     public void test() {
         Random random = new Random();
-        String[] categoryList = {"문화", "관광", "자원"};
 
         int max = 30;
         for (int i = 1; i <= max; i++) {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            ResourceCulture temp = ResourceCulture.builder()
-                    .title("문화이름" + i)
-                    .content("내용" + i)
-                    .address(randomAdress(random))
-                    .imageUUID("이미지" + i)
-                    .category(categoryList[random.nextInt(categoryList.length)])
-                    .subcategory("서브카테고리" + i)
+            TempYouthEmploymentPolicy temp = TempYouthEmploymentPolicy.builder()
+                    .title("일자리정책" + i)
+                    .description("상세설명" + i)
+                    .startDate(date.minusDays(random.nextInt(10)))
+                    .endDate(date.plusDays(random.nextInt(10)))
+                    .region(randomAdress(random))
+                    .eligibility("지원자격" + i)
+                    .supportContent("지원내용" + i)
+                    .applicationMethod("신청방법" + i)
+                    .contactInfo("문의처" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
+                    .status("정책상태" + i)
+                    .likeState("즐겨찾기" + i)
                     .build();
             repository.save(temp);
         }

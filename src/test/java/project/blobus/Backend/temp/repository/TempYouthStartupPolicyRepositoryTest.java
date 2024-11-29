@@ -4,20 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.YouthHousingPolicy;
-import project.blobus.Backend.temp.repository.YouthHousingPolicyRepository;
+import project.blobus.Backend.temp.entity.TempYouthStartupPolicy;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class YouthHousingPolicyRepositoryTest {
+class TempYouthStartupPolicyRepositoryTest {
     @Autowired
-    private YouthHousingPolicyRepository repository;
+    private YouthStartupPolicyRepository repository;
 
     @Test
-    @DisplayName("청년 주거 정책")
+    @DisplayName("청년 창업 정책")
     public void test() {
         Random random = new Random();
 
@@ -26,19 +25,29 @@ class YouthHousingPolicyRepositoryTest {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            YouthHousingPolicy temp = YouthHousingPolicy.builder()
-                    .title("주거정책" + i)
-                    .description("상세설명" + i)
-                    .startDate(date.minusDays(random.nextInt(10)))
-                    .endDate(date.plusDays(random.nextInt(10)))
-                    .region(randomAdress(random))
-                    .eligibility("지원자격" + i)
-                    .supportContent("지원내용" + i)
+            TempYouthStartupPolicy temp = TempYouthStartupPolicy.builder()
+                    .programName("창업정책" + i)
+                    .overview("정책개요" + i)
+                    .supportAmount("상세혜텍" + i)
+                    .supportType("지원형태" + i)
+                    .ageRequirement("연령조건" + i)
+                    .startupStatus("창업상태" + i)
+                    .locationRequirement(randomAdress(random))
+                    .applicationPeriodStart(date.minusDays(random.nextInt(10)))
+                    .applicationPeriodEnd(date.plusDays(random.nextInt(10)))
                     .applicationMethod("신청방법" + i)
+                    .requiredDocuments("필요서류" + i)
+                    .mentoringContent("멘토링" + i)
+                    .workspaceSupport("창업공간지원" + i)
+                    .postProgramSupport("후속지원정보" + i)
+                    .successSupport("창업후지원" + i)
                     .contactInfo("문의처" + i)
+                    .contactEmail("이메일" + i)
+                    .contactPhone("연락처" + i)
+                    .referenceMaterials("참고링크" + i)
+                    .businessPlanTips("사업계획서" + i)
                     .createdAt(dateTime)
                     .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
-                    .status("정책상태" + i)
                     .build();
             repository.save(temp);
         }
