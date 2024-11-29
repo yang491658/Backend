@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import project.blobus.Backend.youth.house.dto.HouseDTO;
 import project.blobus.Backend.youth.house.dto.PageRequestDTO;
@@ -28,10 +29,14 @@ public class HouseController {
 
     // 정책현황 - 리스트
     @GetMapping("/policyList")
-    public PageResponseDTO<HouseDTO> policyList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<HouseDTO> policyList(PageRequestDTO pageRequestDTO,
+                                                @RequestParam(required = false) String searchTerm,
+                                                @RequestParam(required = false) String filterType) {
         log.info("HouseController - policyList : --------------------------- ");
-        log.info(pageRequestDTO.toString());
-        return service.getPolicyList(pageRequestDTO);
+        log.info("PageRequestDTO: {}", pageRequestDTO);
+        log.info("검색어: {}", searchTerm);
+        log.info("검색필터: {}", filterType);
+        return service.getPolicyList(pageRequestDTO, searchTerm, filterType);
     }
 
     // 정책현황 - 리스트 상세

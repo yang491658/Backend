@@ -29,7 +29,9 @@ public class HouseServiceImpl implements HouseService{
 
     // 정책현황 - 리스트
     @Override
-    public PageResponseDTO getPolicyList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO getPolicyList(PageRequestDTO pageRequestDTO,
+                                         String searchTerm,
+                                         String filterType) {
         log.info("HouseServiceImpl - getPolicyList --------------------------- ");
 
         Pageable pageable = PageRequest.of(
@@ -38,19 +40,36 @@ public class HouseServiceImpl implements HouseService{
                 Sort.by("policyId").descending()
         );
 
-        Page<HouseEntity> result = houseRepository.findAll(pageable);
-        List<HouseDTO> dtoList = result.getContent().stream().map(
-                (houseEntity) -> modelMapper.map(houseEntity, HouseDTO.class)
-        ).collect(Collectors.toList());
-        HouseEntity.builder().build();
-        long totalCount = result.getTotalElements();
-        PageResponseDTO pageResponseDTO = PageResponseDTO.<HouseDTO>withAll()
+        Page<HouseEntity> result;
+
+        // 검색어와 필터 타입이 있을 경우 조건 처리
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            switch (filterType) {
+                case "polyBizSjnm":
+                    result = houseRepository.findByPolyBizSjnmContaining(searchTerm, pageable);
+                    break;
+                case "polyItcnCn":
+                    result = houseRepository.findByPolyItcnCnContaining(searchTerm, pageable);
+                    break;
+                case "both":
+                    result = houseRepository.findByPolyBizSjnmContainingOrPolyItcnCnContaining(searchTerm, searchTerm, pageable);
+                    break;
+                default:
+                    result = houseRepository.findAll(pageable);
+            }
+        } else {
+            result = houseRepository.findAll(pageable); // 검색어가 없으면 전체 조회
+        }
+
+        List<HouseDTO> dtoList = result.getContent().stream()
+                .map(entity -> modelMapper.map(entity, HouseDTO.class))
+                .collect(Collectors.toList());
+
+        return PageResponseDTO.<HouseDTO>withAll()
                 .dtoList(dtoList)
                 .pageRequestDTO(pageRequestDTO)
-                .totalCount(totalCount)
+                .totalCount(result.getTotalElements())
                 .build();
-
-        return pageResponseDTO;
     }
 
     // 정책현황 - 리스트 상세

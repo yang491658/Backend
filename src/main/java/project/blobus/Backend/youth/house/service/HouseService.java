@@ -10,7 +10,7 @@ import java.util.List;
 @Transactional
 public interface HouseService {
 
-    PageResponseDTO getPolicyList(PageRequestDTO pageRequestDTO);   // 정책현황 - 리스트
+    PageResponseDTO getPolicyList(PageRequestDTO pageRequestDTO, String searchTerm, String filterType);   // 정책현황 - 리스트
     HouseDTO getPolicyDetail(Long policyId);                        // 정책현황 - 리스트 상세
 
 }

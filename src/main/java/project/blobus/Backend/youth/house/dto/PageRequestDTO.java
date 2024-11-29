@@ -15,4 +15,8 @@ public class PageRequestDTO {;
     private int page = 1;
     @Builder.Default
     private int size = 12;
+    @Builder.Default
+    private String searchTerm  = "";
+    @Builder.Default
+    private String filterType  = "polyBizSjnm";
 }

@@ -16,7 +16,7 @@ class HouseRepositoryTest {
 
     @Test
     public void testInsert() {
-        for(int i = 1; i < 51; i++) {
+        for(int i = 51; i < 201; i++) {
             HouseEntity houseEntity = HouseEntity.builder()
                     .polyRlmCd("023020")
                     .bizId("정책번호"+i)
