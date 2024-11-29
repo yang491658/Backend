@@ -1,4 +1,4 @@
-//package project.blobus.Backend.youth.finance;
+package project.blobus.Backend.youth.education;//package project.blobus.Backend.youth.finance;
 //
 //import jakarta.persistence.*;
 //import lombok.Getter;
