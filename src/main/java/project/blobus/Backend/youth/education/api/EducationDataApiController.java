@@ -59,6 +59,16 @@ public class EducationDataApiController {
 //            EducationDataApiDTO educationDataApiDTO = new ObjectMapper().treeToValue(jsonNode, EducationDataApiDTO.class);
 //            educationDataApiService.savePolicy(educationDataApiDTO);
 
+            // youthPolicy 배열 추출
+            JsonNode youthPolicyArray = jsonNode.get("youthPolicy");
+
+            // 각 항목을 DTO로 변환하고 저장
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (JsonNode policyNode : youthPolicyArray) {
+                EducationDataApiDTO educationDataApiDTO = objectMapper.treeToValue(policyNode, EducationDataApiDTO.class);
+                educationDataApiService.savePolicy(educationDataApiDTO);
+            }
+
             // 성공적인 응답 반환
             return ResponseEntity.ok(jsonNode.toString());
 
