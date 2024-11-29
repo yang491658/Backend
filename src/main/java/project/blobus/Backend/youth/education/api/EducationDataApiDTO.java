@@ -1,6 +1,7 @@
 package project.blobus.Backend.youth.education.api;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EducationDataApiDTO {
 
     @JsonProperty("bizId") // 정책에 대한 ID 값
@@ -90,4 +92,5 @@ public class EducationDataApiDTO {
 
     @JsonProperty("etct") // 기타사항
     private String etc;
+
 }
