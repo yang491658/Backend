@@ -1,4 +1,4 @@
-package project.blobus.Backend.respository;
+package project.blobus.Backend.youth.education.respository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

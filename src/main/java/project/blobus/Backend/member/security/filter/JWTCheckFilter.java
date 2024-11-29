@@ -26,17 +26,18 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         log.info("Should Not Filter");
 
-        if (request.getMethod().equals("OPTIONS")) {
-            log.info("Is OPTIONS");
-            return true;
-        }
-        String path = request.getRequestURI();
-        if (path.startsWith("/member/")) {
-            log.info("Is Member");
-            return true;
-        }
-
-        return false;
+//        if (request.getMethod().equals("OPTIONS")) {
+//            log.info("Is OPTIONS");
+//            return true;
+//        }
+//        String path = request.getRequestURI();
+//        if (path.startsWith("/member/")) {
+//            log.info("Is Member");
+//            return true;
+//        }
+//
+//        return false;
+        return true;
     }
 
     @Override
