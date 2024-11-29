@@ -100,9 +100,9 @@ class GeneralServiceTest {
     @DisplayName("일반계정 비밀번호 찾기(변경) + 회원정보 수정")
     void mofigyPwTest() {
         GeneralDTO dto = GeneralDTO.builder()
-                .userId("test2@test.com")
+                .userId("test3@test.com")
                 .userPw("asdf")
-                .name("테스트2")
+                .name("테스트3")
                 .address("서울특별시-강남구")
                 .birthDate(LocalDate.of(1999, 9, 9))
                 .gender("F")

@@ -30,7 +30,7 @@ class CustomServiceTest {
     @Test
     @DisplayName("커스텀 설정 저장 테스트")
     void saveSettingCustomTest() {
-        String userId = "test2@test.com";
+        String userId = "test3@test.com";
         String yListStr = "일자리/주거/창업";
         String eListStr = "기업2/기업3";
         String rListStr = "전체/문화/지원";
