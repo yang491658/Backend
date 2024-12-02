@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.member.basic.dto.PageRequestDTO;
-import project.blobus.Backend.member.basic.dto.PageResponseDTO;
+import project.blobus.Backend.common.dto.PageRequestDTO;
+import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.DocumentdDTO;
 
 @SpringBootTest
@@ -20,14 +20,14 @@ class DocumentServiceTest {
     @DisplayName("전체게시판 조회 테스트")
     public void test1() {
         String userId = "test1@test.com";
-        String boardType = null;
-        String boardCategory = null;
+        String boardType = "";
+        String category = "";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
@@ -35,14 +35,14 @@ class DocumentServiceTest {
     @DisplayName("자유게시판 조회 테스트")
     public void test2() {
         String userId = "test1@test.com";
-        String boardType = "FREE";
-        String boardCategory = null;
+        String boardType = "자유";
+        String category = "";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
@@ -50,44 +50,44 @@ class DocumentServiceTest {
     @DisplayName("건의게시판 조회 테스트")
     public void test3() {
         String userId = "test1@test.com";
-        String boardType = "SUGGEST";
-        String boardCategory = null;
+        String boardType = "건의";
+        String category = "";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
     @Test
-    @DisplayName("전체게시판 조회 테스트 - 청년탭")
+    @DisplayName("전체게시판 조회 테스트 - 청년")
     public void test4() {
         String userId = "test1@test.com";
-        String boardType = null;
-        String boardCategory = "YOUTH";
+        String boardType = "";
+        String category = "청년";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
     @Test
-    @DisplayName("자유게시판 조회 테스트 - 기업탭")
+    @DisplayName("자유게시판 조회 테스트 - 기업")
     public void test5() {
         String userId = "test1@test.com";
-        String boardType = "FREE";
-        String boardCategory = "ENTERPRISE";
+        String boardType = "자유";
+        String category = "기업";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, boardCategory);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 }

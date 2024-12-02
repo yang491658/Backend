@@ -1,9 +1,5 @@
-package project.blobus.Backend.temp.entity;
+package project.blobus.Backend.community.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,22 +7,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TempCommunitySuggestBoard {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CommnuntiyDTO {
     private Long id;
-
+    private String boadrType;
+    private String category;
     private String title;
     private String content;
-
+    private String author;
     private String authorId;
-    private String boardCategory;
-    private String visibility;
+    private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

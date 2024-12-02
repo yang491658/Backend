@@ -1,4 +1,4 @@
-package project.blobus.Backend.temp.entity;
+package project.blobus.Backend.community.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,16 +16,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TempCommunityFreeBoard {
+public class Community {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String boadrType;
+    private String category;
+
     private String title;
     private String content;
-
+    private String author;
     private String authorId;
-    private String boardCategory;
+
+    private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

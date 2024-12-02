@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blobus.Backend.member.basic.util.ModelMapper;
+import project.blobus.Backend.member.role.util.ModelMapper;
 import project.blobus.Backend.member.role.general.dto.GeneralDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;

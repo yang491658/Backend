@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blobus.Backend.member.basic.dto.PageRequestDTO;
-import project.blobus.Backend.member.basic.dto.PageResponseDTO;
+import project.blobus.Backend.common.dto.PageRequestDTO;
+import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
 import project.blobus.Backend.mypage.entity.Bookmark;
 import project.blobus.Backend.mypage.repository.BookmarkRepository;
@@ -45,7 +45,7 @@ public class BookmarkService {
             entitiyList = bookmarkRepository.findAllByMember_UserIdAndMainCategory(userId, mainCategory);
 
         List<BookmarkDTO> bookmarkList = entitiyList.stream()
-                .map(bookmark -> toDTO(bookmark))
+                .map(this::toDTO)
                 .collect(Collectors.toList());
 
         bookmarkList = bookmarkList.stream()

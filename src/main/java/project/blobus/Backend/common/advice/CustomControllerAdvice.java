@@ -1,4 +1,4 @@
-package project.blobus.Backend.member.basic.advice;
+package project.blobus.Backend.common.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
