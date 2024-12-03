@@ -6,5 +6,5 @@ import project.blobus.Backend.community.entity.CommuntiyComment;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<CommuntiyComment, Long> {
-    List<CommuntiyComment> findAllByCommunityPostId(Long postId);
+    List<CommuntiyComment> findAllByPost_Id(Long postId);
 }

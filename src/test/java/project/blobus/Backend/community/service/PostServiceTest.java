@@ -58,6 +58,7 @@ class PostServiceTest {
                     .authorId(userId)
                     .authorName(name)
                     .authorEmail(userId)
+                    .commentList(null)
                     .build();
 
             if (i == 3) {

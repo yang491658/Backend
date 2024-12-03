@@ -8,12 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.common.dto.PageRequestDTO;
 import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.community.dto.CommentDTO;
-import project.blobus.Backend.community.entity.CommuntiyComment;
 import project.blobus.Backend.community.repository.CommentRepository;
-import project.blobus.Backend.community.repository.PostRepository;
 import project.blobus.Backend.community.util.CommunityMapper;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,15 +20,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommentService {
     @Autowired
-    private final PostRepository postRepository;
-    @Autowired
     private final CommentRepository commentRepository;
 
     // 댓글 조회
     public PageResponseDTO<CommentDTO> getList(PageRequestDTO pageRequestDTO, Long postId) {
         log.info("Comment Get List");
 
-        List<CommentDTO> commentList = commentRepository.findAllByCommunityPostId(postId).stream()
+        List<CommentDTO> commentList = commentRepository.findAllByPost_Id(postId).stream()
                 .map(CommunityMapper::commentEntityToDto)
                 .collect(Collectors.toList());
 
@@ -52,18 +47,17 @@ public class CommentService {
                 .build();
     }
 
-
-    // 댓글 등록
-    public Long register(CommentDTO dto) {
-        log.info("Comment Register");
-
-        CommuntiyComment comment = CommunityMapper.commentDtoToEntity(dto);
-        comment.setCreatedAt(LocalDateTime.now());
-        comment.setUpdatedAt(LocalDateTime.now());
-        CommuntiyComment result = commentRepository.save(comment);
-
-        return result.getId();
-    }
+//    // 댓글 등록
+//    public Long register(CommentDTO dto) {
+//        log.info("Comment Register");
+//
+//        CommuntiyComment comment = CommunityMapper.commentDtoToEntity(dto);
+//        comment.setCreatedAt(LocalDateTime.now());
+//        comment.setUpdatedAt(LocalDateTime.now());
+//        CommuntiyComment result = commentRepository.save(comment);
+//
+//        return result.getId();
+//    }
 
     // 댓글 수정
 //    public void modify(PostDTO dto) {
