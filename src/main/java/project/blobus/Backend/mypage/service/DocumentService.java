@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.common.dto.PageRequestDTO;
 import project.blobus.Backend.common.dto.PageResponseDTO;
-import project.blobus.Backend.community.entity.Community;
-import project.blobus.Backend.community.repository.CommunityRepository;
+import project.blobus.Backend.community.entity.CommunityPost;
+import project.blobus.Backend.community.repository.PostRepository;
 import project.blobus.Backend.mypage.dto.DocumentdDTO;
 
 import java.util.List;
@@ -18,18 +18,18 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class DocumentService {
-    private final CommunityRepository repository;
+    private final PostRepository repository;
 
     // 전체 게시판 리스트 조회
     public PageResponseDTO<DocumentdDTO> getList(PageRequestDTO pageRequestDTO,
-                                                 String authorId,
+                                                 String userId,
                                                  String boardType,
                                                  String category) {
         log.info("Document Get List");
 
         List<DocumentdDTO> docList = repository.findAll().stream()
-                .filter(doc -> (doc.getAuthorId().equalsIgnoreCase(authorId)) &&
-                        (boardType == "" || doc.getBoadrType().equalsIgnoreCase(boardType)) &&
+                .filter(doc -> (doc.getAuthorId().equalsIgnoreCase(userId)) &&
+                        (boardType == "" || doc.getBoardType().equalsIgnoreCase(boardType)) &&
                         (category == "" || doc.getCategory().equalsIgnoreCase(category)))
                 .map(this::toDTO)
                 .collect(Collectors.toList());
@@ -51,17 +51,19 @@ public class DocumentService {
                 .build();
     }
 
-    private DocumentdDTO toDTO(Community community) {
+    private DocumentdDTO toDTO(CommunityPost communityPost) {
         return DocumentdDTO.builder()
-                .id(community.getId())
-                .boadrType(community.getBoadrType())
-                .category(community.getCategory())
-                .title(community.getTitle())
-                .content(community.getContent())
-                .authorId(community.getAuthorId())
-                .visibility(community.isVisibility())
-                .createdAt(community.getCreatedAt())
-                .updatedAt(community.getUpdatedAt())
+                .id(communityPost.getId())
+                .boardType(communityPost.getBoardType())
+                .category(communityPost.getCategory())
+                .title(communityPost.getTitle())
+                .content(communityPost.getContent())
+                .authorId(communityPost.getAuthorId())
+                .authorName(communityPost.getAuthorName())
+                .authorEmail(communityPost.getAuthorEmail())
+                .visibility(communityPost.isVisibility())
+                .createdAt(communityPost.getCreatedAt())
+                .updatedAt(communityPost.getUpdatedAt())
                 .build();
     }
 }

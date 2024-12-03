@@ -34,7 +34,7 @@ class DocumentServiceTest {
     @Test
     @DisplayName("자유게시판 조회 테스트")
     public void test2() {
-        String userId = "test1@test.com";
+        String email = "test1@test.com";
         String boardType = "자유";
         String category = "";
 
@@ -42,14 +42,14 @@ class DocumentServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, email, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
     @Test
     @DisplayName("건의게시판 조회 테스트")
     public void test3() {
-        String userId = "test1@test.com";
+        String email = "test1@test.com";
         String boardType = "건의";
         String category = "";
 
@@ -57,14 +57,14 @@ class DocumentServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, email, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
     @Test
     @DisplayName("전체게시판 조회 테스트 - 청년")
     public void test4() {
-        String userId = "test1@test.com";
+        String email = "test1@test.com";
         String boardType = "";
         String category = "청년";
 
@@ -72,14 +72,14 @@ class DocumentServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, email, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
     @Test
     @DisplayName("자유게시판 조회 테스트 - 기업")
     public void test5() {
-        String userId = "test1@test.com";
+        String email = "test1@test.com";
         String boardType = "자유";
         String category = "기업";
 
@@ -87,7 +87,7 @@ class DocumentServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, userId, boardType, category);
+        PageResponseDTO<DocumentdDTO> result = service.getList(pageRequestDTO, email, boardType, category);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 }

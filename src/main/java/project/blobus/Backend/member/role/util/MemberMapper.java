@@ -8,8 +8,8 @@ import project.blobus.Backend.member.role.common.entity.MemberRole;
 import project.blobus.Backend.member.role.general.dto.GeneralDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 
-public class ModelMapper {
-    public static GeneralDTO generalEntityToDTO(GeneralMember generalMember) {
+public class MemberMapper {
+    public static GeneralDTO generalEntityToDto(GeneralMember generalMember) {
         return GeneralDTO.builder()
                 .id(generalMember.getId())
                 .userId(generalMember.getUserId())
@@ -39,7 +39,7 @@ public class ModelMapper {
                 .build();
     }
 
-    public static BusinessDTO businessEntityToDTO(BusinessMember businessMember) {
+    public static BusinessDTO businessEntityToDto(BusinessMember businessMember) {
         return BusinessDTO.builder()
                 .id(businessMember.getId())
                 .userId(businessMember.getUserId())

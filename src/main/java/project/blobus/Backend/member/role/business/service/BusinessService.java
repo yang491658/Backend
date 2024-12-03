@@ -5,7 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blobus.Backend.member.role.util.ModelMapper;
+import project.blobus.Backend.member.role.util.MemberMapper;
 import project.blobus.Backend.member.role.business.dto.BusinessDTO;
 import project.blobus.Backend.member.role.business.entity.BusinessMember;
 import project.blobus.Backend.member.role.business.repository.BusinessRepository;
@@ -24,7 +24,7 @@ public class BusinessService {
     public Long register(BusinessDTO dto) {
         log.info("Business Register");
 
-        BusinessMember member = ModelMapper.businessDtoToEntity(dto);
+        BusinessMember member = MemberMapper.businessDtoToEntity(dto);
         member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
         member.setJoinDate(LocalDate.now());
         businessRepository.save(member);
