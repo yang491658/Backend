@@ -1,10 +1,7 @@
 package project.blobus.Backend.community.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,19 +11,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "commentList")
 public class CommunityPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String authorId;
+    private String authorName;
+    private String authorEmail;
 
     private String boardType;
     private String category;
 
     private String title;
     private String content;
-    private String authorId;
-    private String authorName;
-    private String authorEmail;
 
     private boolean visibility;
     private LocalDateTime createdAt;

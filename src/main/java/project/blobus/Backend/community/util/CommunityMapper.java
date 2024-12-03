@@ -6,25 +6,27 @@ import project.blobus.Backend.community.entity.CommunityPost;
 import project.blobus.Backend.community.entity.CommuntiyComment;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class CommunityMapper {
-    public static PostDTO postEntityToDto(CommunityPost entitiy) {
+    public static PostDTO postEntityToDto(CommunityPost entity) {
         return PostDTO.builder()
-                .id(entitiy.getId())
-                .boardType(entitiy.getBoardType())
-                .category(entitiy.getCategory())
-                .title(entitiy.getTitle())
-                .content(entitiy.getContent())
-                .authorId(entitiy.getAuthorId())
-                .authorName(entitiy.getAuthorName())
-                .authorEmail(entitiy.getAuthorEmail())
-                .visibility(entitiy.isVisibility())
-                .createdAt(entitiy.getCreatedAt())
-                .updatedAt(entitiy.getUpdatedAt())
-                .commentList(entitiy.getCommentList() != null ?
-                        entitiy.getCommentList().stream()
+                .id(entity.getId())
+                .boardType(entity.getBoardType())
+                .category(entity.getCategory())
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .authorId(entity.getAuthorId())
+                .authorName(entity.getAuthorName())
+                .authorEmail(entity.getAuthorEmail())
+                .visibility(entity.isVisibility())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .commentList(entity.getCommentList() != null ?
+                        entity.getCommentList().stream()
                                 .map(CommunityMapper::commentEntityToDto)
+                                .sorted(Comparator.comparing(CommentDTO::getId).reversed())
                                 .collect(Collectors.toList())
                         : new ArrayList<>())
                 .build();
@@ -48,16 +50,16 @@ public class CommunityMapper {
                 .build();
     }
 
-    public static CommentDTO commentEntityToDto(CommuntiyComment entitiy) {
+    public static CommentDTO commentEntityToDto(CommuntiyComment entity) {
         return CommentDTO.builder()
-                .id(entitiy.getId())
-                .content(entitiy.getContent())
-                .authorId(entitiy.getAuthorId())
-                .authorName(entitiy.getAuthorName())
-                .visibility(entitiy.isVisibility())
-                .createdAt(entitiy.getCreatedAt())
-                .updatedAt(entitiy.getUpdatedAt())
-                .postId(entitiy.getPost().getId())
+                .id(entity.getId())
+                .content(entity.getContent())
+                .authorId(entity.getAuthorId())
+                .authorName(entity.getAuthorName())
+                .visibility(entity.isVisibility())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .postId(entity.getPost().getId())
                 .build();
     }
 

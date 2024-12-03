@@ -110,8 +110,6 @@ public class GeneralService {
         if (dto.getForeigner() != null) member.setForeigner(dto.getForeigner());
 
         generalRepository.save(member);
-
-        System.out.println(member);
     }
 
     // 일반계정 회원정보 조회

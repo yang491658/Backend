@@ -12,8 +12,8 @@ import java.util.Map;
 
 @Log4j2
 @RestController
-@RequestMapping("/community")
-public class CommunityController {
+@RequestMapping("/post")
+public class PostController {
     @Autowired
     private PostService service;
 

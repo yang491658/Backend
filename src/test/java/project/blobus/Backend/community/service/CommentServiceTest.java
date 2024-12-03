@@ -23,59 +23,46 @@ class CommentServiceTest {
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<CommentDTO> result = service.getList(pageRequestDTO,100L);
+        PageResponseDTO<CommentDTO> result = service.getList(pageRequestDTO, 100L);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 
-//    @Test
-//    @DisplayName("댓글 등록 테스트")
-//    public void test2() {
-//        Random random = new Random();
-//        String name = "양성규";
-//        String userId = "bell4916@naver.com";
-//        String[] categoryList = {"청년", "기업", "지역"};
-//
-//        for (int i = 1; i <= 3; i++) {
-//            PostDTO dto = PostDTO.builder()
-//                    .boardType(i == 3 ? "건의" : "자유")
-//                    .category(categoryList[i - 1])
-//                    .title("등록 테스트 " + i)
-//                    .content("이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고"
-//                            + "\n지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다."
-//                            + "\n이 편지를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다."
-//                            + "\n복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다.")
-//                    .authorId(userId)
-//                    .authorName(name)
-//                    .authorEmail(userId)
-//                    .build();
-//
-//            if (i == 3) {
-//                dto.setToEmail(true);
-//                dto.setVisibility(true);
-//            }
-//
-//            service.register(dto);
-//        }
-//    }
+    @Test
+    @DisplayName("댓글 등록 테스트")
+    public void test2() {
+        String name = "양성규";
+        String userId = "bell4916@naver.com";
 
-//    @Test
-//    @DisplayName("댓글 수정 테스트")
-//    public void test4() {
-//        PostDTO dto = PostDTO.builder()
-//                .id(102L)
-//                .title("수정 테스트")
-//                .content("미안하다 이거 보여주려고 어그로끌었다.."
-//                        + "\n나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다..")
-//                .createdAt(LocalDateTime.now())
-//                .updatedAt(LocalDateTime.now())
-//                .build();
-//
-//        service.modify(dto);
-//    }
+        for (int i = 1; i <= 3; i++) {
+            CommentDTO dto = CommentDTO.builder()
+                    .authorId(userId)
+                    .authorName(name)
+                    .content("댓글 등록 테스트" + i)
+                    .postId(103L)
+                    .build();
 
-//    @Test
-//    @DisplayName("댓글 삭제 테스트")
-//    public void test5() {
-//        service.remove(101L);
-//    }
+            if (i == 3) {
+                dto.setVisibility(true);
+            }
+
+            service.register(dto);
+        }
+    }
+
+    @Test
+    @DisplayName("댓글 수정 테스트")
+    public void test4() {
+        CommentDTO dto = CommentDTO.builder()
+                .id(102L)
+                .content("댓글 수정 테스트" )
+                .build();
+
+        service.modify(dto);
+    }
+
+    @Test
+    @DisplayName("댓글 삭제 테스트")
+    public void test5() {
+        service.remove(101L);
+    }
 }

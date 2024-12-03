@@ -14,16 +14,21 @@ import java.util.List;
 @Builder
 public class PostDTO {
     private Long id;
-    private String boardType;
-    private String category;
-    private String title;
-    private String content;
+
     private String authorId;
     private String authorName;
     private String authorEmail;
+
+    private String boardType;
+    private String category;
+
+    private String title;
+    private String content;
+
     private boolean toEmail;
     private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
     private List<CommentDTO> commentList;
 }

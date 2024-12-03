@@ -27,19 +27,17 @@ class CommentRepositoryTest {
 
             int authorNum = (random.nextInt(3) + 1);
 
-            for (int j = 1; j <= random.nextInt(5) + 1; j++) {
-                CommuntiyComment communtiyComment = CommuntiyComment.builder()
-                        .content("임시 댓글" + j)
-                        .authorId("test" + authorNum + "@test.com")
-                        .authorName("테스트" + authorNum)
-                        .visibility(random.nextInt(2) == 0)
-                        .createdAt(dateTime)
-                        .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
-                        .post(postRepository.findById((long) i).orElseThrow())
-                        .build();
+            CommuntiyComment communtiyComment = CommuntiyComment.builder()
+                    .authorId("test" + authorNum + "@test.com")
+                    .authorName("테스트" + authorNum)
+                    .content("임시 댓글" + i)
+                    .visibility(random.nextInt(2) == 0)
+                    .createdAt(dateTime)
+                    .updatedAt(dateTime.plusDays(random.nextInt(max + 1 - i)))
+                    .post(postRepository.findById((long) i).orElseThrow())
+                    .build();
 
-                commentRepository.save(communtiyComment);
-            }
+            commentRepository.save(communtiyComment);
         }
     }
 }

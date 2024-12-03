@@ -8,9 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.common.dto.PageRequestDTO;
 import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.community.dto.CommentDTO;
+import project.blobus.Backend.community.entity.CommuntiyComment;
 import project.blobus.Backend.community.repository.CommentRepository;
+import project.blobus.Backend.community.repository.PostRepository;
 import project.blobus.Backend.community.util.CommunityMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class CommentService {
+    @Autowired
+    private final PostRepository postRepository;
     @Autowired
     private final CommentRepository commentRepository;
 
@@ -47,37 +52,34 @@ public class CommentService {
                 .build();
     }
 
-//    // 댓글 등록
-//    public Long register(CommentDTO dto) {
-//        log.info("Comment Register");
-//
-//        CommuntiyComment comment = CommunityMapper.commentDtoToEntity(dto);
-//        comment.setCreatedAt(LocalDateTime.now());
-//        comment.setUpdatedAt(LocalDateTime.now());
-//        CommuntiyComment result = commentRepository.save(comment);
-//
-//        return result.getId();
-//    }
+    // 댓글 등록
+    public void register(CommentDTO dto) {
+        log.info("Comment Register");
+
+        CommuntiyComment comment = CommunityMapper.commentDtoToEntity(dto);
+        comment.setCreatedAt(LocalDateTime.now());
+        comment.setUpdatedAt(LocalDateTime.now());
+        comment.setPost(postRepository.findById(dto.getPostId()).orElseThrow());
+        commentRepository.save(comment);
+    }
 
     // 댓글 수정
-//    public void modify(PostDTO dto) {
-//        log.info("Commnuntiy Modify");
-//
-//        CommunityPost communityPost = repository.findById(dto.getId()).orElseThrow();
-//
-//        communityPost.setId(dto.getId());
-//        communityPost.setTitle(dto.getTitle());
-//        communityPost.setContent(dto.getContent());
-//        communityPost.setVisibility(dto.isVisibility());
-//        communityPost.setUpdatedAt(LocalDateTime.now());
-//
-//        repository.save(communityPost);
-//    }
+    public void modify(CommentDTO dto) {
+        log.info("Comment Modify");
+
+        CommuntiyComment comment = commentRepository.findById(dto.getId()).orElseThrow();
+
+        comment.setId(dto.getId());
+        comment.setContent(dto.getContent());
+        comment.setVisibility(dto.isVisibility());
+        comment.setUpdatedAt(LocalDateTime.now());
+        commentRepository.save(comment);
+    }
 
     // 댓글 삭제
-//    public void remove(Long id) {
-//        log.info("Commnuntiy Remove");
-//
-//        repository.deleteById(id);
-//    }
+    public void remove(Long id) {
+        log.info("Comment Remove");
+
+        commentRepository.deleteById(id);
+    }
 }

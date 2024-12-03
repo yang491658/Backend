@@ -13,11 +13,14 @@ import java.time.LocalDateTime;
 @Builder
 public class CommentDTO {
     private Long id;
-    private String content;
+
     private String authorId;
     private String authorName;
+    private String content;
+
     private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
     private Long postId;
 }

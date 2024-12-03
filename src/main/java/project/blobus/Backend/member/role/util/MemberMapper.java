@@ -9,102 +9,102 @@ import project.blobus.Backend.member.role.general.dto.GeneralDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 
 public class MemberMapper {
-    public static GeneralDTO generalEntityToDto(GeneralMember generalMember) {
+    public static GeneralDTO generalEntityToDto(GeneralMember member) {
         return GeneralDTO.builder()
-                .id(generalMember.getId())
-                .userId(generalMember.getUserId())
-                .userPw(generalMember.getUserPw())
-                .name(generalMember.getName())
-                .phoneNum(generalMember.getPhoneNum())
-                .address(generalMember.getAddress())
-                .birthDate(generalMember.getBirthDate())
-                .gender(generalMember.getGender())
-                .foreigner(generalMember.getForeigner())
+                .id(member.getId())
+                .userId(member.getUserId())
+                .userPw(member.getUserPw())
+                .name(member.getName())
+                .phoneNum(member.getPhoneNum())
+                .address(member.getAddress())
+                .birthDate(member.getBirthDate())
+                .gender(member.getGender())
+                .foreigner(member.getForeigner())
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
     }
 
-    public static GeneralMember generalDtoToEntity(GeneralDTO generalDTO) {
+    public static GeneralMember generalDtoToEntity(GeneralDTO dto) {
         return GeneralMember.builder()
-                .id(generalDTO.getId())
-                .userId(generalDTO.getUserId())
-                .userPw(generalDTO.getUserPw())
-                .name(generalDTO.getName())
-                .phoneNum(generalDTO.getPhoneNum())
-                .address(generalDTO.getAddress())
-                .birthDate(generalDTO.getBirthDate())
-                .gender(generalDTO.getGender())
-                .foreigner(generalDTO.getForeigner())
-                .memberRole(MemberRole.valueOf(generalDTO.getRoleName()))
+                .id(dto.getId())
+                .userId(dto.getUserId())
+                .userPw(dto.getUserPw())
+                .name(dto.getName())
+                .phoneNum(dto.getPhoneNum())
+                .address(dto.getAddress())
+                .birthDate(dto.getBirthDate())
+                .gender(dto.getGender())
+                .foreigner(dto.getForeigner())
+                .memberRole(MemberRole.valueOf(dto.getRoleName()))
                 .build();
     }
 
-    public static BusinessDTO businessEntityToDto(BusinessMember businessMember) {
+    public static BusinessDTO businessEntityToDto(BusinessMember member) {
         return BusinessDTO.builder()
-                .id(businessMember.getId())
-                .userId(businessMember.getUserId())
-                .userPw(businessMember.getUserPw())
-                .name(businessMember.getName())
-                .phoneNum(businessMember.getPhoneNum())
-                .email(businessMember.getEmail())
-                .address(businessMember.getAddress())
+                .id(member.getId())
+                .userId(member.getUserId())
+                .userPw(member.getUserPw())
+                .name(member.getName())
+                .phoneNum(member.getPhoneNum())
+                .email(member.getEmail())
+                .address(member.getAddress())
                 .roleName(String.valueOf(MemberRole.BUSINESS))
                 .build();
     }
 
-    public static BusinessMember businessDtoToEntity(BusinessDTO businessDTO) {
+    public static BusinessMember businessDtoToEntity(BusinessDTO dto) {
         return BusinessMember.builder()
-                .id(businessDTO.getId())
-                .userId(businessDTO.getUserId())
-                .userPw(businessDTO.getUserPw())
-                .name(businessDTO.getName())
-                .phoneNum(businessDTO.getPhoneNum())
-                .email(businessDTO.getEmail())
-                .address(businessDTO.getAddress())
-                .memberRole(MemberRole.valueOf(businessDTO.getRoleName()))
+                .id(dto.getId())
+                .userId(dto.getUserId())
+                .userPw(dto.getUserPw())
+                .name(dto.getName())
+                .phoneNum(dto.getPhoneNum())
+                .email(dto.getEmail())
+                .address(dto.getAddress())
+                .memberRole(MemberRole.valueOf(dto.getRoleName()))
                 .build();
     }
 
-    public static MemberDTO generalToMember(GeneralMember generalMember) {
+    public static MemberDTO generalToMember(GeneralMember member) {
         return MemberDTO.builder()
-                .id(generalMember.getId())
-                .userId(generalMember.getUserId())
-                .userPw(generalMember.getUserPw())
-                .name(generalMember.getName())
-                .phoneNum(generalMember.getPhoneNum())
-                .address(generalMember.getAddress())
-                .birthDate(generalMember.getBirthDate())
-                .gender(generalMember.getGender())
-                .foreigner(generalMember.getForeigner())
-                .customSetting(generalMember.getCustomSetting())
-                .delFlag(generalMember.isDelFlag())
-                .loginErrorCount(generalMember.getLoginErrorCount())
-                .joinDate(generalMember.getJoinDate())
+                .id(member.getId())
+                .userId(member.getUserId())
+                .userPw(member.getUserPw())
+                .name(member.getName())
+                .phoneNum(member.getPhoneNum())
+                .address(member.getAddress())
+                .birthDate(member.getBirthDate())
+                .gender(member.getGender())
+                .foreigner(member.getForeigner())
+                .customSetting(member.getCustomSetting())
+                .delFlag(member.isDelFlag())
+                .loginErrorCount(member.getLoginErrorCount())
+                .joinDate(member.getJoinDate())
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
     }
 
-    public static MemberDTO businessToMember(BusinessMember businessMember) {
+    public static MemberDTO businessToMember(BusinessMember member) {
         return MemberDTO.builder()
-                .id(businessMember.getId())
-                .userId(businessMember.getUserId())
-                .userPw(businessMember.getUserPw())
-                .name(businessMember.getName())
-                .phoneNum(businessMember.getPhoneNum())
-                .email(businessMember.getEmail())
-                .address(businessMember.getAddress())
-                .delFlag(businessMember.isDelFlag())
-                .loginErrorCount(businessMember.getLoginErrorCount())
-                .joinDate(businessMember.getJoinDate())
+                .id(member.getId())
+                .userId(member.getUserId())
+                .userPw(member.getUserPw())
+                .name(member.getName())
+                .phoneNum(member.getPhoneNum())
+                .email(member.getEmail())
+                .address(member.getAddress())
+                .delFlag(member.isDelFlag())
+                .loginErrorCount(member.getLoginErrorCount())
+                .joinDate(member.getJoinDate())
                 .roleName(String.valueOf(MemberRole.BUSINESS))
                 .build();
     }
 
-    public static MemberDTO adminToMember(AdminMember adminMember) {
+    public static MemberDTO adminToMember(AdminMember member) {
         return MemberDTO.builder()
-                .id(adminMember.getId())
-                .userId(adminMember.getUserId())
-                .userPw(adminMember.getUserPw())
+                .id(member.getId())
+                .userId(member.getUserId())
+                .userPw(member.getUserPw())
                 .roleName(String.valueOf(MemberRole.ADMIN))
                 .build();
     }
