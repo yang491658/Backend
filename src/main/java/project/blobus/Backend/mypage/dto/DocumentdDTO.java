@@ -23,4 +23,5 @@ public class DocumentdDTO {
     private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int commentCount;
 }

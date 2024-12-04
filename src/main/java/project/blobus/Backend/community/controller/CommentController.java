@@ -18,9 +18,9 @@ public class CommentController {
     private CommentService service;
 
     // 댓글 목록 조회
-    @GetMapping("/{id}")
+    @GetMapping("/list")
     public PageResponseDTO<CommentDTO> list(PageRequestDTO pageRequestDTO,
-                                            @PathVariable Long postId) {
+                                            @RequestParam Long postId) {
         return service.getList(pageRequestDTO, postId);
     }
 

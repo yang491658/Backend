@@ -14,6 +14,8 @@ import java.util.List;
 @Builder
 public class PostDTO {
     private Long id;
+    private Long prev;
+    private Long next;
 
     private String authorId;
     private String authorName;

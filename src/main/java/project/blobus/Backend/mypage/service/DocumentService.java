@@ -27,12 +27,31 @@ public class DocumentService {
                                                  String category) {
         log.info("Document Get List");
 
-        List<DocumentdDTO> docList = repository.findAll().stream()
-                .filter(doc -> (doc.getAuthorId().equalsIgnoreCase(userId)) &&
-                        (boardType == "" || doc.getBoardType().equalsIgnoreCase(boardType)) &&
-                        (category == "" || doc.getCategory().equalsIgnoreCase(category)))
-                .map(this::toDTO)
-                .collect(Collectors.toList());
+        List<DocumentdDTO> docList;
+        if (boardType.isEmpty()) {
+            docList = repository.findAll().stream()
+                    .filter(doc
+                            -> (doc.getAuthorId().equalsIgnoreCase(userId)
+                            || (doc.getCommentList().stream().anyMatch(comment -> comment.getAuthorId().equalsIgnoreCase(userId))))
+                            && (category.isEmpty() || doc.getCategory().equalsIgnoreCase(category)))
+                    .map(this::toDTO)
+                    .collect(Collectors.toList());
+        } else if (boardType.equals("댓글")) {
+            docList = repository.findAll().stream()
+                    .filter(doc
+                            -> (doc.getCommentList().stream().anyMatch(comment -> comment.getAuthorId().equalsIgnoreCase(userId)))
+                            && (category.isEmpty() || doc.getCategory().equalsIgnoreCase(category)))
+                    .map(this::toDTO)
+                    .collect(Collectors.toList());
+        } else {
+            docList = repository.findAll().stream()
+                    .filter(doc
+                            -> (doc.getAuthorId().equalsIgnoreCase(userId))
+                            && (doc.getBoardType().equalsIgnoreCase(boardType))
+                            && (category.isEmpty() || doc.getCategory().equalsIgnoreCase(category)))
+                    .map(this::toDTO)
+                    .collect(Collectors.toList());
+        }
 
         docList = docList.stream()
                 .sorted((b1, b2) -> b2.getId().compareTo(b1.getId()))
@@ -51,19 +70,20 @@ public class DocumentService {
                 .build();
     }
 
-    private DocumentdDTO toDTO(CommunityPost communityPost) {
+    private DocumentdDTO toDTO(CommunityPost post) {
         return DocumentdDTO.builder()
-                .id(communityPost.getId())
-                .boardType(communityPost.getBoardType())
-                .category(communityPost.getCategory())
-                .title(communityPost.getTitle())
-                .content(communityPost.getContent())
-                .authorId(communityPost.getAuthorId())
-                .authorName(communityPost.getAuthorName())
-                .authorEmail(communityPost.getAuthorEmail())
-                .visibility(communityPost.isVisibility())
-                .createdAt(communityPost.getCreatedAt())
-                .updatedAt(communityPost.getUpdatedAt())
+                .id(post.getId())
+                .boardType(post.getBoardType())
+                .category(post.getCategory())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .authorId(post.getAuthorId())
+                .authorName(post.getAuthorName())
+                .authorEmail(post.getAuthorEmail())
+                .visibility(post.isVisibility())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .commentCount(post.getCommentList().size())
                 .build();
     }
 }

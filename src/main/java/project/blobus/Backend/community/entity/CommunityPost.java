@@ -25,6 +25,8 @@ public class CommunityPost {
     private String category;
 
     private String title;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 
     private boolean visibility;

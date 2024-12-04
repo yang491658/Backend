@@ -82,8 +82,21 @@ public class PostService {
     public PostDTO get(Long id) {
         log.info("Post Get One");
 
-        CommunityPost communityPost = repository.findById(id).orElseThrow();
-        return CommunityMapper.postEntityToDto(communityPost);
+        CommunityPost post = repository.findById(id).orElseThrow();
+
+        // 이전 게시글 찾기
+        CommunityPost prevPost = repository.findFirstByIdGreaterThanOrderByIdAsc(id).orElse(null);
+        Long prev = prevPost != null ? prevPost.getId() : null;
+
+        // 다음 게시글 찾기
+        CommunityPost nextPost = repository.findFirstByIdLessThanOrderByIdDesc(id).orElse(null);
+        Long next = nextPost != null ? nextPost.getId() : null;
+
+        PostDTO postDTO = CommunityMapper.postEntityToDto(post);
+        postDTO.setPrev(prev);
+        postDTO.setNext(next);
+
+        return postDTO;
     }
 
     // 커뮤니티 게시글 등록
