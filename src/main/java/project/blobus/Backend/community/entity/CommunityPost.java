@@ -1,21 +1,21 @@
-package project.blobus.Backend.community.dto;
+package project.blobus.Backend.community.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostDTO {
+@ToString(exclude = "commentList")
+public class CommunityPost {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long prev;
-    private Long next;
 
     private String authorId;
     private String authorName;
@@ -24,12 +24,14 @@ public class PostDTO {
     private String boardType;
     private String category;
     private String title;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 
-    private boolean toEmail;
     private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    private List<CommentDTO> commentList;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<CommuntiyComment> commentList;
 }

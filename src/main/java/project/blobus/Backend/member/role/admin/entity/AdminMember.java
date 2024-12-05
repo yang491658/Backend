@@ -10,6 +10,7 @@ import project.blobus.Backend.member.role.common.entity.MemberRole;
 @NoArgsConstructor
 @Builder
 @ToString
+@Table(name = "MemberAdmin")
 public class AdminMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

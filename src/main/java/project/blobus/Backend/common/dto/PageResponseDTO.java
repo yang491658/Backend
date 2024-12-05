@@ -1,4 +1,4 @@
-package project.blobus.Backend.member.basic.dto;
+package project.blobus.Backend.common.dto;
 
 import lombok.Builder;
 import lombok.Data;
