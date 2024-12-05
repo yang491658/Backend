@@ -12,13 +12,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class CommentDTO {
+    private Long id;
 
-    private Long id; // 댓글 ID
+    private String authorId;
+    private String authorName;
+    private String authorEmail;
 
-    private Long authorId; // 작성자 ID
+    private String content;
 
-    private String content; // 댓글 내용
+    private boolean visibility;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    private LocalDateTime createdAt; // 생성 시간
-    private LocalDateTime updatedAt; // 수정 시간
+    private Long postId;
+    private String postAuthor;
 }

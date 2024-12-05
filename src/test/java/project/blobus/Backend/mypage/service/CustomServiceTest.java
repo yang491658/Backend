@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.member.basic.dto.PageRequestDTO;
-import project.blobus.Backend.member.basic.dto.PageResponseDTO;
+import project.blobus.Backend.common.dto.PageRequestDTO;
+import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.CustomDTO;
 
 import java.util.Map;

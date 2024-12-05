@@ -3,8 +3,8 @@ package project.blobus.Backend.mypage.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
-import project.blobus.Backend.member.basic.dto.PageRequestDTO;
-import project.blobus.Backend.member.basic.dto.PageResponseDTO;
+import project.blobus.Backend.common.dto.PageRequestDTO;
+import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
 import project.blobus.Backend.mypage.dto.CustomDTO;
 import project.blobus.Backend.mypage.dto.DocumentdDTO;
@@ -63,7 +63,7 @@ public class MypageController {
     public PageResponseDTO<DocumentdDTO> list(PageRequestDTO pageRequestDTO,
                                               @RequestParam String userId,
                                               @RequestParam String boardType,
-                                              @RequestParam String boardCategory) {
-        return documentService.getList(pageRequestDTO, userId, boardType, boardCategory);
+                                              @RequestParam String category) {
+        return documentService.getList(pageRequestDTO, userId, boardType, category);
     }
 }
