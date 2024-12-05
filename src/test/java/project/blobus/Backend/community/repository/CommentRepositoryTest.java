@@ -30,6 +30,7 @@ class CommentRepositoryTest {
             CommuntiyComment communtiyComment = CommuntiyComment.builder()
                     .authorId("test" + authorNum + "@test.com")
                     .authorName("테스트" + authorNum)
+                    .authorEmail("test" + authorNum + "@test.com")
                     .content("임시 댓글" + i)
                     .visibility(random.nextInt(2) == 0)
                     .createdAt(dateTime)

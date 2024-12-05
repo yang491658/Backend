@@ -16,6 +16,8 @@ public class CommentDTO {
 
     private String authorId;
     private String authorName;
+    private String authorEmail;
+
     private String content;
 
     private boolean visibility;
@@ -23,4 +25,5 @@ public class CommentDTO {
     private LocalDateTime updatedAt;
 
     private Long postId;
+    private String postAuthor;
 }

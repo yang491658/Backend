@@ -53,22 +53,25 @@ public class CommunityMapper {
     public static CommentDTO commentEntityToDto(CommuntiyComment entity) {
         return CommentDTO.builder()
                 .id(entity.getId())
-                .content(entity.getContent())
                 .authorId(entity.getAuthorId())
                 .authorName(entity.getAuthorName())
+                .authorEmail(entity.getAuthorEmail())
+                .content(entity.getContent())
                 .visibility(entity.isVisibility())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .postId(entity.getPost().getId())
+                .postAuthor(entity.getPost().getAuthorId())
                 .build();
     }
 
     public static CommuntiyComment commentDtoToEntity(CommentDTO dto) {
         return CommuntiyComment.builder()
                 .id(dto.getId())
-                .content(dto.getContent())
                 .authorId(dto.getAuthorId())
                 .authorName(dto.getAuthorName())
+                .authorEmail(dto.getAuthorEmail())
+                .content(dto.getContent())
                 .visibility(dto.isVisibility())
                 .createdAt(dto.getCreatedAt())
                 .updatedAt(dto.getUpdatedAt())

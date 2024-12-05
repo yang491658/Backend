@@ -18,6 +18,8 @@ public class CommuntiyComment {
 
     private String authorId;
     private String authorName;
+    private String authorEmail;
+
     private String content;
 
     private boolean visibility;

@@ -38,6 +38,7 @@ class CommentServiceTest {
             CommentDTO dto = CommentDTO.builder()
                     .authorId(userId)
                     .authorName(name)
+                    .authorEmail(userId)
                     .content("댓글 등록 테스트" + i)
                     .postId(103L)
                     .build();

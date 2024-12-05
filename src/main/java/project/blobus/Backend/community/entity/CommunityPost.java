@@ -23,7 +23,6 @@ public class CommunityPost {
 
     private String boardType;
     private String category;
-
     private String title;
     @Lob
     @Column(columnDefinition = "LONGTEXT")
