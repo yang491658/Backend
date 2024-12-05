@@ -7,6 +7,8 @@ import project.blobus.Backend.youth.house.entity.HouseEntity;
 
 public interface HouseRepository extends JpaRepository<HouseEntity, Long> {
 
+    boolean existsByBizId(String bizId);
+
     // 제목 검색
     Page<HouseEntity> findByPolyBizSjnmContaining(String searchTerm, Pageable pageable);
 
