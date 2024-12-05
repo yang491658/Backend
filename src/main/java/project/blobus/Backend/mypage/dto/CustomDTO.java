@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 public class CustomDTO {
     private String title;
-    private String content;
-    private String address;
     private String mainCategory;
     private String subCategory;
     private Long targetId;

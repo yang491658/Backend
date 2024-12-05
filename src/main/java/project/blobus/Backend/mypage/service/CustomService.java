@@ -9,8 +9,19 @@ import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.CustomDTO;
-import project.blobus.Backend.temp.entity.*;
-import project.blobus.Backend.temp.repository.*;
+import project.blobus.Backend.temp.entity.TempResourceCulture;
+import project.blobus.Backend.temp.entity.TempResourceSupport;
+import project.blobus.Backend.temp.entity.TempYouthJobPosting;
+import project.blobus.Backend.temp.repository.ResourceCultureRepository;
+import project.blobus.Backend.temp.repository.ResourceSupportRepository;
+import project.blobus.Backend.youth.education.EducationEntity;
+import project.blobus.Backend.youth.education.EducationRepository;
+import project.blobus.Backend.youth.house.entity.HouseEntity;
+import project.blobus.Backend.youth.house.repository.HouseRepository;
+import project.blobus.Backend.youth.job.entity.JobEntity;
+import project.blobus.Backend.youth.job.repository.JobRepository;
+import project.blobus.Backend.youth.welfare.WelfareEntity;
+import project.blobus.Backend.youth.welfare.WelfareRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,12 +35,11 @@ import java.util.stream.Collectors;
 public class CustomService {
     private final GeneralRepository generalRepository;
 
-    private final YouthEmploymentPolicyRepository youthEmploymentPolicyRepository;
-    private final YouthJobPostingRepository youthJobPostingRepository;
-    private final YouthHousingPolicyRepository youthHousingPolicyRepository;
-    private final YouthFinancialPolicyRepository youthFinancialPolicyRepository;
-    private final YouthEducationPolicyRepository youthEducationPolicyRepository;
-    private final YouthStartupPolicyRepository youthStartupPolicyRepository;
+    private final JobRepository jobRepository;
+    //    private final YouthJobPostingRepository youthJobPostingRepository;
+    private final HouseRepository houseRepository;
+    private final WelfareRepository welfareRepository;
+    private final EducationRepository educationRepository;
     private final ResourceCultureRepository resourceCultureRepository;
     private final ResourceSupportRepository resourceSupportRepository;
 
@@ -100,7 +110,7 @@ public class CustomService {
 
         List<CustomDTO> newCustomList = customList.stream()
                 .distinct()
-                .sorted((dto1, dto2) -> dto2.getCreatedAt().compareTo(dto1.getCreatedAt()))
+//                .sorted((dto1, dto2) -> dto2.getCreatedAt().compareTo(dto1.getCreatedAt()))
                 .collect(Collectors.toList());
 
         int totalCount = newCustomList.size();
@@ -124,9 +134,12 @@ public class CustomService {
                                       String keyward) {
         List<CustomDTO> customList = new ArrayList<>();
 
+        String region = address.split("-")[0];
+        String city = address.split("-")[1];
+
         if (yListStr == null || yListStr.contains("일자리")) {
-            customList.addAll(youthEmploymentPolicyRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getRegion().equalsIgnoreCase(address))
+            customList.addAll(jobRepository.findAll().stream()
+                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             data,
@@ -135,30 +148,28 @@ public class CustomService {
                             null,
                             null,
                             null,
-                            null,
                             null))
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
-        if (yListStr == null || yListStr.contains("구인")) {
-            customList.addAll(youthJobPostingRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getLocation().equalsIgnoreCase(address))
-                            && (keyward == null || searchByKeyward(data, keyward)))
-                    .map(data -> toDTO(
-                            null,
-                            data,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null))
-                    .collect(Collectors.toList()));
-        }
+//        if (yListStr == null || yListStr.contains("구인")) {
+//            customList.addAll(youthJobPostingRepository.findAll().stream()
+//                    .filter(data -> (!address.contains("부산") || data.getLocation().equalsIgnoreCase(address))
+//                            && (keyward == null || searchByKeyward(data, keyward)))
+//                    .map(data -> toDTO(
+//                            null,
+//                            data,
+//                            null,
+//                            null,
+//                            null,
+//                            null,
+//                            null))
+//                    .toList());
+//        }
 
         if (yListStr == null || yListStr.contains("주거")) {
-            customList.addAll(youthHousingPolicyRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getRegion().equalsIgnoreCase(address))
+            customList.addAll(houseRepository.findAll().stream()
+                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
@@ -167,14 +178,13 @@ public class CustomService {
                             null,
                             null,
                             null,
-                            null,
                             null))
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
-        if (yListStr == null || yListStr.contains("금융")) {
-            customList.addAll(youthFinancialPolicyRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getResidenceRequirement().equalsIgnoreCase(address))
+        if (yListStr == null || yListStr.contains("복지")) {
+            customList.addAll(welfareRepository.findAll().stream()
+                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
@@ -183,14 +193,13 @@ public class CustomService {
                             data,
                             null,
                             null,
-                            null,
                             null))
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
         if (yListStr == null || yListStr.contains("교육")) {
-            customList.addAll(youthEducationPolicyRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getLocation().equalsIgnoreCase(address))
+            customList.addAll(educationRepository.findAll().stream()
+                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
@@ -199,25 +208,8 @@ public class CustomService {
                             null,
                             data,
                             null,
-                            null,
                             null))
-                    .collect(Collectors.toList()));
-        }
-
-        if (yListStr == null || yListStr.contains("창업")) {
-            customList.addAll(youthStartupPolicyRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getLocationRequirement().equalsIgnoreCase(address))
-                            && (keyward == null || searchByKeyward(data, keyward)))
-                    .map(data -> toDTO(
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            data,
-                            null,
-                            null))
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
         if (rListStr == null || rListStr.contains("문화")) {
@@ -230,10 +222,9 @@ public class CustomService {
                             null,
                             null,
                             null,
-                            null,
                             data,
                             null))
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
         if (rListStr == null || rListStr.contains("지원")) {
@@ -247,9 +238,8 @@ public class CustomService {
                             null,
                             null,
                             null,
-                            null,
                             data))
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
         return customList;
@@ -276,18 +266,21 @@ public class CustomService {
 
     // 매핑 함수
     private CustomDTO toDTO(
-            TempYouthEmploymentPolicy tempYouthEmploymentPolicy,
-            TempYouthJobPosting tempYouthJobPosting,
-            TempYouthHousingPolicy tempYouthHousingPolicy,
-            TempYouthFinancialPolicy tempYouthFinancialPolicy,
-            TempYouthEducationPolicy tempYouthEducationPolicy,
-            TempYouthStartupPolicy tempYouthStartupPolicy,
-            TempResourceCulture tempResourceCulture,
-            TempResourceSupport tempResourceSupport) {
+            JobEntity jobPolicy,
+            TempYouthJobPosting youthJobPosting,
+            HouseEntity housePolicy,
+            WelfareEntity welfarePolicy,
+            EducationEntity educationPolicy,
+            TempResourceCulture resourceCulture,
+            TempResourceSupport resourceSupport) {
 
         String title = null;
-        String content = null;
         String address = null;
+        List<String> regionList = new ArrayList<>(Arrays.asList(
+                "강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구",
+                "사상구", "사하구", "서구", "수영구", "연제구", "영도구", "중구", "해운대구"
+        ));
+
         String mainCategory = null;
         String subCategory = null;
         Long targetId = null;
@@ -296,102 +289,81 @@ public class CustomService {
         LocalDateTime createdAt = null;
         LocalDateTime updatedAt = null;
 
-        if (tempYouthEmploymentPolicy != null) {
-            title = tempYouthEmploymentPolicy.getTitle();
-            content = tempYouthEmploymentPolicy.getDescription();
-            address = tempYouthEmploymentPolicy.getRegion();
+        if (jobPolicy != null) {
+            title = jobPolicy.getPolyBizSjnm();
             mainCategory = "청년";
             subCategory = "일자리";
-            targetId = tempYouthEmploymentPolicy.getPolicyId();
-            startDate = tempYouthEmploymentPolicy.getStartDate();
-            endDate = tempYouthEmploymentPolicy.getEndDate();
-            createdAt = tempYouthEmploymentPolicy.getCreatedAt();
-            updatedAt = tempYouthEmploymentPolicy.getUpdatedAt();
-        } else if (tempYouthJobPosting != null) {
-            title = tempYouthJobPosting.getCompanyName() + " 구인";
-            content = tempYouthJobPosting.getJobTitle() + " [" + tempYouthJobPosting.getJobType() + "]";
+            targetId = jobPolicy.getPolicyId();
+            String[] dueDate = jobPolicy.getRqutPrdCn().split("\n")[0].split("~");
+            if (dueDate.length > 1) {
+                startDate = LocalDate.parse(dueDate[0].trim());
+                endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
+            }
+//            createdAt = jobPolicy.getCreatedAt();
+//            updatedAt = jobPolicy.getUpdatedAt();
+        } else if (youthJobPosting != null) {
+            title = youthJobPosting.getCompanyName() + " 구인";
             mainCategory = "청년";
             subCategory = "구인";
-            targetId = tempYouthJobPosting.getPolicyId();
-            address = tempYouthJobPosting.getLocation();
-            endDate = tempYouthJobPosting.getApplicationDeadline();
-            createdAt = tempYouthJobPosting.getCreatedAt();
-            updatedAt = tempYouthJobPosting.getUpdatedAt();
-        } else if (tempYouthHousingPolicy != null) {
-            title = tempYouthHousingPolicy.getTitle();
-            content = tempYouthHousingPolicy.getDescription();
-            address = tempYouthHousingPolicy.getRegion();
+            targetId = youthJobPosting.getPolicyId();
+            endDate = youthJobPosting.getApplicationDeadline();
+            createdAt = youthJobPosting.getCreatedAt();
+            updatedAt = youthJobPosting.getUpdatedAt();
+        } else if (housePolicy != null) {
+            title = housePolicy.getPolyBizSjnm();
             mainCategory = "청년";
             subCategory = "주거";
-            targetId = tempYouthHousingPolicy.getPolicyId();
-            startDate = tempYouthHousingPolicy.getStartDate();
-            endDate = tempYouthHousingPolicy.getEndDate();
-            createdAt = tempYouthHousingPolicy.getCreatedAt();
-            updatedAt = tempYouthHousingPolicy.getUpdatedAt();
-        } else if (tempYouthFinancialPolicy != null) {
-            title = tempYouthFinancialPolicy.getTitle();
-            content = tempYouthFinancialPolicy.getOverview() + " [" + tempYouthFinancialPolicy.getBenefitType() + "]";
-            address = tempYouthFinancialPolicy.getResidenceRequirement();
+            targetId = housePolicy.getPolicyId();
+            String[] dueDate = housePolicy.getRqutPrdCn().split("\n")[0].split("~");
+            if (dueDate.length > 1) {
+                startDate = LocalDate.parse(dueDate[0].trim());
+                endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
+            }
+//            createdAt = housePolicy.getCreatedAt();
+//            updatedAt = housePolicy.getUpdatedAt();
+        } else if (welfarePolicy != null) {
+            title = welfarePolicy.getPolicyName();
             mainCategory = "청년";
-            subCategory = "금융";
-            targetId = tempYouthFinancialPolicy.getPolicyId();
-            startDate = tempYouthFinancialPolicy.getApplicationPeriodStart();
-            endDate = tempYouthFinancialPolicy.getApplicationPeriodEnd();
-            createdAt = tempYouthFinancialPolicy.getCreatedAt();
-            updatedAt = tempYouthFinancialPolicy.getUpdatedAt();
-        } else if (tempYouthEducationPolicy != null) {
-            title = tempYouthEducationPolicy.getProgramName();
-            content = tempYouthEducationPolicy.getOverview() + " [" + tempYouthEducationPolicy.getSupportType() + "]";
-            address = tempYouthEducationPolicy.getLocation();
+            subCategory = "복지";
+            targetId = (long) welfarePolicy.getPolicyId();
+            startDate = welfarePolicy.getPolicyApplicationStartPeriod();
+            endDate = welfarePolicy.getPolicyApplicationEndPeriod();
+//            createdAt = welfarePolicy.getCreatedAt();
+//            updatedAt = welfarePolicy.getUpdatedAt();
+        } else if (educationPolicy != null) {
+            title = educationPolicy.getPolicyName();
             mainCategory = "청년";
-            subCategory = "금융";
-            targetId = tempYouthEducationPolicy.getProgramId();
-            startDate = tempYouthEducationPolicy.getApplicationPeriodStart();
-            endDate = tempYouthEducationPolicy.getApplicationPeriodEnd();
-            createdAt = tempYouthEducationPolicy.getCreatedAt();
-            updatedAt = tempYouthEducationPolicy.getUpdatedAt();
-        } else if (tempYouthStartupPolicy != null) {
-            title = tempYouthStartupPolicy.getProgramName();
-            content = tempYouthStartupPolicy.getOverview() + " [" + tempYouthStartupPolicy.getSupportType() + "]";
-            address = tempYouthStartupPolicy.getLocationRequirement();
-            mainCategory = "청년";
-            subCategory = "창업";
-            targetId = tempYouthStartupPolicy.getProgramId();
-            startDate = tempYouthStartupPolicy.getApplicationPeriodStart();
-            endDate = tempYouthStartupPolicy.getApplicationPeriodEnd();
-            createdAt = tempYouthStartupPolicy.getCreatedAt();
-            updatedAt = tempYouthStartupPolicy.getUpdatedAt();
-        } else if (tempResourceCulture != null) {
-            title = tempResourceCulture.getTitle();
-            content = tempResourceCulture.getContent();
-            address = tempResourceCulture.getAddress();
+            subCategory = "교육";
+            targetId = (long) educationPolicy.getPolicyId();
+            startDate = educationPolicy.getPolicyApplicationStartPeriod();
+            endDate = educationPolicy.getPolicyApplicationEndPeriod();
+//            createdAt = educationPolicy.getCreatedAt();
+//            updatedAt = educationPolicy.getUpdatedAt();
+        } else if (resourceCulture != null) {
+            title = resourceCulture.getTitle();
             mainCategory = "지역";
             subCategory = "문화";
-            targetId = tempResourceCulture.getId();
-            createdAt = tempResourceCulture.getCreatedAt();
-            updatedAt = tempResourceCulture.getUpdatedAt();
-        } else if (tempResourceSupport != null) {
-            title = tempResourceSupport.getTitle();
-            content = tempResourceSupport.getContent();
-            address = tempResourceSupport.getAddress();
+            targetId = resourceCulture.getId();
+            createdAt = resourceCulture.getCreatedAt();
+            updatedAt = resourceCulture.getUpdatedAt();
+        } else if (resourceSupport != null) {
+            title = resourceSupport.getTitle();
             mainCategory = "지역";
             subCategory = "지원";
-            targetId = tempResourceSupport.getId();
-            createdAt = tempResourceSupport.getCreatedAt();
-            updatedAt = tempResourceSupport.getUpdatedAt();
+            targetId = resourceSupport.getId();
+            createdAt = resourceSupport.getCreatedAt();
+            updatedAt = resourceSupport.getUpdatedAt();
         }
 
         return CustomDTO.builder()
                 .title(title)
-                .content(content)
-                .address(address)
                 .mainCategory(mainCategory)
                 .subCategory(subCategory)
                 .targetId(targetId)
                 .startDate(startDate)
                 .endDate(endDate)
-                .createdAt(createdAt)
-                .updatedAt(updatedAt)
+//                .createdAt(createdAt)
+//                .updatedAt(updatedAt)
                 .build();
     }
 }
