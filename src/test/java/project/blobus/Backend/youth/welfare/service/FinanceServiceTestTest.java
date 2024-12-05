@@ -6,8 +6,8 @@
 //import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Pageable;
-//import project.blobus.Backend.youth.finance.FinanceDTOTest;
-//import project.blobus.Backend.youth.finance.FinanceServiceTest;
+//import project.blobus.Backend.youth.welfare.FinanceDTOTest;
+//import project.blobus.Backend.youth.welfare.FinanceServiceTest;
 //
 //import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,16 +1,19 @@
-package project.blobus.Backend.youth.education;
+package project.blobus.Backend.youth.welfare;
 
 import jakarta.persistence.*;
-        import lombok.Getter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
-@Table(name = "youth_education_policy")
 @Getter
 @Setter
-public class EducationEntity {
+@NoArgsConstructor
+@Table(name = "youth_welfare_policy")
+public class WelfareEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +53,7 @@ public class EducationEntity {
     @Column(name = "age_requirement")
     private String ageRequirement; // 연령 요건
 
-    @Column(name = "proposer_requirement")
+    @Column(name = "proposer_requirement", columnDefinition = "TEXT")
     private String proposerRequirement; // 거주지 및 소득
 
     @Column(name = "academic_background")
@@ -65,7 +68,7 @@ public class EducationEntity {
     @Column(name = "additional_requirement", columnDefinition = "TEXT")
     private String additionalRequirement; // 추가 필요 사항
 
-    @Column(name = "application_procedure")
+    @Column(name = "application_procedure", columnDefinition = "TEXT")
     private String applicationProcedure; // 신청 절차 내용
 
     @Column(name = "judging_presentation")
@@ -103,5 +106,4 @@ public class EducationEntity {
 
     @Column(name = "etc", columnDefinition = "TEXT")
     private String etc; // 기타사항
-
 }

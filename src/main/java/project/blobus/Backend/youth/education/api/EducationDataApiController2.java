@@ -52,7 +52,7 @@ public class EducationDataApiController2 {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body("Error fetching finance policy data: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error fetching welfare policy data: " + e.getMessage());
         }
     }
 }
