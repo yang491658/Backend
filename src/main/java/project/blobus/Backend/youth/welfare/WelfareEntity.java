@@ -1,16 +1,19 @@
-package project.blobus.Backend.youth.education;
+package project.blobus.Backend.youth.welfare;
 
 import jakarta.persistence.*;
-        import lombok.Getter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
-@Table(name = "youth_education_policy")
 @Getter
 @Setter
-public class EducationEntity {
+@NoArgsConstructor
+@Table(name = "youth_welfare_policy")
+public class WelfareEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +32,7 @@ public class EducationEntity {
     @Column(name = "policy_content1", columnDefinition = "TEXT")
     private String policyContent1; // 정책 상세 내용 (지원 내용)
 
-    @Column(name = "support_scale")
+    @Column(name = "support_scale", columnDefinition = "TEXT")
     private String supportScale; // 지원 규모
 
     @Column(name = "policy_operate_period")
@@ -44,7 +47,7 @@ public class EducationEntity {
     @Column(name = "policy_application_end_period")
     private LocalDate policyApplicationEndPeriod; // 사업 신청 끝나는 기간(목록에서만 보여줄 이쁜 값들, DBeaver에서 직접 수정할거임)
 
-    @Column(name = "policy_application_period")
+    @Column(name = "policy_application_period", columnDefinition = "TEXT")
     private String policyApplicationPeriod; // 사업 신청 기간
 
     @Column(name = "age_requirement")
@@ -103,5 +106,4 @@ public class EducationEntity {
 
     @Column(name = "etc", columnDefinition = "TEXT")
     private String etc; // 기타사항
-
 }

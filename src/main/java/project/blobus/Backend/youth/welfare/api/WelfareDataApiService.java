@@ -1,41 +1,47 @@
-package project.blobus.Backend.youth.education.api;
+package project.blobus.Backend.youth.welfare.api;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import project.blobus.Backend.youth.education.EducationEntity;
 import project.blobus.Backend.youth.education.EducationRepository;
+import project.blobus.Backend.youth.welfare.WelfareEntity;
+import project.blobus.Backend.youth.welfare.WelfareRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
-public class EducationDataApiService {
+public class WelfareDataApiService {
 
-    private final EducationRepository educationRepository;
-    private final ModelMapper modelMapper;
+    private final WelfareRepository welfareRepository;
 
-    public void savePolicy(EducationDataApiDTO educationDataApiDTO) {
+    public void savePolicy(WelfareDataApiDTO welfareDataApiDTO) {
         // 중복 여부 확인
-        EducationEntity existingEntity = educationRepository.findByBizId(educationDataApiDTO.getBizId());
+        WelfareEntity existingEntity = welfareRepository.findByBizId(welfareDataApiDTO.getBizId());
         if (existingEntity == null) {
-            EducationEntity educationEntity = modelMapper.map(educationDataApiDTO, EducationEntity.class);
-            educationEntity.setPolicyApplicationPeriod(educationDataApiDTO.getPolicyApplicationPeriod());
-            String period = educationDataApiDTO.getPolicyApplicationPeriod();
+            WelfareEntity welfareEntity = welfareDataApiDTO.toEntity();
+            String period = welfareDataApiDTO.getPolicyApplicationPeriod();
             String[] results = extractDates(period);
-            if(results != null) {
+            if (results != null) {
                 LocalDate startDate = LocalDate.parse(results[0]);
-                LocalDate endDate = LocalDate.parse(results[1]);
-                educationEntity.setPolicyApplicationStartPeriod(startDate);
-                educationEntity.setPolicyApplicationEndPeriod(endDate);
+                LocalDate endDate;
+                try {
+                    endDate = LocalDate.parse(results[1]);
+                } catch (DateTimeParseException e) {
+                    // 11월 31일과 같은 잘못된 날짜가 들어올 경우 11월 30일로 설정
+                    endDate = LocalDate.of(2024, 11, 30);
+                }
+                welfareEntity.setPolicyApplicationStartPeriod(startDate);
+                welfareEntity.setPolicyApplicationEndPeriod(endDate);
             }
-            educationRepository.save(educationEntity);
+            welfareRepository.save(welfareEntity);
         } else {
             // 중복된 데이터가 있을 경우 처리 로직 (필요시)
-            System.out.println("중복된 biz_id가 존재합니다 : " + educationDataApiDTO.getBizId());
+            System.out.println("중복된 biz_id가 존재합니다 : " + welfareDataApiDTO.getBizId());
         }
     }
 

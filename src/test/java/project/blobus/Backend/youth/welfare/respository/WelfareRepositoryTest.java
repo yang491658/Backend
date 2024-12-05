@@ -1,10 +1,10 @@
-package project.blobus.Backend.youth.finance.respository;
+package project.blobus.Backend.youth.welfare.respository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.youth.finance.FinanceEntityTest;
-import project.blobus.Backend.youth.finance.FinanceRepositoryTest;
+import project.blobus.Backend.youth.welfare.WelfareEntity;
+import project.blobus.Backend.youth.welfare.WelfareRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,10 +13,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class FinanceRepositoryTestTest {
+public class WelfareRepositoryTest {
 
     @Autowired
-    private FinanceRepositoryTest financeRepositoryTest;
+    private WelfareRepository welfareRepository;
 
     // 더미 데이터 1개만 생성하는 test
     @Test
@@ -27,7 +27,7 @@ public class FinanceRepositoryTestTest {
         Date endDate = dateFormat.parse("2024-12-31");
 
         // 더미 데이터 생성
-        FinanceEntityTest policy = new FinanceEntityTest();
+        WelfareEntity policy = new WelfareEntity();
         policy.setTitle("청년 우리는 내일도 절망절망");
         policy.setOverview("청년을 위한 주택 희망");
         policy.setApplicationPeriodStart(startDate);
@@ -36,7 +36,7 @@ public class FinanceRepositoryTestTest {
         policy.setContactPhone("010-1234-1234");
 
         // 데이터 저장
-        FinanceEntityTest savedPolicy = financeRepositoryTest.save(policy);
+        WelfareEntity savedPolicy = welfareRepository.save(policy);
 
 //        // 저장된 데이터가 올바른지 확인
 //        Optional<FinanceEntityTest> retrievedPolicy = financeRepositoryTest.findById(savedPolicy.getPolicyId());
@@ -61,7 +61,7 @@ public class FinanceRepositoryTestTest {
         // 50개의 더미 데이터 생성
         for (int i = 0; i <= 50; i++) {
             // 더미 데이터 생성
-            FinanceEntityTest policy = new FinanceEntityTest();
+            WelfareEntity policy = new WelfareEntity();
             policy.setTitle("청년 주택 지원 정책 " + i);
             policy.setOverview("청년을 위한 주택 지원 정책 " + i);
             policy.setApplicationPeriodStart(startDate);
@@ -70,7 +70,7 @@ public class FinanceRepositoryTestTest {
             policy.setContactPhone("010-1234-" + String.format("%04d", i)); // 전화번호 마지막 4자리 변경
 
             // 데이터 저장
-            financeRepositoryTest.save(policy);
+            welfareRepository.save(policy);
         }
     }
 
@@ -81,11 +81,11 @@ public class FinanceRepositoryTestTest {
         Integer policyId = 2; // 저장된 policy_id 값 중 하나를 입력
 
         // 데이터 조회
-        Optional<FinanceEntityTest> optionalPolicy = financeRepositoryTest.findById(policyId);
+        Optional<WelfareEntity> optionalPolicy = welfareRepository.findById(policyId);
 
         // 데이터가 존재하는지 확인
         if (optionalPolicy.isPresent()) {
-            FinanceEntityTest policy = optionalPolicy.get();
+            WelfareEntity policy = optionalPolicy.get();
             System.out.println("조회된 정책 정보: ");
             System.out.println("Policy ID: " + policy.getPolicyId());
             System.out.println("Title: " + policy.getTitle());
