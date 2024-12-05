@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-//온통청년 API를 사용해서 지역 : 부산, 카테고리 : 교육으로 데이터 가져오는 로직
+//온통청년 API를 사용해서 지역 : 부산, 카테고리 : 복지로 데이터 가져오는 로직
+// 데이터 대략 33개 들어감
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/welfare")
@@ -27,7 +28,7 @@ public class WelfareDataApiController {
     private static final String POLICY_URL = "https://www.youthcenter.go.kr/opi/youthPlcyList.do";
 
     // 온통청년 복지,문화 분야  코드 : 023040
-    @GetMapping("/policies")
+    @GetMapping("/policies1")
     public ResponseEntity<String> getWelfarePolicy(
             @RequestParam(defaultValue = "100") int display, // 출력 건수, 기본값 10
             @RequestParam(defaultValue = "1") int pageIndex, // 페이지 번호, 기본값 1

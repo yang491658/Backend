@@ -50,7 +50,7 @@ public class EducationEntity {
     @Column(name = "age_requirement")
     private String ageRequirement; // 연령 요건
 
-    @Column(name = "proposer_requirement")
+    @Column(name = "proposer_requirement", columnDefinition = "TEXT")
     private String proposerRequirement; // 거주지 및 소득
 
     @Column(name = "academic_background")
@@ -65,10 +65,10 @@ public class EducationEntity {
     @Column(name = "additional_requirement", columnDefinition = "TEXT")
     private String additionalRequirement; // 추가 필요 사항
 
-    @Column(name = "application_procedure")
+    @Column(name = "application_procedure", columnDefinition = "TEXT")
     private String applicationProcedure; // 신청 절차 내용
 
-    @Column(name = "judging_presentation")
+    @Column(name = "judging_presentation", columnDefinition = "TEXT")
     private String judgingPresentation; // 심사 및 발표
 
     @Column(name = "application_site", length = 2083)

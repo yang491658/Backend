@@ -1,4 +1,4 @@
-package project.blobus.Backend.youth.education.api;
+package project.blobus.Backend.youth.welfare.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,29 +13,27 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-//온통청년 API를 사용해서 지역 : 부산, 카테고리 : 교육으로 데이터 가져오는 로직
-// 데이터 대략 30개 들어감
+//온통청년 API를 사용해서 지역 : 중앙부처, 카테고리 : 복지로 데이터 가져오는 로직
+// 대략 88개 데이터 들고옴
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/education1")
-public class EducationDataApiController {
+@RequestMapping("/welfare")
+public class WelfareDataApiController3 {
 
     @Value("${serviceKey1}")
     private String serviceKey1;
 
     private final RestTemplate restTemplate;
-    private final EducationDataApiService educationDataApiService;
+    private final WelfareDataApiService welfareDataApiService;
     private static final String POLICY_URL = "https://www.youthcenter.go.kr/opi/youthPlcyList.do";
 
-    @GetMapping("/policies1")
-    public ResponseEntity<String> getFinancePolicy(
+    // 온통청년 복지,문화 분야  코드 : 023040
+    @GetMapping("/policies3")
+    public ResponseEntity<String> getWelfarePolicy(
             @RequestParam(defaultValue = "100") int display, // 출력 건수, 기본값 10
             @RequestParam(defaultValue = "1") int pageIndex, // 페이지 번호, 기본값 1
-            @RequestParam(defaultValue = "023030") String bizTycdSel, // 교육 분야
-            @RequestParam(defaultValue = "003002002") String srchPolyBizSecd // 부산지역
+            @RequestParam(defaultValue = "023040") String bizTycdSel, // 복지,문화 분야
+            @RequestParam(defaultValue = "003001001,003001003,003001006,003001007,003001008,003001010,003001012,003001016,003001017,003001022,003001033,003001044,003001055") String srchPolyBizSecd // 중앙부처
     ) {
         try {
             // URL 생성
@@ -62,9 +60,9 @@ public class EducationDataApiController {
             // 각 항목을 DTO로 변환하고 저장
             ObjectMapper objectMapper = new ObjectMapper();
             for (JsonNode policyNode : youthPolicyArray) {
-                EducationDataApiDTO educationDataApiDTO = objectMapper.treeToValue(policyNode, EducationDataApiDTO.class);
+                WelfareDataApiDTO welfareDataApiDTO = objectMapper.treeToValue(policyNode, WelfareDataApiDTO.class);
 
-                educationDataApiService.savePolicy(educationDataApiDTO);
+                welfareDataApiService.savePolicy(welfareDataApiDTO);
             }
 
             // 성공적인 응답 반환
@@ -76,6 +74,4 @@ public class EducationDataApiController {
             return ResponseEntity.status(500).body("Error fetching welfare policy data: " + e.getMessage());
         }
     }
-
-
 }
