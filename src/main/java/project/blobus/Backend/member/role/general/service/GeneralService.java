@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blobus.Backend.member.basic.util.ModelMapper;
 import project.blobus.Backend.member.role.general.dto.GeneralDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
+import project.blobus.Backend.member.role.util.MemberMapper;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -32,7 +32,7 @@ public class GeneralService {
         if (generalRepository.existsByPhoneNum(dto.getPhoneNum()))
             return 0L;
 
-        GeneralMember member = ModelMapper.generalDtoToEntity(dto);
+        GeneralMember member = MemberMapper.generalDtoToEntity(dto);
         member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
         member.setJoinDate(LocalDate.now());
         generalRepository.save(member);
@@ -51,9 +51,7 @@ public class GeneralService {
     public Long sendEmail(String to) {
         log.info(("GeneralMember Send Email"));
 
-        // TODO 메일 제목 수정
-        String subject = "이메일 인증";
-        // TODO 메일 내용 JS로 변경
+        String subject = "BloBus 이메일 인증";
         Long code = generateCode();
         String text = "인증코드 : " + String.format("%06d", code);
 
@@ -112,8 +110,6 @@ public class GeneralService {
         if (dto.getForeigner() != null) member.setForeigner(dto.getForeigner());
 
         generalRepository.save(member);
-
-        System.out.println(member);
     }
 
     // 일반계정 회원정보 조회
@@ -122,7 +118,7 @@ public class GeneralService {
 
         GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
 
-        return ModelMapper.generalEntityToDTO(member);
+        return MemberMapper.generalEntityToDto(member);
     }
 
     // 일반계정 회원탈퇴

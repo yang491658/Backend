@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.blobus.Backend.member.basic.util.ModelMapper;
+import project.blobus.Backend.member.role.util.MemberMapper;
 import project.blobus.Backend.member.role.admin.entity.AdminMember;
 import project.blobus.Backend.member.role.admin.repository.AdminRepository;
 import project.blobus.Backend.member.role.business.entity.BusinessMember;
@@ -38,14 +38,14 @@ public class CustomUserDetailService implements UserDetailsService {
                         .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
 
                 log.info("Admin Member Login");
-                return ModelMapper.adminToMember(adminMember);
+                return MemberMapper.adminToMember(adminMember);
             }
 
             log.info("Business Member Login");
-            return ModelMapper.businessToMember(businessMember);
+            return MemberMapper.businessToMember(businessMember);
         }
 
         log.info("General Member Login");
-        return ModelMapper.generalToMember(generalMember);
+        return MemberMapper.generalToMember(generalMember);
     }
 }

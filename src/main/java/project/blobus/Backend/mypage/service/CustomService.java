@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.blobus.Backend.member.basic.dto.PageRequestDTO;
-import project.blobus.Backend.member.basic.dto.PageResponseDTO;
+import project.blobus.Backend.common.dto.PageRequestDTO;
+import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.CustomDTO;
@@ -108,8 +108,6 @@ public class CustomService {
         int startIndex = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
         int endIndex = Math.min(startIndex + pageRequestDTO.getSize(), totalCount);
         List<CustomDTO> dtoList = newCustomList.subList(startIndex, endIndex);
-
-        dtoList.forEach(data -> System.out.println(data));
 
         return PageResponseDTO.<CustomDTO>withAll()
                 .dtoList(dtoList)

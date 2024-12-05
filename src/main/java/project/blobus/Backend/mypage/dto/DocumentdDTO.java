@@ -13,12 +13,15 @@ import java.time.LocalDateTime;
 @Builder
 public class DocumentdDTO {
     private Long id;
+    private String boardType;
+    private String category;
     private String title;
     private String content;
     private String authorId;
-    private String boardType;
-    private String boardCategory;
-    private String visibility;
+    private String authorName;
+    private String authorEmail;
+    private boolean visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int commentCount;
 }
