@@ -32,7 +32,7 @@ public class WelfareEntity {
     @Column(name = "policy_content1", columnDefinition = "TEXT")
     private String policyContent1; // 정책 상세 내용 (지원 내용)
 
-    @Column(name = "support_scale")
+    @Column(name = "support_scale", columnDefinition = "TEXT")
     private String supportScale; // 지원 규모
 
     @Column(name = "policy_operate_period")
@@ -47,7 +47,7 @@ public class WelfareEntity {
     @Column(name = "policy_application_end_period")
     private LocalDate policyApplicationEndPeriod; // 사업 신청 끝나는 기간(목록에서만 보여줄 이쁜 값들, DBeaver에서 직접 수정할거임)
 
-    @Column(name = "policy_application_period")
+    @Column(name = "policy_application_period", columnDefinition = "TEXT")
     private String policyApplicationPeriod; // 사업 신청 기간
 
     @Column(name = "age_requirement")
@@ -71,7 +71,7 @@ public class WelfareEntity {
     @Column(name = "application_procedure", columnDefinition = "TEXT")
     private String applicationProcedure; // 신청 절차 내용
 
-    @Column(name = "judging_presentation")
+    @Column(name = "judging_presentation", columnDefinition = "TEXT")
     private String judgingPresentation; // 심사 및 발표
 
     @Column(name = "application_site", length = 2083)
