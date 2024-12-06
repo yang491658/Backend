@@ -1,0 +1,310 @@
+{
+  "_declaration": {
+    "_attributes": {
+      "version": "1.0",
+      "encoding": "UTF-8"
+    }
+  },
+  "response": {
+    "header": {
+      "resultCode": {
+        "_text": "00"
+      },
+      "resultMsg": {
+        "_text": "NORMAL_CODE"
+      }
+    },
+    "body": {
+      "items": {
+        "item": [
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-08"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-08"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "부산문화회관"
+            },
+            "title": {
+              "_text": "지구환경 프로젝트"
+            },
+            "res_no": {
+              "_text": "2024100130"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-06"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-06"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "Ugly Thorn (현대무용 공연)"
+            },
+            "res_no": {
+              "_text": "2024100155"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-16"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-17"
+            },
+            "pay_at": {
+              "_text": "N"
+            },
+            "place_nm": {
+              "_text": "부산민속예술관"
+            },
+            "title": {
+              "_text": "화풍 조선통신사넘어"
+            },
+            "res_no": {
+              "_text": "2024110024"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-15"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-17"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "영화의전당"
+            },
+            "title": {
+              "_text": "Shining Wave 샤이닝 웨이브 "
+            },
+            "res_no": {
+              "_text": "2024110041"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-29"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-29"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "2024 부산대학교 예술대학 무용학과 작품발표회"
+            },
+            "res_no": {
+              "_text": "2024110071"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-03"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-04"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "영화의전당"
+            },
+            "title": {
+              "_text": "부산발레시즌, 해설이 있는 발레 갈라 콘서트: 화이트 발레 소네트"
+            },
+            "res_no": {
+              "_text": "2024110105"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-08"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-08"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "부산 에스제이 발레단 정기공연, 돈키호테"
+            },
+            "res_no": {
+              "_text": "2024110132"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-07"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-07"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "해운대문화회관"
+            },
+            "title": {
+              "_text": "잠자는 숲속의 미녀 "
+            },
+            "res_no": {
+              "_text": "2024110160"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-20"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-25"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "소향씨어터 신한카드홀"
+            },
+            "title": {
+              "_text": "로열 클래식 발레단 내한공연, 호두까기 인형"
+            },
+            "res_no": {
+              "_text": "2024110163"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-07"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-07"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "신라대학교 졸업 작품 발표회"
+            },
+            "res_no": {
+              "_text": "2024110193"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-08"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-08"
+            },
+            "pay_at": {
+              "_text": "N"
+            },
+            "place_nm": {
+              "_text": "영화의전당"
+            },
+            "title": {
+              "_text": "한국예술종합학교, 다시 추는 춤, 함께 추는 춤 "
+            },
+            "res_no": {
+              "_text": "2024120006"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-27"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-27"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "영도문화예술회관"
+            },
+            "title": {
+              "_text": "호두까기 인형 [부산 영도]"
+            },
+            "res_no": {
+              "_text": "2024120018"
+            }
+          }
+        ]
+      },
+      "numOfRows": {
+        "_text": "12"
+      },
+      "pageNo": {
+        "_text": "26"
+      },
+      "totalCount": {
+        "_text": "313"
+      }
+    },
+    "numOfRows": "200"
+  }
+}

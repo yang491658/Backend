@@ -28,8 +28,8 @@ public class BookmarkService {
     private final YouthFinancialPolicyRepository youthFinancialPolicyRepository;
     private final YouthEducationPolicyRepository youthEducationPolicyRepository;
     private final YouthStartupPolicyRepository youthStartupPolicyRepository;
-    private final ResourceCultureRepository resourceCultureRepository;
-    private final ResourceSupportRepository resourceSupportRepository;
+    private final TempResourceCultureRepository tempResourceCultureRepository;
+    private final TempResourceSupportRepository tempResourceSupportRepository;
 
     private final BookmarkRepository bookmarkRepository;
 
@@ -120,12 +120,12 @@ public class BookmarkService {
             startDate = entity.getApplicationPeriodStart();
             endDate = entity.getApplicationPeriodEnd();
         } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
-            TempResourceCulture entity = resourceCultureRepository.findById(targeId).orElseThrow();
+            TempResourceCulture entity = tempResourceCultureRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getContent();
             address = entity.getAddress();
         } else if (mainCategory.equals("지역") && subCategory.equals("지원")) {
-            TempResourceSupport entity = resourceSupportRepository.findById(targeId).orElseThrow();
+            TempResourceSupport entity = tempResourceSupportRepository.findById(targeId).orElseThrow();
             title = entity.getTitle();
             content = entity.getContent();
             address = entity.getAddress();

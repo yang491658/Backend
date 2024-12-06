@@ -9,11 +9,11 @@ import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.member.role.general.entity.GeneralMember;
 import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.CustomDTO;
+import project.blobus.Backend.resource.entity.ResourceCulture;
+import project.blobus.Backend.resource.repository.ResourceCultureRepository;
 import project.blobus.Backend.temp.entity.TempResourceCulture;
-import project.blobus.Backend.temp.entity.TempResourceSupport;
 import project.blobus.Backend.temp.entity.TempYouthJobPosting;
-import project.blobus.Backend.temp.repository.ResourceCultureRepository;
-import project.blobus.Backend.temp.repository.ResourceSupportRepository;
+import project.blobus.Backend.temp.repository.YouthJobPostingRepository;
 import project.blobus.Backend.youth.education.EducationEntity;
 import project.blobus.Backend.youth.education.EducationRepository;
 import project.blobus.Backend.youth.house.entity.HouseEntity;
@@ -36,12 +36,12 @@ public class CustomService {
     private final GeneralRepository generalRepository;
 
     private final JobRepository jobRepository;
-    //    private final YouthJobPostingRepository youthJobPostingRepository;
+    private final YouthJobPostingRepository youthJobPostingRepository;
     private final HouseRepository houseRepository;
     private final WelfareRepository welfareRepository;
     private final EducationRepository educationRepository;
-    private final ResourceCultureRepository resourceCultureRepository;
-    private final ResourceSupportRepository resourceSupportRepository;
+    private final ResourceCultureRepository cultureRepository;
+
 
     // 커스텀 설정 불러오기
     public Map<String, String> loadSetting(String userId) {
@@ -110,6 +110,7 @@ public class CustomService {
 
         List<CustomDTO> newCustomList = customList.stream()
                 .distinct()
+                .sorted((dto1, dto2) -> dto2.getTitle().compareTo(dto1.getTitle()))
 //                .sorted((dto1, dto2) -> dto2.getCreatedAt().compareTo(dto1.getCreatedAt()))
                 .collect(Collectors.toList());
 
@@ -147,25 +148,23 @@ public class CustomService {
                             null,
                             null,
                             null,
-                            null,
                             null))
                     .toList());
         }
 
-//        if (yListStr == null || yListStr.contains("구인")) {
-//            customList.addAll(youthJobPostingRepository.findAll().stream()
-//                    .filter(data -> (!address.contains("부산") || data.getLocation().equalsIgnoreCase(address))
-//                            && (keyward == null || searchByKeyward(data, keyward)))
-//                    .map(data -> toDTO(
-//                            null,
-//                            data,
-//                            null,
-//                            null,
-//                            null,
-//                            null,
-//                            null))
-//                    .toList());
-//        }
+        if (yListStr == null || yListStr.contains("구인")) {
+            customList.addAll(youthJobPostingRepository.findAll().stream()
+                    .filter(data -> (!address.contains("부산") || data.getLocation().equalsIgnoreCase(address))
+                            && (keyward == null || searchByKeyward(data, keyward)))
+                    .map(data -> toDTO(
+                            null,
+                            data,
+                            null,
+                            null,
+                            null,
+                            null))
+                    .toList());
+        }
 
         if (yListStr == null || yListStr.contains("주거")) {
             customList.addAll(houseRepository.findAll().stream()
@@ -175,7 +174,6 @@ public class CustomService {
                             null,
                             null,
                             data,
-                            null,
                             null,
                             null,
                             null))
@@ -192,7 +190,6 @@ public class CustomService {
                             null,
                             data,
                             null,
-                            null,
                             null))
                     .toList());
         }
@@ -207,32 +204,15 @@ public class CustomService {
                             null,
                             null,
                             data,
-                            null,
                             null))
                     .toList());
         }
 
         if (rListStr == null || rListStr.contains("문화")) {
-            customList.addAll(resourceCultureRepository.findAll().stream()
+            customList.addAll(cultureRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산") || data.getAddress().equalsIgnoreCase(address))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            data,
-                            null))
-                    .toList());
-        }
-
-        if (rListStr == null || rListStr.contains("지원")) {
-            customList.addAll(resourceSupportRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getAddress().equalsIgnoreCase(address))
-                            && (keyward == null || searchByKeyward(data, keyward)))
-                    .map(data -> toDTO(
-                            null,
                             null,
                             null,
                             null,
@@ -271,8 +251,7 @@ public class CustomService {
             HouseEntity housePolicy,
             WelfareEntity welfarePolicy,
             EducationEntity educationPolicy,
-            TempResourceCulture resourceCulture,
-            TempResourceSupport resourceSupport) {
+            ResourceCulture culture) {
 
         String title = null;
         String address = null;
@@ -339,20 +318,13 @@ public class CustomService {
             endDate = educationPolicy.getPolicyApplicationEndPeriod();
 //            createdAt = educationPolicy.getCreatedAt();
 //            updatedAt = educationPolicy.getUpdatedAt();
-        } else if (resourceCulture != null) {
-            title = resourceCulture.getTitle();
+        } else if (culture != null) {
+            title = culture.getTitle();
             mainCategory = "지역";
             subCategory = "문화";
-            targetId = resourceCulture.getId();
-            createdAt = resourceCulture.getCreatedAt();
-            updatedAt = resourceCulture.getUpdatedAt();
-        } else if (resourceSupport != null) {
-            title = resourceSupport.getTitle();
-            mainCategory = "지역";
-            subCategory = "지원";
-            targetId = resourceSupport.getId();
-            createdAt = resourceSupport.getCreatedAt();
-            updatedAt = resourceSupport.getUpdatedAt();
+            targetId = culture.getId();
+//            createdAt = culture.getCreatedAt();
+//            updatedAt = culture.getUpdatedAt();
         }
 
         return CustomDTO.builder()

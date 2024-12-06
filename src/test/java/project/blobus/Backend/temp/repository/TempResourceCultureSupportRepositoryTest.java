@@ -4,19 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.blobus.Backend.temp.entity.TempResourceCulture;
+import project.blobus.Backend.temp.entity.TempResourceSupport;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @SpringBootTest
-class TempResourceCultureRepositoryTest {
+class TempResourceCultureSupportRepositoryTest {
     @Autowired
-    private ResourceCultureRepository repository;
+    private TempResourceSupportRepository repository;
 
     @Test
-    @DisplayName("지역자원 문화")
+    @DisplayName("지역자원 지원")
     public void test() {
         Random random = new Random();
         String[] categoryList = {"문화", "관광", "자원"};
@@ -26,10 +26,11 @@ class TempResourceCultureRepositoryTest {
             LocalDate date = LocalDate.now().minusDays(max - i);
             LocalDateTime dateTime = LocalDateTime.now().minusDays(max - i);
 
-            TempResourceCulture temp = TempResourceCulture.builder()
-                    .title("문화이름" + i)
+            TempResourceSupport temp = TempResourceSupport.builder()
+                    .title("지원이름" + i)
                     .content("내용" + i)
                     .address(randomAdress(random))
+                    .applicationPeriod("신청기간" + i)
                     .imageUUID("이미지" + i)
                     .category(categoryList[random.nextInt(categoryList.length)])
                     .subcategory("서브카테고리" + i)

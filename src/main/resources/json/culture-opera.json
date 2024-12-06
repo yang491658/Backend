@@ -1,0 +1,264 @@
+{
+  "_declaration": {
+    "_attributes": {
+      "version": "1.0",
+      "encoding": "UTF-8"
+    }
+  },
+  "response": {
+    "header": {
+      "resultCode": {
+        "_text": "00"
+      },
+      "resultMsg": {
+        "_text": "NORMAL_CODE"
+      }
+    },
+    "body": {
+      "items": {
+        "item": [
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-05-22"
+            },
+            "op_ed_dt": {
+              "_text": "2024-05-22"
+            },
+            "pay_at": {
+              "_text": "N"
+            },
+            "place_nm": {
+              "_text": "부산문화회관"
+            },
+            "title": {
+              "_text": "미리만나는 2024 부산오페라시즌 - 해설이 있는 오페라 갈라 콘서트"
+            },
+            "res_no": {
+              "_text": "2024050037"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-06-15"
+            },
+            "op_ed_dt": {
+              "_text": "2024-06-15"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "을숙도문화회관"
+            },
+            "title": {
+              "_text": "오페라야 놀자! 베르디: 아이다"
+            },
+            "res_no": {
+              "_text": "2024060052"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-07-10"
+            },
+            "op_ed_dt": {
+              "_text": "2024-07-10"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "아트센트"
+            },
+            "title": {
+              "_text": "(원먼스 10일) 영도구 - 제9회 아지트 콘서트 해설이 있는 클래식 기타 듀엣공연<A night at the Opera>"
+            },
+            "res_no": {
+              "_text": "2024060100"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-06-21"
+            },
+            "op_ed_dt": {
+              "_text": "2024-06-21"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "오페라 Lecture Concerto"
+            },
+            "res_no": {
+              "_text": "2024060152"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-08-23"
+            },
+            "op_ed_dt": {
+              "_text": "2024-08-24"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "오페라 하이라이트 페스타 <해와달이 될 뻔한 오누이 / 마술피리 / 로미오와 줄리엣>"
+            },
+            "res_no": {
+              "_text": "2024080064"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-10-04"
+            },
+            "op_ed_dt": {
+              "_text": "2024-10-04"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "해운대문화회관"
+            },
+            "title": {
+              "_text": "버섯피자와 사랑의 묘약 오페라 쇼케이스"
+            },
+            "res_no": {
+              "_text": "2024080204"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-09-11"
+            },
+            "op_ed_dt": {
+              "_text": "2024-09-12"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "북구문화예술회관"
+            },
+            "title": {
+              "_text": "모차르트의 <피가로의 결혼>"
+            },
+            "res_no": {
+              "_text": "2024090006"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-08"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-08"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "베르디 오페라 <에르나니>"
+            },
+            "res_no": {
+              "_text": "2024110004"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-09"
+            },
+            "op_ed_dt": {
+              "_text": "2024-11-09"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "베르디 오페라 <에르나니>"
+            },
+            "res_no": {
+              "_text": "2024110006"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-06"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-06"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "금정문화회관"
+            },
+            "title": {
+              "_text": "제2회 부산성악가협회 정기연주회 <오페라 중창의 밤>"
+            },
+            "res_no": {
+              "_text": "2024110192"
+            }
+          }
+        ]
+      },
+      "numOfRows": {
+        "_text": "11"
+      },
+      "pageNo": {
+        "_text": "18"
+      },
+      "totalCount": {
+        "_text": "197"
+      }
+    },
+    "numOfRows": "200"
+  }
+}
