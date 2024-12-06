@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -38,6 +39,18 @@ public class WelfareController {
     // 특정 ID의 정책 가져오기
     @GetMapping("/policies/{id}")
     public WelfareDTO getPolicyById(@PathVariable Integer id) {
+        log.info("id :" + id);
         return welfareService.getPolicyById(id);
+    }
+
+    @PostMapping("/policies/{id}")
+    public Map<String, String> modify(@PathVariable(name="policy_id") int id, @RequestBody WelfareDTO welfareDTO) {
+        welfareDTO.setPolicyId(id);
+
+        log.info("Modify:" + welfareDTO);
+
+        welfareService.modify(welfareDTO);
+
+        return Map.of("RESULT", "SUCCESS");
     }
 }

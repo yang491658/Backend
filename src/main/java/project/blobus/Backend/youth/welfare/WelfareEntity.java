@@ -106,4 +106,63 @@ public class WelfareEntity {
 
     @Column(name = "etc", columnDefinition = "TEXT")
     private String etc; // 기타사항
+
+    public void change(String policyName,
+                       String policyOverview,
+                       String policyContent1,
+                       String supportScale,
+                       String policyOperatePeriod,
+                       int policyDateType,
+                       LocalDate policyApplicationStartPeriod,
+                       LocalDate policyApplicationEndPeriod,
+                       String policyApplicationPeriod,
+                       String ageRequirement,
+                       String proposerRequirement,
+                       String academicBackground,
+                       String majorIn,
+                       String employmentStatus,
+                       String additionalRequirement,
+                       String applicationProcedure,
+                       String judgingPresentation,
+                       String applicationSite,
+                       String submitionDocument,
+                       String hostOrganization,
+                       String hstOrgManagerName,
+                       String hstOrgManagerPhone,
+                       String operatingAgency,
+                       String operAgenManagerName,
+                       String operAgenManagerPhone,
+                       String referenceSite1,
+                       String referenceSite2,
+                       String etc)
+    {
+        this.policyName = policyName;
+        this.policyOverview = policyOverview;
+        this.policyContent1 = policyContent1;
+        this.supportScale = supportScale;
+        this.policyOperatePeriod = policyOperatePeriod;
+        this.policyDateType = policyDateType;
+        this.policyApplicationStartPeriod = policyApplicationStartPeriod;
+        this.policyApplicationEndPeriod = policyApplicationEndPeriod;
+        this.policyApplicationPeriod = policyApplicationPeriod;
+        this.ageRequirement = ageRequirement;
+        this.proposerRequirement = proposerRequirement;
+        this.academicBackground = academicBackground;
+        this.majorIn = majorIn;
+        this.employmentStatus = employmentStatus;
+        this.additionalRequirement = additionalRequirement;
+        this.applicationProcedure = applicationProcedure;
+        this.judgingPresentation = judgingPresentation;
+        this.applicationSite = applicationSite;
+        this.submitionDocument = submitionDocument;
+        this.hostOrganization = hostOrganization;
+        this.hstOrgManagerName = hstOrgManagerName;
+        this.hstOrgManagerPhone = hstOrgManagerPhone;
+        this.operatingAgency = operatingAgency;
+        this.operAgenManagerName = operAgenManagerName;
+        this.operAgenManagerPhone = operAgenManagerPhone;
+        this.referenceSite1 = referenceSite1;
+        this.referenceSite2 = referenceSite2;
+        this.etc = etc;
+    }
 }
