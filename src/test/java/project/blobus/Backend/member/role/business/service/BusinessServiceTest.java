@@ -13,7 +13,7 @@ import project.blobus.Backend.member.role.common.entity.MemberRole;
 class BusinessServiceTest {
     private static final Logger log = LoggerFactory.getLogger(BusinessServiceTest.class);
     @Autowired
-    private BusinessService memberService;
+    private BusinessService service;
 
     @Test
     @DisplayName("기업계정 회원가입 테스트")
@@ -27,7 +27,7 @@ class BusinessServiceTest {
                 .address("부산광역시-해운대구")
                 .roleName(String.valueOf(MemberRole.BUSINESS))
                 .build();
-        Long id = memberService.register(dto);
+        Long id = service.register(dto);
 
         if (id > 0L)
             log.info("가입 완료");
@@ -41,12 +41,12 @@ class BusinessServiceTest {
         String userId1 = "123-12-12345";
         String userId2 = "321-21-54321";
 
-        if (memberService.duplicate(userId1))
+        if (service.duplicate(userId1))
             log.info(userId1 + " : 가입 불가능 (테스트 성공)");
         else
             log.error(userId1 + " : 가입 가능 (테스트 실패)");
 
-        if (memberService.duplicate(userId2))
+        if (service.duplicate(userId2))
             log.info(userId2 + " : 가입 가능 (테스트 성공)");
         else
             log.error(userId2 + " : 가입 불가능 (테스트 실패)");

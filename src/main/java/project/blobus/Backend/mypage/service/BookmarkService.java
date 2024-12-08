@@ -9,8 +9,18 @@ import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
 import project.blobus.Backend.mypage.entity.Bookmark;
 import project.blobus.Backend.mypage.repository.BookmarkRepository;
-import project.blobus.Backend.temp.entity.*;
-import project.blobus.Backend.temp.repository.*;
+import project.blobus.Backend.resource.entity.ResourceCulture;
+import project.blobus.Backend.resource.repository.ResourceCultureRepository;
+import project.blobus.Backend.temp.entity.TempYouthJobPosting;
+import project.blobus.Backend.temp.repository.YouthJobPostingRepository;
+import project.blobus.Backend.youth.education.EducationEntity;
+import project.blobus.Backend.youth.education.EducationRepository;
+import project.blobus.Backend.youth.house.entity.HouseEntity;
+import project.blobus.Backend.youth.house.repository.HouseRepository;
+import project.blobus.Backend.youth.job.entity.JobEntity;
+import project.blobus.Backend.youth.job.repository.JobRepository;
+import project.blobus.Backend.youth.welfare.WelfareEntity;
+import project.blobus.Backend.youth.welfare.WelfareRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,16 +32,15 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class BookmarkService {
-    private final YouthEmploymentPolicyRepository youthEmploymentRepository;
-    private final YouthJobPostingRepository youthJobPostingRepository;
-    private final YouthHousingPolicyRepository youthHousingPolicyRepository;
-    private final YouthFinancialPolicyRepository youthFinancialPolicyRepository;
-    private final YouthEducationPolicyRepository youthEducationPolicyRepository;
-    private final YouthStartupPolicyRepository youthStartupPolicyRepository;
-    private final TempResourceCultureRepository tempResourceCultureRepository;
-    private final TempResourceSupportRepository tempResourceSupportRepository;
-
     private final BookmarkRepository bookmarkRepository;
+
+    private final JobRepository jobRepository;
+    private final YouthJobPostingRepository youthJobPostingRepository;
+    private final HouseRepository houseRepository;
+    private final WelfareRepository welfareRepository;
+    private final EducationRepository educationRepository;
+    private final ResourceCultureRepository cultureRepository;
+
 
     public PageResponseDTO<BookmarkDTO> getList(PageRequestDTO pageRequestDTO,
                                                 String userId,
@@ -52,7 +61,6 @@ public class BookmarkService {
                 .sorted((b1, b2) -> b2.getAtTime().compareTo(b1.getAtTime()))
                 .collect(Collectors.toList());
 
-
         int totalCount = bookmarkList.size();
 
         int startIndex = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
@@ -67,80 +75,68 @@ public class BookmarkService {
     }
 
     private BookmarkDTO toDTO(Bookmark bookmark) {
-        String title = "임시 제목";
-        String content = "임시 내용";
-        String address = "임시 주소";
+        Long targetId = bookmark.getTargetId();
         String mainCategory = bookmark.getMainCategory();
         String subCategory = bookmark.getSubCategory();
+        String title = "임시 제목";
 
-        Long targeId = bookmark.getTargetId();
         LocalDate startDate = null;
         LocalDate endDate = null;
         LocalDateTime atTime = bookmark.getAtTime();
+        String link = null;
 
         if (mainCategory.equals("청년") && subCategory.equals("일자리")) {
-            TempYouthEmploymentPolicy entity = youthEmploymentRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getDescription();
-            address = entity.getRegion();
-            startDate = entity.getStartDate();
-            endDate = entity.getEndDate();
-        } else if (mainCategory.equals("청년") && subCategory.equals("구인")) {
-            TempYouthJobPosting entity = youthJobPostingRepository.findById(targeId).orElseThrow();
-            title = entity.getCompanyName() + " 구인";
-            content = entity.getJobTitle() + " [" + entity.getJobType() + "]";
-            address = entity.getLocation();
-            endDate = entity.getApplicationDeadline();
+            JobEntity entity = jobRepository.findById(targetId).orElseThrow();
+            title = entity.getPolyBizSjnm();
+            String[] dueDate = entity.getRqutPrdCn().split("\n")[0].split("~");
+            if (dueDate.length > 1) {
+                startDate = LocalDate.parse(dueDate[0].trim());
+                endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
+            }
+            link = "/youth/job/policyRead/" + targetId;
+//        } else if (mainCategory.equals("청년") && subCategory.equals("구인")) {
+//            TempYouthJobPosting entity = youthJobPostingRepository.findById(targetId).orElseThrow();
+//            title = entity.getCompanyName() + " 구인";
+//            endDate = entity.getApplicationDeadline();
         } else if (mainCategory.equals("청년") && subCategory.equals("주거")) {
-            TempYouthHousingPolicy entity = youthHousingPolicyRepository.findById(targeId).orElseThrow();
+            HouseEntity entity = houseRepository.findById(targetId).orElseThrow();
+            title = entity.getPolyBizSjnm();
+            String[] dueDate = entity.getRqutPrdCn().split("\n")[0].split("~");
+            if (dueDate.length > 1) {
+                startDate = LocalDate.parse(dueDate[0].trim());
+                endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
+            }
+            link = "/youth/house/policyRead/" + targetId;
+        } else if (mainCategory.equals("청년") && subCategory.equals("복지")) {
+            WelfareEntity entity = welfareRepository.findById(Math.toIntExact(targetId)).orElseThrow();
+            title = entity.getPolicyName();
+            startDate = entity.getPolicyApplicationStartPeriod();
+            endDate = entity.getPolicyApplicationEndPeriod();
+            link = "/youth/welfare/" + targetId;
+        } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
+            EducationEntity entity = educationRepository.findById(Math.toIntExact(targetId)).orElseThrow();
+            title = entity.getPolicyName();
+            startDate = entity.getPolicyApplicationStartPeriod();
+            endDate = entity.getPolicyApplicationEndPeriod();
+            link = "/youth/education/" + targetId;
+        } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
+            ResourceCulture entity = cultureRepository.findById(targetId).orElseThrow();
             title = entity.getTitle();
-            content = entity.getDescription();
-            address = entity.getRegion();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
-        } else if (mainCategory.equals("청년") && subCategory.equals("금융")) {
-            TempYouthFinancialPolicy entity = youthFinancialPolicyRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getOverview() + " [" + entity.getBenefitType() + "]";
-            address = entity.getResidenceRequirement();
-            startDate = entity.getApplicationPeriodStart();
-            endDate = entity.getApplicationPeriodEnd();
-        } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
-            TempYouthEducationPolicy entity = youthEducationPolicyRepository.findById(targeId).orElseThrow();
-            title = entity.getProgramName();
-            content = entity.getOverview() + " [" + entity.getSupportType() + "]";
-            address = entity.getLocation();
-            startDate = entity.getApplicationPeriodStart();
-            endDate = entity.getApplicationPeriodEnd();
-        } else if (mainCategory.equals("청년") && subCategory.equals("창업")) {
-            TempYouthStartupPolicy entity = youthStartupPolicyRepository.findById(targeId).orElseThrow();
-            title = entity.getProgramName();
-            content = entity.getOverview() + " [" + entity.getSupportType() + "]";
-            address = entity.getLocationRequirement();
-            startDate = entity.getApplicationPeriodStart();
-            endDate = entity.getApplicationPeriodEnd();
-        } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
-            TempResourceCulture entity = tempResourceCultureRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getContent();
-            address = entity.getAddress();
-        } else if (mainCategory.equals("지역") && subCategory.equals("지원")) {
-            TempResourceSupport entity = tempResourceSupportRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getContent();
-            address = entity.getAddress();
+            link = entity.getLink();
         }
 
         return BookmarkDTO.builder()
                 .id(bookmark.getId())
-                .title(title)
-                .content(content)
-                .address(address)
+                .targetId(targetId)
                 .mainCategory(mainCategory)
                 .subCategory(subCategory)
+                .title(title)
                 .startDate(startDate)
                 .endDate(endDate)
                 .atTime(atTime)
+                .link(link)
                 .build();
     }
 }

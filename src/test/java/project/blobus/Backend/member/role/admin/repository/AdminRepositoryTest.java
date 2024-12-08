@@ -11,7 +11,7 @@ import project.blobus.Backend.member.role.common.entity.MemberRole;
 @SpringBootTest
 class AdminRepositoryTest {
     @Autowired
-    private AdminRepository adminRepository;
+    private AdminRepository repository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -23,6 +23,6 @@ class AdminRepositoryTest {
                 .userPw(passwordEncoder.encode("ADMIN"))
                 .memberRole(MemberRole.ADMIN)
                 .build();
-        adminRepository.save(adminMember);
+        repository.save(adminMember);
     }
 }

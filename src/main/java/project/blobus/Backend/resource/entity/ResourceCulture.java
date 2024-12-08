@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,9 +21,17 @@ public class ResourceCulture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long resNum;
     private String title;
     private String address;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String imgUrl;
+    private String link;
+
     private String category;
     private String subcategory;
+
     private LocalDateTime createdAt;
 }
