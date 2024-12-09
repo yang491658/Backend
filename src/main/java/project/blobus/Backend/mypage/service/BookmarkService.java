@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.common.dto.PageRequestDTO;
 import project.blobus.Backend.common.dto.PageResponseDTO;
+import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
 import project.blobus.Backend.mypage.entity.Bookmark;
 import project.blobus.Backend.mypage.repository.BookmarkRepository;
 import project.blobus.Backend.resource.entity.ResourceCulture;
 import project.blobus.Backend.resource.repository.ResourceCultureRepository;
-import project.blobus.Backend.temp.entity.TempYouthJobPosting;
 import project.blobus.Backend.temp.repository.YouthJobPostingRepository;
 import project.blobus.Backend.youth.education.EducationEntity;
 import project.blobus.Backend.youth.education.EducationRepository;
@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class BookmarkService {
+    private final GeneralRepository generalRepository;
     private final BookmarkRepository bookmarkRepository;
 
     private final JobRepository jobRepository;
@@ -40,7 +41,6 @@ public class BookmarkService {
     private final WelfareRepository welfareRepository;
     private final EducationRepository educationRepository;
     private final ResourceCultureRepository cultureRepository;
-
 
     public PageResponseDTO<BookmarkDTO> getList(PageRequestDTO pageRequestDTO,
                                                 String userId,
@@ -138,5 +138,30 @@ public class BookmarkService {
                 .atTime(atTime)
                 .link(link)
                 .build();
+    }
+
+    public void register(String userId,
+                         String mainCategory,
+                         String subCategory,
+                         Long targetId) {
+
+        Bookmark bookmark = Bookmark.builder()
+                .member(generalRepository.findByUserId(userId).orElseThrow(null))
+                .mainCategory(mainCategory)
+                .subCategory(subCategory)
+                .targetId(targetId)
+                .atTime(LocalDateTime.now())
+                .build();
+        bookmarkRepository.save(bookmark);
+    }
+
+    public void delete(String userId,
+                         String mainCategory,
+                         String subCategory,
+                         Long targetId) {
+
+        List<Bookmark> entitiyList = bookmarkRepository.findAllByMember_UserId(userId);
+
+        entitiyList.forEach(d-> System.out.println(d));
     }
 }
