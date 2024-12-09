@@ -44,12 +44,16 @@ public class WelfareController {
     }
 
     @PostMapping("/policies/{id}")
-    public Map<String, String> modify(@PathVariable(name="policy_id") int id, @RequestBody WelfareDTO welfareDTO) {
+    public Map<String, String> modify(@PathVariable Integer id, @RequestBody WelfareDTO welfareDTO) {
         welfareDTO.setPolicyId(id);
 
-        log.info("Modify:" + welfareDTO);
+        log.info("프론트에서 수정되기 원하는 정책 ID " + id);
+
+        log.info("Before Modify:" + welfareDTO);
 
         welfareService.modify(welfareDTO);
+
+        log.info("After Modify:" + welfareDTO);
 
         return Map.of("RESULT", "SUCCESS");
     }
