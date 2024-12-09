@@ -104,4 +104,7 @@ public class EducationEntity {
     @Column(name = "etc", columnDefinition = "TEXT")
     private String etc; // 기타사항
 
+    @Column(name = "del_lag")
+    private boolean delFlag;
+
 }

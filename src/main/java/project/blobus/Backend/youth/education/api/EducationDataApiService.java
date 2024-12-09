@@ -23,6 +23,7 @@ public class EducationDataApiService {
         EducationEntity existingEntity = educationRepository.findByBizId(educationDataApiDTO.getBizId());
         if (existingEntity == null) {
             EducationEntity educationEntity = modelMapper.map(educationDataApiDTO, EducationEntity.class);
+            educationEntity.setDelFlag(false); // delFlag 값을 false로 설정
             educationEntity.setPolicyApplicationPeriod(educationDataApiDTO.getPolicyApplicationPeriod());
             String period = educationDataApiDTO.getPolicyApplicationPeriod();
             String[] results = extractDates(period);

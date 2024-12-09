@@ -42,6 +42,7 @@ public class EducationDTO {
     private String referenceSite1; // 참고사이트1
     private String referenceSite2; // 참고사이트2
     private String etc; // 기타사항
+    private boolean delFlag; // 삭제 로그 flag
 
     @Autowired
     private ModelMapper modelMapper;

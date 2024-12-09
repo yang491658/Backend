@@ -5,8 +5,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,5 +54,21 @@ public class EducationService {
         return educationRepository.findById(id)
                 .map(entity -> modelMapper.map(entity, EducationDTO.class))
                 .orElseThrow(() -> new RuntimeException("Policy not found for ID: " + id));
+    }
+
+    // 특정 ID의 정책 게시글 수정(관리자)
+    public void modify(EducationDTO educationDTO) {
+        Optional<EducationEntity> result = educationRepository.findById(educationDTO.getPolicyId());
+
+        EducationEntity educationEntity = result.orElseThrow();
+
+        modelMapper.map(educationDTO, educationEntity);
+
+        educationRepository.save(educationEntity);
+    }
+
+    @Transactional
+    public void remove(Integer id) {
+        educationRepository.updateToDelete(id, true);
     }
 }

@@ -41,6 +41,7 @@ public class WelfareDTO {
     private String referenceSite1; // 참고사이트1
     private String referenceSite2; // 참고사이트2
     private String etc; // 기타사항
+    private boolean delFlag; // 삭제 로그 flag
 
     // 필요에 따라 Entity -> DTO 변환 메서드
     public WelfareDTO(WelfareEntity entity) {
@@ -74,6 +75,7 @@ public class WelfareDTO {
         this.referenceSite1 = entity.getReferenceSite1();
         this.referenceSite2 = entity.getReferenceSite2();
         this.etc = entity.getEtc();
+        this.delFlag = entity.isDelFlag();
     }
 
     // DTO -> Entity 변환 메서드
@@ -109,6 +111,7 @@ public class WelfareDTO {
         entity.setReferenceSite1(this.referenceSite1);
         entity.setReferenceSite2(this.referenceSite2);
         entity.setEtc(this.etc);
+        entity.setDelFlag(this.delFlag);
         return entity;
     }
 

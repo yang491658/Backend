@@ -57,4 +57,10 @@ public class WelfareController {
 
         return Map.of("RESULT", "SUCCESS");
     }
+
+    @DeleteMapping("/policies/{id}")
+    public Map<String, String> remove(@PathVariable("id") Integer id) {
+        welfareService.remove(id);
+        return Map.of("RESULT", "SUCCESS");
+    }
 }

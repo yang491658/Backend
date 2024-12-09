@@ -24,6 +24,7 @@ public class WelfareDataApiService {
         WelfareEntity existingEntity = welfareRepository.findByBizId(welfareDataApiDTO.getBizId());
         if (existingEntity == null) {
             WelfareEntity welfareEntity = welfareDataApiDTO.toEntity();
+            welfareEntity.setDelFlag(false); // delFlag 값을 false로 설정
             String period = welfareDataApiDTO.getPolicyApplicationPeriod();
             String[] results = extractDates(period);
             if (results != null) {

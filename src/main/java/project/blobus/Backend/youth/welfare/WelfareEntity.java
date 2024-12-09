@@ -107,6 +107,9 @@ public class WelfareEntity {
     @Column(name = "etc", columnDefinition = "TEXT")
     private String etc; // 기타사항
 
+    @Column(name = "del_lag")
+    private boolean delFlag;
+
     public void change(String policyName,
                        String policyOverview,
                        String policyContent1,

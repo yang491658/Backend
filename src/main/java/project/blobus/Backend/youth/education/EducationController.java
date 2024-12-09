@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -40,5 +41,26 @@ public class EducationController{
     @GetMapping("/policies/{id}")
     public EducationDTO getPolicyById(@PathVariable Integer id) {
         return educationService.getPolicyById(id);
+    }
+
+    @PostMapping("/policies/{id}")
+    public Map<String, String> modify(@PathVariable Integer id, @RequestBody EducationDTO educationDTO) {
+        educationDTO.setPolicyId(id);
+
+        log.info("프론트에서 수정되기 원하는 정책 ID " + id);
+
+        log.info("Before Modify:" + educationDTO);
+
+        educationService.modify(educationDTO);
+
+        log.info("After Modify:" + educationDTO);
+
+        return Map.of("RESULT", "SUCCESS");
+    }
+
+    @DeleteMapping("/policies/{id}")
+    public Map<String, String> remove(@PathVariable("id") Integer id) {
+        educationService.remove(id);
+        return Map.of("RESULT", "SUCCESS");
     }
 }
