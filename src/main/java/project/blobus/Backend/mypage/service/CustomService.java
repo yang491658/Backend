@@ -50,9 +50,8 @@ public class CustomService {
             String[] setting = member.getCustomSetting().split("-");
 
             setSetting(result, setting, "청년", 0);
-            setSetting(result, setting, "기업", 1);
-            setSetting(result, setting, "지역", 2);
-            setSetting(result, setting, "키워드", 3);
+            setSetting(result, setting, "지역", 1);
+            setSetting(result, setting, "키워드", 2);
         }
 
         return result;
@@ -72,7 +71,6 @@ public class CustomService {
     // 커스텀 설정 저장
     public void saveSetting(String userId,
                             String yListStr,
-                            String eListStr,
                             String rListStr,
                             String kListStr) {
         log.info("Custom Save Setting");
@@ -81,7 +79,6 @@ public class CustomService {
 
         String setting
                 = "청년:" + yListStr
-                + "-기업:" + eListStr
                 + "-지역:" + rListStr
                 + "-키워드:" + kListStr;
         member.setCustomSetting(setting);
@@ -92,21 +89,19 @@ public class CustomService {
     public PageResponseDTO<CustomDTO> getList(PageRequestDTO pageRequestDTO,
                                               String address,
                                               String yListStr,
-                                              String eListStr,
                                               String rListStr,
                                               String kListStr) {
         log.info("Custom Get List");
 
-        List<CustomDTO> customList = filterDTO(address, yListStr, eListStr, rListStr, null);
+        List<CustomDTO> customList = filterDTO(address, yListStr, rListStr, null);
 
         List<String> kList = Arrays.asList(kListStr.split("/"));
         kList.forEach(keyward ->
-                customList.addAll(filterDTO(address, null, null, null, keyward)));
+                customList.addAll(filterDTO(address, null, null, keyward)));
 
         List<CustomDTO> newCustomList = customList.stream()
                 .distinct()
                 .sorted((dto1, dto2) -> dto2.getTitle().compareTo(dto1.getTitle()))
-//                .sorted((dto1, dto2) -> dto2.getCreatedAt().compareTo(dto1.getCreatedAt()))
                 .collect(Collectors.toList());
 
         int totalCount = newCustomList.size();
@@ -125,7 +120,6 @@ public class CustomService {
     // 필터 함수
     private List<CustomDTO> filterDTO(String address,
                                       String yListStr,
-                                      String eListStr,
                                       String rListStr,
                                       String keyward) {
         List<CustomDTO> customList = new ArrayList<>();
@@ -137,7 +131,7 @@ public class CustomService {
             customList.addAll(jobRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            && (keyward == null || searchByKeyward(data, keyward)))
+                            || (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             data,
                             null,
@@ -151,7 +145,7 @@ public class CustomService {
             customList.addAll(houseRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산")))
-                            && (keyward == null || searchByKeyward(data, keyward)))
+                            || (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             data,
@@ -165,7 +159,7 @@ public class CustomService {
             customList.addAll(welfareRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            && (keyward == null || searchByKeyward(data, keyward)))
+                            || (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             null,
@@ -179,7 +173,7 @@ public class CustomService {
             customList.addAll(educationRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            && (keyward == null || searchByKeyward(data, keyward)))
+                            || (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             null,
@@ -193,7 +187,7 @@ public class CustomService {
             customList.addAll(cultureRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            && (keyward == null || searchByKeyward(data, keyward)))
+                            || (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             null,
@@ -261,14 +255,6 @@ public class CustomService {
 //            createdAt = jobPolicy.getCreatedAt();
 //            updatedAt = jobPolicy.getUpdatedAt();
             link = "/youth/job/policyRead/" + targetId;
-//        } else if (youthJobPosting != null) {
-//            targetId = youthJobPosting.getPolicyId();
-//            mainCategory = "청년";
-//            subCategory = "구인";
-//            title = youthJobPosting.getCompanyName() + " 구인";
-//            endDate = youthJobPosting.getApplicationDeadline();
-//            createdAt = youthJobPosting.getCreatedAt();
-//            updatedAt = youthJobPosting.getUpdatedAt();
         } else if (housePolicy != null) {
             targetId = housePolicy.getPolicyId();
             mainCategory = "청년";

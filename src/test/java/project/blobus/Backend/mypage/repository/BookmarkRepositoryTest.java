@@ -25,18 +25,14 @@ class BookmarkRepositoryTest {
     public void test1() {
         Random random = new Random();
 
-//        String[] mainList = {"청년", "기업", "지역"};
         String[] mainList = {"청년", "지역"};
 
-//        String[] youthList = {"일자리", "구인", "주거", "복지", "교육"};
         String[] youthList = {"일자리", "주거", "복지", "교육"};
-//        String[] enterpriseList = {"기업"};
         String[] resouceList = {"문화"};
 
 
         Map<String, String[]> subMap = new HashMap<>();
         subMap.put("청년", youthList);
-//        subMap.put("기업", enterpriseList);
         subMap.put("지역", resouceList);
 
         int max = 50;

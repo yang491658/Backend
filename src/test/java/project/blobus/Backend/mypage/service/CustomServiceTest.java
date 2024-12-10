@@ -32,11 +32,10 @@ class CustomServiceTest {
     void test2() {
         String userId = "test3@test.com";
         String yListStr = "일자리/주거/창업";
-        String eListStr = "기업2/기업3";
         String rListStr = "전체/문화/지원";
         String kListStr = "기준/신청";
 
-        service.saveSetting(userId, yListStr, eListStr, rListStr, kListStr);
+        service.saveSetting(userId, yListStr, rListStr, kListStr);
     }
 
     @Test
@@ -44,14 +43,13 @@ class CustomServiceTest {
     public void test3() {
         String address = "서울특별시-북구";
         String yListStr = "";
-        String eListStr = "";
         String rListStr = "";
         String kListStr = "참가신청";
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<CustomDTO> result = service.getList(pageRequestDTO, address, yListStr, eListStr, rListStr, kListStr);
+        PageResponseDTO<CustomDTO> result = service.getList(pageRequestDTO, address, yListStr, rListStr, kListStr);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 }

@@ -33,10 +33,9 @@ public class MypageController {
     @PostMapping("/custom/setting")
     public void saveCustom(@RequestParam String userId,
                            @RequestParam String yListStr,
-                           @RequestParam String eListStr,
                            @RequestParam String rListStr,
                            @RequestParam String kListStr) {
-        customService.saveSetting(userId, yListStr, eListStr, rListStr, kListStr);
+        customService.saveSetting(userId, yListStr, rListStr, kListStr);
     }
 
     // 커스텀 정보 조회
@@ -44,10 +43,9 @@ public class MypageController {
     public PageResponseDTO<CustomDTO> getCustom(PageRequestDTO pageRequestDTO,
                                                 @RequestParam String address,
                                                 @RequestParam String yListStr,
-                                                @RequestParam String eListStr,
                                                 @RequestParam String rListStr,
                                                 @RequestParam String kListStr) {
-        return customService.getList(pageRequestDTO, address, yListStr, eListStr, rListStr, kListStr);
+        return customService.getList(pageRequestDTO, address, yListStr, rListStr, kListStr);
     }
 
     // 즐겨찾기 여부 확인
