@@ -42,11 +42,11 @@ class CustomServiceTest {
     @Test
     @DisplayName("커스텀 정보 조회 테스트")
     public void test3() {
-        String address = "부산광역시-남구";
+        String address = "서울특별시-북구";
         String yListStr = "";
         String eListStr = "";
-        String rListStr = "전체/문화";
-        String kListStr = "";
+        String rListStr = "";
+        String kListStr = "참가신청";
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)

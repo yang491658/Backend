@@ -12,7 +12,6 @@ import project.blobus.Backend.mypage.entity.Bookmark;
 import project.blobus.Backend.mypage.repository.BookmarkRepository;
 import project.blobus.Backend.resource.entity.ResourceCulture;
 import project.blobus.Backend.resource.repository.ResourceCultureRepository;
-import project.blobus.Backend.temp.repository.YouthJobPostingRepository;
 import project.blobus.Backend.youth.education.EducationEntity;
 import project.blobus.Backend.youth.education.EducationRepository;
 import project.blobus.Backend.youth.house.entity.HouseEntity;
@@ -36,12 +35,57 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
     private final JobRepository jobRepository;
-    private final YouthJobPostingRepository youthJobPostingRepository;
     private final HouseRepository houseRepository;
     private final WelfareRepository welfareRepository;
     private final EducationRepository educationRepository;
     private final ResourceCultureRepository cultureRepository;
 
+    // 즐겨찾기 여부 확인
+    public boolean check(String userId,
+                         String mainCategory,
+                         String subCategory,
+                         Long targetId) {
+        log.info("Check Bookmark");
+
+        List<Bookmark> bookmarkList = bookmarkRepository.findAllByMember_UserId(userId);
+
+        return bookmarkList.stream().anyMatch(data
+                -> data.getMainCategory().equals(mainCategory)
+                && data.getSubCategory().equals(subCategory)
+                && data.getTargetId().equals(targetId));
+    }
+
+    // 즐겨찾기 변경
+    public void change(String userId,
+                       String mainCategory,
+                       String subCategory,
+                       Long targetId) {
+        log.info("Change Bookmark");
+
+        List<Bookmark> bookmarkList = bookmarkRepository.findAllByMember_UserId(userId);
+
+        Bookmark bookmark = bookmarkList.stream().filter(data
+                        -> data.getMainCategory().equals(mainCategory)
+                        && data.getSubCategory().equals(subCategory)
+                        && data.getTargetId().equals(targetId))
+                .findFirst()
+                .orElse(null);
+
+        if (bookmark != null) {
+            bookmarkRepository.delete(bookmark);
+        } else {
+            bookmarkRepository.save(
+                    Bookmark.builder()
+                            .member(generalRepository.findByUserId(userId).orElseThrow(null))
+                            .mainCategory(mainCategory)
+                            .subCategory(subCategory)
+                            .targetId(targetId)
+                            .atTime(LocalDateTime.now())
+                            .build());
+        }
+    }
+
+    // 즐겨찾기 목록 조회
     public PageResponseDTO<BookmarkDTO> getList(PageRequestDTO pageRequestDTO,
                                                 String userId,
                                                 String mainCategory) {
@@ -94,10 +138,6 @@ public class BookmarkService {
                 endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
             }
             link = "/youth/job/policyRead/" + targetId;
-//        } else if (mainCategory.equals("청년") && subCategory.equals("구인")) {
-//            TempYouthJobPosting entity = youthJobPostingRepository.findById(targetId).orElseThrow();
-//            title = entity.getCompanyName() + " 구인";
-//            endDate = entity.getApplicationDeadline();
         } else if (mainCategory.equals("청년") && subCategory.equals("주거")) {
             HouseEntity entity = houseRepository.findById(targetId).orElseThrow();
             title = entity.getPolyBizSjnm();
@@ -138,30 +178,5 @@ public class BookmarkService {
                 .atTime(atTime)
                 .link(link)
                 .build();
-    }
-
-    public void register(String userId,
-                         String mainCategory,
-                         String subCategory,
-                         Long targetId) {
-
-        Bookmark bookmark = Bookmark.builder()
-                .member(generalRepository.findByUserId(userId).orElseThrow(null))
-                .mainCategory(mainCategory)
-                .subCategory(subCategory)
-                .targetId(targetId)
-                .atTime(LocalDateTime.now())
-                .build();
-        bookmarkRepository.save(bookmark);
-    }
-
-    public void delete(String userId,
-                         String mainCategory,
-                         String subCategory,
-                         Long targetId) {
-
-        List<Bookmark> entitiyList = bookmarkRepository.findAllByMember_UserId(userId);
-
-        entitiyList.forEach(d-> System.out.println(d));
     }
 }

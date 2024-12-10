@@ -11,8 +11,6 @@ import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.CustomDTO;
 import project.blobus.Backend.resource.entity.ResourceCulture;
 import project.blobus.Backend.resource.repository.ResourceCultureRepository;
-import project.blobus.Backend.temp.entity.TempYouthJobPosting;
-import project.blobus.Backend.temp.repository.YouthJobPostingRepository;
 import project.blobus.Backend.youth.education.EducationEntity;
 import project.blobus.Backend.youth.education.EducationRepository;
 import project.blobus.Backend.youth.house.entity.HouseEntity;
@@ -35,12 +33,10 @@ public class CustomService {
     private final GeneralRepository generalRepository;
 
     private final JobRepository jobRepository;
-    private final YouthJobPostingRepository youthJobPostingRepository;
     private final HouseRepository houseRepository;
     private final WelfareRepository welfareRepository;
     private final EducationRepository educationRepository;
     private final ResourceCultureRepository cultureRepository;
-
 
     // 커스텀 설정 불러오기
     public Map<String, String> loadSetting(String userId) {
@@ -139,11 +135,11 @@ public class CustomService {
 
         if (yListStr == null || yListStr.contains("일자리")) {
             customList.addAll(jobRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
+                    .filter(data -> (!address.contains("부산")
+                            || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             data,
-                            null,
                             null,
                             null,
                             null,
@@ -151,26 +147,12 @@ public class CustomService {
                     .toList());
         }
 
-//        if (yListStr == null || yListStr.contains("구인")) {
-//            customList.addAll(youthJobPostingRepository.findAll().stream()
-//                    .filter(data -> (!address.contains("부산") || data.getLocation().equalsIgnoreCase(address))
-//                            && (keyward == null || searchByKeyward(data, keyward)))
-//                    .map(data -> toDTO(
-//                            null,
-//                            data,
-//                            null,
-//                            null,
-//                            null,
-//                            null))
-//                    .toList());
-//        }
-
         if (yListStr == null || yListStr.contains("주거")) {
             customList.addAll(houseRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
+                    .filter(data -> (!address.contains("부산")
+                            || (searchByKeyward(data, "부산")))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
-                            null,
                             null,
                             data,
                             null,
@@ -181,10 +163,10 @@ public class CustomService {
 
         if (yListStr == null || yListStr.contains("복지")) {
             customList.addAll(welfareRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
+                    .filter(data -> (!address.contains("부산")
+                            || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
-                            null,
                             null,
                             null,
                             data,
@@ -195,10 +177,10 @@ public class CustomService {
 
         if (yListStr == null || yListStr.contains("교육")) {
             customList.addAll(educationRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || searchByKeyward(data, city))
+                    .filter(data -> (!address.contains("부산")
+                            || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
-                            null,
                             null,
                             null,
                             null,
@@ -209,10 +191,10 @@ public class CustomService {
 
         if (rListStr == null || rListStr.contains("문화")) {
             customList.addAll(cultureRepository.findAll().stream()
-                    .filter(data -> (!address.contains("부산") || data.getAddress().equalsIgnoreCase(address))
+                    .filter(data -> (!address.contains("부산")
+                            || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
                             && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
-                            null,
                             null,
                             null,
                             null,
@@ -246,7 +228,6 @@ public class CustomService {
     // 매핑 함수
     private CustomDTO toDTO(
             JobEntity jobPolicy,
-            TempYouthJobPosting youthJobPosting,
             HouseEntity housePolicy,
             WelfareEntity welfarePolicy,
             EducationEntity educationPolicy,

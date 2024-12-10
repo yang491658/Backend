@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @Builder
 public class BookmarkDTO {
     private Long id;
-    private Long targetId;
     private String mainCategory;
     private String subCategory;
+    private Long targetId;
     private String title;
     private LocalDate startDate;
     private LocalDate endDate;
