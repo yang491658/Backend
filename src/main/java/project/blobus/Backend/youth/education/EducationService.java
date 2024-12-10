@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,24 +20,19 @@ public class EducationService {
     private final ModelMapper modelMapper;
 
     // 페이징된 정책 목록 가져오기
-    public Page<EducationDTO> getPagedPolicies(String keyword, String category, Pageable pageable) {
+    public Page<EducationDTO> getPagedPolicies(String keyword, String progress, String category, Pageable pageable) {
+        LocalDate currentDate = LocalDate.now();
         if (keyword == null || keyword.trim().isEmpty()) {
-            // 검색어가 없으면 전체 데이터를 페이징 처리
-            return educationRepository.findAll(pageable)
-                    .map(entity -> modelMapper.map(entity, EducationDTO.class));
+            keyword = "";
         }
-        // 카테고리에 따라 다른 검색 수행
-        switch (category) {
-            case "제목":
-                return educationRepository.findByPolicyNameContaining(keyword, pageable)
-                        .map(entity -> modelMapper.map(entity, EducationDTO.class));
-            case "내용":
-                return educationRepository.findByPolicyOverviewContaining(keyword, pageable)
-                        .map(entity -> modelMapper.map(entity, EducationDTO.class));
-            default: // "전체"
-                return educationRepository.findByPolicyNameContainingOrPolicyOverviewContaining(keyword, keyword, pageable)
-                        .map(entity -> modelMapper.map(entity, EducationDTO.class));
+        if (category == null || category.trim().isEmpty()) {
+            category = "유형전체";
         }
+        if (progress == null || progress.trim().isEmpty()) {
+            progress = "상태전체";
+        }
+        return educationRepository.findByCategoryAndProgress(keyword, category, progress, currentDate, pageable)
+                .map(entity -> modelMapper.map(entity, EducationDTO.class));
     }
 
     // 모든 정책 가져오기
