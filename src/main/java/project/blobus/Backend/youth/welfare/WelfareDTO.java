@@ -28,6 +28,7 @@ public class WelfareDTO {
     private String majorIn; // 전공
     private String employmentStatus; // 취업 상태
     private String additionalRequirement; // 추가 필요 사항
+    private String participationRestriction; // 참여 제한 대상
     private String applicationProcedure; // 신청 절차 내용
     private String judgingPresentation; // 심사 및 발표
     private String applicationSite; // 신청 사이트
@@ -62,6 +63,7 @@ public class WelfareDTO {
         this.majorIn = entity.getMajorIn();
         this.employmentStatus = entity.getEmploymentStatus();
         this.additionalRequirement = entity.getAdditionalRequirement();
+        this.participationRestriction = entity.getParticipationRestriction();
         this.applicationProcedure = entity.getApplicationProcedure();
         this.judgingPresentation = entity.getJudgingPresentation();
         this.applicationSite = entity.getApplicationSite();
@@ -98,6 +100,7 @@ public class WelfareDTO {
         entity.setMajorIn(this.majorIn);
         entity.setEmploymentStatus(this.employmentStatus);
         entity.setAdditionalRequirement(this.additionalRequirement);
+        entity.setParticipationRestriction(this.participationRestriction);
         entity.setApplicationProcedure(this.applicationProcedure);
         entity.setJudgingPresentation(this.judgingPresentation);
         entity.setApplicationSite(this.applicationSite);

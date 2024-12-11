@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -68,6 +67,9 @@ public class WelfareEntity {
     @Column(name = "additional_requirement", columnDefinition = "TEXT")
     private String additionalRequirement; // 추가 필요 사항
 
+    @Column(name = "participation_restriction", columnDefinition = "TEXT")
+    private String participationRestriction; // 참여 제한 대상
+
     @Column(name = "application_procedure", columnDefinition = "TEXT")
     private String applicationProcedure; // 신청 절차 내용
 
@@ -125,6 +127,7 @@ public class WelfareEntity {
                        String majorIn,
                        String employmentStatus,
                        String additionalRequirement,
+                       String participationRestriction,
                        String applicationProcedure,
                        String judgingPresentation,
                        String applicationSite,
@@ -154,6 +157,7 @@ public class WelfareEntity {
         this.majorIn = majorIn;
         this.employmentStatus = employmentStatus;
         this.additionalRequirement = additionalRequirement;
+        this.participationRestriction = participationRestriction;
         this.applicationProcedure = applicationProcedure;
         this.judgingPresentation = judgingPresentation;
         this.applicationSite = applicationSite;

@@ -54,6 +54,9 @@ public class WelfareDataApiDTO {
     @JsonProperty("aditRscn") // 추가 필요 사항
     private String additionalRequirement;
 
+    @JsonProperty("prcpLmttTrgtCn") // 참여 제한 대상
+    private String participationRestriction;
+
     @JsonProperty("rqutProcCn") // 신청 절차 내용
     private String applicationProcedure;
 
@@ -110,6 +113,7 @@ public class WelfareDataApiDTO {
         entity.setMajorIn(this.majorIn);
         entity.setEmploymentStatus(this.employmentStatus);
         entity.setAdditionalRequirement(this.additionalRequirement);
+        entity.setParticipationRestriction(this.participationRestriction);
         entity.setApplicationProcedure(this.applicationProcedure);
         entity.setJudgingPresentation(this.judgingPresentation);
         entity.setApplicationSite(this.applicationSite);

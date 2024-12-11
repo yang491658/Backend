@@ -77,6 +77,7 @@ public class WelfareService {
                 welfareDTO.getMajorIn(),
                 welfareDTO.getEmploymentStatus(),
                 welfareDTO.getAdditionalRequirement(),
+                welfareDTO.getParticipationRestriction(),
                 welfareDTO.getApplicationProcedure(),
                 welfareDTO.getJudgingPresentation(),
                 welfareDTO.getApplicationSite(),
