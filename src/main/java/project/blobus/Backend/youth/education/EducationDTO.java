@@ -29,6 +29,7 @@ public class EducationDTO {
     private String majorIn; // 전공
     private String employmentStatus; // 취업 상태
     private String additionalRequirement; // 추가 필요 사항
+    private String participationRestriction; // 참여 제한 대상
     private String applicationProcedure; // 신청 절차 내용
     private String judgingPresentation; // 심사 및 발표
     private String applicationSite; // 신청 사이트
@@ -42,6 +43,7 @@ public class EducationDTO {
     private String referenceSite1; // 참고사이트1
     private String referenceSite2; // 참고사이트2
     private String etc; // 기타사항
+    private boolean delFlag; // 삭제 로그 flag
 
     @Autowired
     private ModelMapper modelMapper;

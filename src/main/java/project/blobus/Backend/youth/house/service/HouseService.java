@@ -7,7 +7,16 @@ import project.blobus.Backend.youth.house.dto.PageResponseDTO;
 
 @Transactional
 public interface HouseService {
-    PageResponseDTO<HouseDTO> getPolicyList(PageRequestDTO pageRequestDTO, String searchTerm, String filterType);   // 정책현황 - 리스트
-    HouseDTO getPolicyDetail(Long policyId);    // 정책현황 - 리스트 상세
+    // BLOBUS > 청년관 > 주거
+    // 1.정책현황
+    // 정책현황 - 생성
 
+    // 정책현황 - 리스트
+    PageResponseDTO<HouseDTO> getPolicyList(PageRequestDTO pageRequestDTO, String policyStsType, String searchTerm, String filterType);
+    // 정책현황 - 리스트 상세
+    HouseDTO getPolicyDetail(Long policyId);
+    // 정책현황 - 수정
+    void policyModify(HouseDTO houseDTO);
+    // 정책현황 - 삭제
+    void policyRemove(Long policyId);
 }

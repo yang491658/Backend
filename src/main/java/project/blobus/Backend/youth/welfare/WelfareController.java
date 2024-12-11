@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -23,10 +24,11 @@ public class WelfareController {
             @RequestParam(defaultValue = "0") int page,           // 페이지 번호
             @RequestParam(defaultValue = "10") int size,          // 페이지 크기
             @RequestParam(defaultValue = "") String keyword,      // 검색어 (기본값: 빈 문자열)
-            @RequestParam(defaultValue = "전체") String category  // 기본값 "전체"
+            @RequestParam(defaultValue = "상태전체") String progress,  // 기본값 "제목+내용"
+            @RequestParam(defaultValue = "유형전체") String category  // 기본값 "제목+내용"
     ) {
         Pageable pageable = PageRequest.of(page , size);                         // 페이징 객체 생성
-        return welfareService.getPagedPolicies(keyword, category, pageable); // 서비스 호출
+        return welfareService.getPagedPolicies(keyword, progress, category, pageable); // 서비스 호출
     }
 
     // 모든 정책 가져오기
@@ -38,6 +40,28 @@ public class WelfareController {
     // 특정 ID의 정책 가져오기
     @GetMapping("/policies/{id}")
     public WelfareDTO getPolicyById(@PathVariable Integer id) {
+        log.info("id :" + id);
         return welfareService.getPolicyById(id);
+    }
+
+    @PostMapping("/policies/{id}")
+    public Map<String, String> modify(@PathVariable Integer id, @RequestBody WelfareDTO welfareDTO) {
+        welfareDTO.setPolicyId(id);
+
+        log.info("프론트에서 수정되기 원하는 정책 ID " + id);
+
+        log.info("Before Modify:" + welfareDTO);
+
+        welfareService.modify(welfareDTO);
+
+        log.info("After Modify:" + welfareDTO);
+
+        return Map.of("RESULT", "SUCCESS");
+    }
+
+    @DeleteMapping("/policies/{id}")
+    public Map<String, String> remove(@PathVariable("id") Integer id) {
+        welfareService.remove(id);
+        return Map.of("RESULT", "SUCCESS");
     }
 }
