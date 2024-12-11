@@ -14,7 +14,7 @@ import java.util.Random;
 @SpringBootTest
 class BusinessRepositoryTest {
     @Autowired
-    private BusinessRepository businessRepository;
+    private BusinessRepository repository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,7 +34,7 @@ class BusinessRepositoryTest {
                     .joinDate(LocalDate.now())
                     .memberRole(MemberRole.BUSINESS)
                     .build();
-            businessRepository.save(businessMember);
+            repository.save(businessMember);
         }
     }
 

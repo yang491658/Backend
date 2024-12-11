@@ -6,11 +6,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.blobus.Backend.common.dto.PageRequestDTO;
 import project.blobus.Backend.common.dto.PageResponseDTO;
+import project.blobus.Backend.member.role.general.repository.GeneralRepository;
 import project.blobus.Backend.mypage.dto.BookmarkDTO;
 import project.blobus.Backend.mypage.entity.Bookmark;
 import project.blobus.Backend.mypage.repository.BookmarkRepository;
-import project.blobus.Backend.temp.entity.*;
-import project.blobus.Backend.temp.repository.*;
+import project.blobus.Backend.resource.entity.ResourceCulture;
+import project.blobus.Backend.resource.repository.ResourceCultureRepository;
+import project.blobus.Backend.youth.education.EducationEntity;
+import project.blobus.Backend.youth.education.EducationRepository;
+import project.blobus.Backend.youth.house.entity.HouseEntity;
+import project.blobus.Backend.youth.house.repository.HouseRepository;
+import project.blobus.Backend.youth.job.entity.JobEntity;
+import project.blobus.Backend.youth.job.repository.JobRepository;
+import project.blobus.Backend.youth.welfare.WelfareEntity;
+import project.blobus.Backend.youth.welfare.WelfareRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,17 +31,61 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class BookmarkService {
-    private final YouthEmploymentPolicyRepository youthEmploymentRepository;
-    private final YouthJobPostingRepository youthJobPostingRepository;
-    private final YouthHousingPolicyRepository youthHousingPolicyRepository;
-    private final YouthFinancialPolicyRepository youthFinancialPolicyRepository;
-    private final YouthEducationPolicyRepository youthEducationPolicyRepository;
-    private final YouthStartupPolicyRepository youthStartupPolicyRepository;
-    private final ResourceCultureRepository resourceCultureRepository;
-    private final ResourceSupportRepository resourceSupportRepository;
-
+    private final GeneralRepository generalRepository;
     private final BookmarkRepository bookmarkRepository;
 
+    private final JobRepository jobRepository;
+    private final HouseRepository houseRepository;
+    private final WelfareRepository welfareRepository;
+    private final EducationRepository educationRepository;
+    private final ResourceCultureRepository cultureRepository;
+
+    // 즐겨찾기 여부 확인
+    public boolean check(String userId,
+                         String mainCategory,
+                         String subCategory,
+                         Long targetId) {
+        log.info("Check Bookmark");
+
+        List<Bookmark> bookmarkList = bookmarkRepository.findAllByMember_UserId(userId);
+
+        return bookmarkList.stream().anyMatch(data
+                -> data.getMainCategory().equals(mainCategory)
+                && data.getSubCategory().equals(subCategory)
+                && data.getTargetId().equals(targetId));
+    }
+
+    // 즐겨찾기 변경
+    public void change(String userId,
+                       String mainCategory,
+                       String subCategory,
+                       Long targetId) {
+        log.info("Change Bookmark");
+
+        List<Bookmark> bookmarkList = bookmarkRepository.findAllByMember_UserId(userId);
+
+        Bookmark bookmark = bookmarkList.stream().filter(data
+                        -> data.getMainCategory().equals(mainCategory)
+                        && data.getSubCategory().equals(subCategory)
+                        && data.getTargetId().equals(targetId))
+                .findFirst()
+                .orElse(null);
+
+        if (bookmark != null) {
+            bookmarkRepository.delete(bookmark);
+        } else {
+            bookmarkRepository.save(
+                    Bookmark.builder()
+                            .member(generalRepository.findByUserId(userId).orElseThrow(null))
+                            .mainCategory(mainCategory)
+                            .subCategory(subCategory)
+                            .targetId(targetId)
+                            .atTime(LocalDateTime.now())
+                            .build());
+        }
+    }
+
+    // 즐겨찾기 목록 조회
     public PageResponseDTO<BookmarkDTO> getList(PageRequestDTO pageRequestDTO,
                                                 String userId,
                                                 String mainCategory) {
@@ -52,7 +105,6 @@ public class BookmarkService {
                 .sorted((b1, b2) -> b2.getAtTime().compareTo(b1.getAtTime()))
                 .collect(Collectors.toList());
 
-
         int totalCount = bookmarkList.size();
 
         int startIndex = (pageRequestDTO.getPage() - 1) * pageRequestDTO.getSize();
@@ -67,80 +119,64 @@ public class BookmarkService {
     }
 
     private BookmarkDTO toDTO(Bookmark bookmark) {
-        String title = "임시 제목";
-        String content = "임시 내용";
-        String address = "임시 주소";
+        Long targetId = bookmark.getTargetId();
         String mainCategory = bookmark.getMainCategory();
         String subCategory = bookmark.getSubCategory();
+        String title = "임시 제목";
 
-        Long targeId = bookmark.getTargetId();
         LocalDate startDate = null;
         LocalDate endDate = null;
         LocalDateTime atTime = bookmark.getAtTime();
+        String link = null;
 
         if (mainCategory.equals("청년") && subCategory.equals("일자리")) {
-            TempYouthEmploymentPolicy entity = youthEmploymentRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getDescription();
-            address = entity.getRegion();
-            startDate = entity.getStartDate();
-            endDate = entity.getEndDate();
-        } else if (mainCategory.equals("청년") && subCategory.equals("구인")) {
-            TempYouthJobPosting entity = youthJobPostingRepository.findById(targeId).orElseThrow();
-            title = entity.getCompanyName() + " 구인";
-            content = entity.getJobTitle() + " [" + entity.getJobType() + "]";
-            address = entity.getLocation();
-            endDate = entity.getApplicationDeadline();
+            JobEntity entity = jobRepository.findById(targetId).orElseThrow();
+            title = entity.getPolyBizSjnm();
+            String[] dueDate = entity.getRqutPrdCn().split("\n")[0].split("~");
+            if (dueDate.length > 1) {
+                startDate = LocalDate.parse(dueDate[0].trim());
+                endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
+            }
+            link = "/youth/job/policyRead/" + targetId;
         } else if (mainCategory.equals("청년") && subCategory.equals("주거")) {
-            TempYouthHousingPolicy entity = youthHousingPolicyRepository.findById(targeId).orElseThrow();
+            HouseEntity entity = houseRepository.findById(targetId).orElseThrow();
+            title = entity.getPolyBizSjnm();
+            String[] dueDate = entity.getRqutPrdCn().split("\n")[0].split("~");
+            if (dueDate.length > 1) {
+                startDate = LocalDate.parse(dueDate[0].trim());
+                endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
+            }
+            link = "/youth/house/policyRead/" + targetId;
+        } else if (mainCategory.equals("청년") && subCategory.equals("복지")) {
+            WelfareEntity entity = welfareRepository.findById(Math.toIntExact(targetId)).orElseThrow();
+            title = entity.getPolicyName();
+            startDate = entity.getPolicyApplicationStartPeriod();
+            endDate = entity.getPolicyApplicationEndPeriod();
+            link = "/youth/welfare/" + targetId;
+        } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
+            EducationEntity entity = educationRepository.findById(Math.toIntExact(targetId)).orElseThrow();
+            title = entity.getPolicyName();
+            startDate = entity.getPolicyApplicationStartPeriod();
+            endDate = entity.getPolicyApplicationEndPeriod();
+            link = "/youth/education/" + targetId;
+        } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
+            ResourceCulture entity = cultureRepository.findById(targetId).orElseThrow();
             title = entity.getTitle();
-            content = entity.getDescription();
-            address = entity.getRegion();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
-        } else if (mainCategory.equals("청년") && subCategory.equals("금융")) {
-            TempYouthFinancialPolicy entity = youthFinancialPolicyRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getOverview() + " [" + entity.getBenefitType() + "]";
-            address = entity.getResidenceRequirement();
-            startDate = entity.getApplicationPeriodStart();
-            endDate = entity.getApplicationPeriodEnd();
-        } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
-            TempYouthEducationPolicy entity = youthEducationPolicyRepository.findById(targeId).orElseThrow();
-            title = entity.getProgramName();
-            content = entity.getOverview() + " [" + entity.getSupportType() + "]";
-            address = entity.getLocation();
-            startDate = entity.getApplicationPeriodStart();
-            endDate = entity.getApplicationPeriodEnd();
-        } else if (mainCategory.equals("청년") && subCategory.equals("창업")) {
-            TempYouthStartupPolicy entity = youthStartupPolicyRepository.findById(targeId).orElseThrow();
-            title = entity.getProgramName();
-            content = entity.getOverview() + " [" + entity.getSupportType() + "]";
-            address = entity.getLocationRequirement();
-            startDate = entity.getApplicationPeriodStart();
-            endDate = entity.getApplicationPeriodEnd();
-        } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
-            TempResourceCulture entity = resourceCultureRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getContent();
-            address = entity.getAddress();
-        } else if (mainCategory.equals("지역") && subCategory.equals("지원")) {
-            TempResourceSupport entity = resourceSupportRepository.findById(targeId).orElseThrow();
-            title = entity.getTitle();
-            content = entity.getContent();
-            address = entity.getAddress();
+            link = entity.getLink();
         }
 
         return BookmarkDTO.builder()
                 .id(bookmark.getId())
-                .title(title)
-                .content(content)
-                .address(address)
+                .targetId(targetId)
                 .mainCategory(mainCategory)
                 .subCategory(subCategory)
+                .title(title)
                 .startDate(startDate)
                 .endDate(endDate)
                 .atTime(atTime)
+                .link(link)
                 .build();
     }
 }

@@ -1,4 +1,3 @@
-
 package project.blobus.Backend.community.service;
 
 import org.junit.jupiter.api.DisplayName;
@@ -55,8 +54,8 @@ class CommentServiceTest {
     @DisplayName("댓글 수정 테스트")
     public void test4() {
         CommentDTO dto = CommentDTO.builder()
-                .id(102L)
-                .content("댓글 수정 테스트" )
+                .id(2L)
+                .content("댓글 수정 테스트")
                 .build();
 
         service.modify(dto);
@@ -65,6 +64,6 @@ class CommentServiceTest {
     @Test
     @DisplayName("댓글 삭제 테스트")
     public void test5() {
-        service.remove(101L);
+        service.remove(1L);
     }
 }

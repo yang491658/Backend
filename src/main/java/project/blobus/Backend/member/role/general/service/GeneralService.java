@@ -21,7 +21,7 @@ import java.util.Random;
 @Transactional
 @RequiredArgsConstructor
 public class GeneralService {
-    private final GeneralRepository generalRepository;
+    private final GeneralRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
 
@@ -29,13 +29,13 @@ public class GeneralService {
     public Long register(GeneralDTO dto) {
         log.info("GeneralMember Register");
 
-        if (generalRepository.existsByPhoneNum(dto.getPhoneNum()))
+        if (repository.existsByPhoneNum(dto.getPhoneNum()))
             return 0L;
 
         GeneralMember member = MemberMapper.generalDtoToEntity(dto);
         member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
         member.setJoinDate(LocalDate.now());
-        generalRepository.save(member);
+        repository.save(member);
 
         return member.getId();
     }
@@ -44,7 +44,7 @@ public class GeneralService {
     public boolean duplicate(String userId) {
         log.info("GeneralMember Duplicate");
 
-        return generalRepository.findByUserId(userId).isPresent();
+        return repository.findByUserId(userId).isPresent();
     }
 
     // 일반계정 회원가입 - 메일 전송
@@ -75,7 +75,7 @@ public class GeneralService {
     public String find(String name, String phoneNum) {
         log.info("GeneralMember Find ID");
 
-        GeneralMember member = generalRepository.findByNameAndPhoneNum(name, phoneNum)
+        GeneralMember member = repository.findByNameAndPhoneNum(name, phoneNum)
                 .orElseThrow(() -> new UsernameNotFoundException("NOT_FOUND"));
 
         if (member.isDelFlag())
@@ -91,7 +91,7 @@ public class GeneralService {
     public void modify(GeneralDTO dto) {
         log.info(("GeneralMember Send Email"));
 
-        GeneralMember member = generalRepository.findByUserId(dto.getUserId()).orElseThrow();
+        GeneralMember member = repository.findByUserId(dto.getUserId()).orElseThrow();
 
         // 비밀번호 찾기(변경)
         if (dto.getUserPw() != null) member.setUserPw(passwordEncoder.encode(dto.getUserPw()));
@@ -109,14 +109,14 @@ public class GeneralService {
         // 내외국인 수정
         if (dto.getForeigner() != null) member.setForeigner(dto.getForeigner());
 
-        generalRepository.save(member);
+        repository.save(member);
     }
 
     // 일반계정 회원정보 조회
     public GeneralDTO get(String userId) {
         log.info("GeneralMember Get Info");
 
-        GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
+        GeneralMember member = repository.findByUserId(userId).orElseThrow();
 
         return MemberMapper.generalEntityToDto(member);
     }
@@ -125,9 +125,9 @@ public class GeneralService {
     public void deleteId(String userId) {
         log.info("GeneralMember Delete Id");
 
-        GeneralMember member = generalRepository.findByUserId(userId).orElseThrow();
+        GeneralMember member = repository.findByUserId(userId).orElseThrow();
 
         member.setDelFlag(true);
-        generalRepository.save(member);
+        repository.save(member);
     }
 }
