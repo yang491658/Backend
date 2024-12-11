@@ -54,6 +54,9 @@ public class EducationDataApiDTO {
     @JsonProperty("aditRscn") // 추가 필요 사항
     private String additionalRequirement;
 
+    @JsonProperty("prcpLmttTrgtCn") // 참여 제한 대상
+    private String participationRestriction;
+
     @JsonProperty("rqutProcCn") // 신청 절차 내용
     private String applicationProcedure;
 

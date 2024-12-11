@@ -13,14 +13,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class CustomDTO {
-    private String title;
-    private String content;
-    private String address;
+    private Long targetId;
     private String mainCategory;
     private String subCategory;
-    private Long targetId;
+    private String title;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String link;
 }

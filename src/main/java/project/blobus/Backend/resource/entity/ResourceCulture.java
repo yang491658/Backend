@@ -1,4 +1,4 @@
-package project.blobus.Backend.temp.entity;
+package project.blobus.Backend.resource.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,20 +17,21 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TempYouthJobPosting {
+public class ResourceCulture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long policyId;
-    private String companyName;
-    private String jobTitle;
-    private String jobDescription;
-    private String jobType;
-    private String location;
-    private String salary;
-    private String qualification;
-    private LocalDate applicationDeadline;
-    private String contactInfo;
+    private Long id;
+
+    private Long resNum;
+    private String title;
+    private String address;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String imgUrl;
+    private String link;
+
+    private String category;
+    private String subcategory;
+
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private String status;
 }

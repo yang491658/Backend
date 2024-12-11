@@ -20,7 +20,7 @@ class CustomServiceTest {
 
     @Test
     @DisplayName("커스텀 설정 불러오기 테스트")
-    void loadSettingCustomTest() {
+    void test1() {
         String userId = "test3@test.com";
 
         Map<String, String> result = service.loadSetting(userId);
@@ -29,29 +29,27 @@ class CustomServiceTest {
 
     @Test
     @DisplayName("커스텀 설정 저장 테스트")
-    void saveSettingCustomTest() {
+    void test2() {
         String userId = "test3@test.com";
         String yListStr = "일자리/주거/창업";
-        String eListStr = "기업2/기업3";
         String rListStr = "전체/문화/지원";
         String kListStr = "기준/신청";
 
-        service.saveSetting(userId, yListStr, eListStr, rListStr, kListStr);
+        service.saveSetting(userId, yListStr, rListStr, kListStr);
     }
 
     @Test
     @DisplayName("커스텀 정보 조회 테스트")
-    public void test1() {
-        String address = "부산광역시-강서구";
-        String yListStr = "일자리/주거/창업";
-        String eListStr = "기업2/기업3";
-        String rListStr = "문화/지원";
-        String kListStr = "기준/신청";
+    public void test3() {
+        String address = "서울특별시-북구";
+        String yListStr = "";
+        String rListStr = "";
+        String kListStr = "참가신청";
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .build();
-        PageResponseDTO<CustomDTO> result = service.getList(pageRequestDTO, address, yListStr, eListStr, rListStr, kListStr);
+        PageResponseDTO<CustomDTO> result = service.getList(pageRequestDTO, address, yListStr, rListStr, kListStr);
         result.getDtoList().forEach(dto -> log.info(dto.toString()));
     }
 }

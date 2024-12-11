@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @SpringBootTest
 class GeneralRepositoryTest {
     @Autowired
-    private GeneralRepository generalRepository;
+    private GeneralRepository repository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -38,7 +38,7 @@ class GeneralRepositoryTest {
                     .joinDate(LocalDate.now())
                     .memberRole(MemberRole.GENERAL)
                     .build();
-            generalRepository.save(generalMember);
+            repository.save(generalMember);
         }
     }
 

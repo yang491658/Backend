@@ -15,7 +15,7 @@ import java.time.LocalDate;
 class GeneralServiceTest {
     private static final Logger log = LoggerFactory.getLogger(GeneralServiceTest.class);
     @Autowired
-    private GeneralService memberService;
+    private GeneralService service;
 
     @Test
     @DisplayName("일반계정 회원가입")
@@ -32,7 +32,7 @@ class GeneralServiceTest {
                     .foreigner(false)
                     .roleName(String.valueOf(MemberRole.GENERAL))
                     .build();
-            Long id = memberService.register(dto);
+            Long id = service.register(dto);
 
             if (id > 0L)
                 log.info("가입 완료");
@@ -55,7 +55,7 @@ class GeneralServiceTest {
                 .foreigner(true)
                 .roleName(String.valueOf(MemberRole.GENERAL))
                 .build();
-        Long id = memberService.register(dto);
+        Long id = service.register(dto);
 
         if (id == 0L)
             log.info("중복된 연락처");
@@ -69,12 +69,12 @@ class GeneralServiceTest {
         String userId1 = "test1@test.com";
         String userId2 = "test4@test.com";
 
-        if (memberService.duplicate(userId1))
+        if (service.duplicate(userId1))
             log.info(userId1 + " : 가입 불가능 (테스트 성공)");
         else
             log.error(userId1 + " : 가입 가능 (테스트 실패)");
 
-        if (memberService.duplicate(userId2))
+        if (service.duplicate(userId2))
             log.info(userId2 + " : 가입 가능 (테스트 성공)");
         else
             log.error(userId2 + " : 가입 불가능 (테스트 실패)");
@@ -83,7 +83,7 @@ class GeneralServiceTest {
     @Test
     @DisplayName("일반계정 회원가입 - 메일 전송")
     void sendEmailTest() {
-        Long code = memberService.sendEmail("bell4916@naver.com");
+        Long code = service.sendEmail("bell4916@naver.com");
 
         log.info("CODE : " + code);
     }
@@ -91,7 +91,7 @@ class GeneralServiceTest {
     @Test
     @DisplayName("일반계정 아이디 찾기")
     void findTest() {
-        String userId = memberService.find("테스트3", "01033333333");
+        String userId = service.find("테스트3", "01033333333");
 
         log.info("검색 결과 : " + userId);
     }
@@ -108,7 +108,7 @@ class GeneralServiceTest {
                 .gender("F")
                 .foreigner(true)
                 .build();
-        memberService.modify(dto);
+        service.modify(dto);
     }
 
     @Test
@@ -116,7 +116,7 @@ class GeneralServiceTest {
     void getTest() {
         for (int i = 1; i <= 3; i++) {
             String userId = "test" + i + "@test.com";
-            GeneralDTO dto = memberService.get(userId);
+            GeneralDTO dto = service.get(userId);
 
             log.info(dto.toString());
         }
@@ -126,6 +126,6 @@ class GeneralServiceTest {
     @DisplayName("일반계정 회원탈퇴")
     void deleteTest() {
         String userId = "test1@test.com";
-        memberService.deleteId(userId);
+        service.deleteId(userId);
     }
 }

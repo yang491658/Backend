@@ -33,10 +33,9 @@ public class MypageController {
     @PostMapping("/custom/setting")
     public void saveCustom(@RequestParam String userId,
                            @RequestParam String yListStr,
-                           @RequestParam String eListStr,
                            @RequestParam String rListStr,
                            @RequestParam String kListStr) {
-        customService.saveSetting(userId, yListStr, eListStr, rListStr, kListStr);
+        customService.saveSetting(userId, yListStr, rListStr, kListStr);
     }
 
     // 커스텀 정보 조회
@@ -44,14 +43,31 @@ public class MypageController {
     public PageResponseDTO<CustomDTO> getCustom(PageRequestDTO pageRequestDTO,
                                                 @RequestParam String address,
                                                 @RequestParam String yListStr,
-                                                @RequestParam String eListStr,
                                                 @RequestParam String rListStr,
                                                 @RequestParam String kListStr) {
-        return customService.getList(pageRequestDTO, address, yListStr, eListStr, rListStr, kListStr);
+        return customService.getList(pageRequestDTO, address, yListStr, rListStr, kListStr);
     }
 
-    // 즐겨찾기 조회
-    @GetMapping("/bookmark")
+    // 즐겨찾기 여부 확인
+    @GetMapping("bookmark")
+    public boolean checkBookmark(@RequestParam String userId,
+                                 @RequestParam String main,
+                                 @RequestParam String sub,
+                                 @RequestParam Long targetId) {
+        return bookmarkService.check(userId, main, sub, targetId);
+    }
+
+    // 즐겨찾기 변경
+    @PostMapping("bookmark")
+    public void chagneBookmark(@RequestParam String userId,
+                               @RequestParam String main,
+                               @RequestParam String sub,
+                               @RequestParam Long targetId) {
+        bookmarkService.change(userId, main, sub, targetId);
+    }
+
+    // 즐겨찾기 목록 조회
+    @GetMapping("/bookmark/list")
     public PageResponseDTO<BookmarkDTO> getBookmark(PageRequestDTO pageRequestDTO,
                                                     @RequestParam String userId,
                                                     @RequestParam String category) {
@@ -60,10 +76,10 @@ public class MypageController {
 
     // 작성글 조회
     @GetMapping("/doc")
-    public PageResponseDTO<DocumentdDTO> list(PageRequestDTO pageRequestDTO,
-                                              @RequestParam String userId,
-                                              @RequestParam String boardType,
-                                              @RequestParam String category) {
+    public PageResponseDTO<DocumentdDTO> getCommunity(PageRequestDTO pageRequestDTO,
+                                                      @RequestParam String userId,
+                                                      @RequestParam String boardType,
+                                                      @RequestParam String category) {
         return documentService.getList(pageRequestDTO, userId, boardType, category);
     }
 }
