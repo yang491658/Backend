@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -25,34 +27,58 @@ public class JobEntity {
     private Long policyId;          // 정책 id(PK)
 
     private String polyRlmCd;       // 정책분야코드(일자리 : 023010 / 주거 : 023020)
+
     private String bizId;           // 정책번호
+
     private String polyBizSjnm;     // 정책명
+
     private String polyItcnCn;      // 정책소개(부제목)
+
     private String polyBizTy;       // 기관및지자체 구분
-    private String mngtMson;        // 주관부처
+
+    private String mngtMson;        // 주관기관
+
+    private String cherCtpcCn;      // 주관기관 담당자 연락처
+
     private String cnsgNmor;        // 운영기관
+
+    private String tintCherCtpcCn;  // 운영기관 담당자 연락처
 
     @Column(columnDefinition = "TEXT")
     private String sporCn;          // 지원내용
 
     private String bizPrdCn;        // 사업운영기간
+
     private String prdRpttSecd;     // 사업신청기간반복구분코드(상시:002001/연간반복:002002/월간반복:002003/특정기간:002004/미정:002005)
 
     @Column(columnDefinition = "TEXT")
     private String rqutPrdCn;       // 사업신청기간
+
+    private LocalDate rqutPrdStart; // 사업신청 시작일
+
+    private LocalDate rqutPrdEnd;   // 사업신청 종료일
+
+    private String rqutPrdCnSts;    // 신청기간 상태(진행중/마감)
+
     private String sporScvl;        // 지원규모
+
     private String ageInfo;         // 연령
 
     @Column(columnDefinition = "TEXT")
     private String prcpCn;          // 거주지 및 소득
 
     private String majrRqisCn;      // 전공요건
+
     @Column(columnDefinition = "TEXT")
     private String empmSttsCn;      // 취업상태
+
     private String splzRlmRqisCn;   // 특화분야
+
     private String accrRqisCn;      // 학력요건
+
     @Column(columnDefinition = "TEXT")
-    private String aditRscn;        // 추가 단서사항
+    private String aditRscn;        // 추가세부사항
+
     @Column(columnDefinition = "TEXT")
     private String prcpLmttTrgtCn;  // 참여제한대상
 
@@ -60,17 +86,22 @@ public class JobEntity {
     private String rqutProcCn;      // 신청절차
 
     @Column(columnDefinition = "TEXT")
-    private String jdgnPresCn;      // 심사 및 발표
+    private String jdgnPresCn;      // 신청 및 발표
 
     @Column(columnDefinition = "TEXT")
     private String rqutUrla;        // 신청사이트 주소
+
     private String rfcSiteUrla1;    // 참고사이트 url1
+
     private String rfcSiteUrla2;    // 참고사이트 url2
 
     @Column(columnDefinition = "TEXT")
     private String pstnPaprCn;      // 제출서류
+
     @Column(columnDefinition = "TEXT")
     private String etct;            // 기타
+
+    private boolean delFlag;        // 삭제상태(true:삭제됨/false:삭제안됨)
 
     public void setPolyRlmCd(String polyRlmCd) {
         this.polyRlmCd = polyRlmCd;
@@ -114,6 +145,18 @@ public class JobEntity {
 
     public void setRqutPrdCn(String rqutPrdCn) {
         this.rqutPrdCn = rqutPrdCn;
+    }
+
+    public void setRqutPrdStart(LocalDate rqutPrdStart) {
+        this.rqutPrdStart = rqutPrdStart;
+    }
+
+    public void setRqutPrdEnd(LocalDate rqutPrdEnd) {
+        this.rqutPrdEnd = rqutPrdEnd;
+    }
+
+    public void setRqutPrdCnSts(String rqutPrdCnSts) {
+        this.rqutPrdCnSts = rqutPrdCnSts;
     }
 
     public void setSporScvl(String sporScvl) {
@@ -178,5 +221,9 @@ public class JobEntity {
 
     public void setEtct(String etct) {
         this.etct = etct;
+    }
+
+    public void setDelFlag(boolean delFlag) {
+        this.delFlag = delFlag;
     }
 }
