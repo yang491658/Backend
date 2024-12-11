@@ -1,7 +1,8 @@
 package project.blobus.Backend.youth.education;
 
 import jakarta.persistence.*;
-        import lombok.Getter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Table(name = "youth_education_policy")
 @Getter
 @Setter
+@NoArgsConstructor
 public class EducationEntity {
 
     @Id
@@ -65,6 +67,9 @@ public class EducationEntity {
     @Column(name = "additional_requirement", columnDefinition = "TEXT")
     private String additionalRequirement; // 추가 필요 사항
 
+    @Column(name = "participation_restriction", columnDefinition = "TEXT")
+    private String participationRestriction; // 참여 제한 대상
+
     @Column(name = "application_procedure", columnDefinition = "TEXT")
     private String applicationProcedure; // 신청 절차 내용
 
@@ -103,5 +108,8 @@ public class EducationEntity {
 
     @Column(name = "etc", columnDefinition = "TEXT")
     private String etc; // 기타사항
+
+    @Column(name = "del_Flag")
+    private boolean delFlag;
 
 }
