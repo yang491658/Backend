@@ -28,6 +28,7 @@ public class WelfareDTO {
     private String majorIn; // 전공
     private String employmentStatus; // 취업 상태
     private String additionalRequirement; // 추가 필요 사항
+    private String participationRestriction; // 참여 제한 대상
     private String applicationProcedure; // 신청 절차 내용
     private String judgingPresentation; // 심사 및 발표
     private String applicationSite; // 신청 사이트
@@ -41,6 +42,7 @@ public class WelfareDTO {
     private String referenceSite1; // 참고사이트1
     private String referenceSite2; // 참고사이트2
     private String etc; // 기타사항
+    private boolean delFlag; // 삭제 로그 flag
 
     // 필요에 따라 Entity -> DTO 변환 메서드
     public WelfareDTO(WelfareEntity entity) {
@@ -61,6 +63,7 @@ public class WelfareDTO {
         this.majorIn = entity.getMajorIn();
         this.employmentStatus = entity.getEmploymentStatus();
         this.additionalRequirement = entity.getAdditionalRequirement();
+        this.participationRestriction = entity.getParticipationRestriction();
         this.applicationProcedure = entity.getApplicationProcedure();
         this.judgingPresentation = entity.getJudgingPresentation();
         this.applicationSite = entity.getApplicationSite();
@@ -74,6 +77,7 @@ public class WelfareDTO {
         this.referenceSite1 = entity.getReferenceSite1();
         this.referenceSite2 = entity.getReferenceSite2();
         this.etc = entity.getEtc();
+        this.delFlag = entity.isDelFlag();
     }
 
     // DTO -> Entity 변환 메서드
@@ -96,6 +100,7 @@ public class WelfareDTO {
         entity.setMajorIn(this.majorIn);
         entity.setEmploymentStatus(this.employmentStatus);
         entity.setAdditionalRequirement(this.additionalRequirement);
+        entity.setParticipationRestriction(this.participationRestriction);
         entity.setApplicationProcedure(this.applicationProcedure);
         entity.setJudgingPresentation(this.judgingPresentation);
         entity.setApplicationSite(this.applicationSite);
@@ -109,6 +114,7 @@ public class WelfareDTO {
         entity.setReferenceSite1(this.referenceSite1);
         entity.setReferenceSite2(this.referenceSite2);
         entity.setEtc(this.etc);
+        entity.setDelFlag(this.delFlag);
         return entity;
     }
 

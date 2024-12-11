@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -23,10 +24,12 @@ public class EducationController{
             @RequestParam(defaultValue = "0") int page,           // 페이지 번호
             @RequestParam(defaultValue = "10") int size,          // 페이지 크기
             @RequestParam(defaultValue = "") String keyword,      // 검색어 (기본값: 빈 문자열)
-            @RequestParam(defaultValue = "전체") String category  // 기본값 "전체"
+            @RequestParam(defaultValue = "상태전체") String progress,  // 기본값 "유형전체"
+            @RequestParam(defaultValue = "유형전체") String category  // 기본값 "유형전체"
+
     ) {
         Pageable pageable = PageRequest.of(page , size);                         // 페이징 객체 생성
-        return educationService.getPagedPolicies(keyword, category, pageable); // 서비스 호출
+        return educationService.getPagedPolicies(keyword, progress, category, pageable); // 서비스 호출
 
     }
 
@@ -40,5 +43,26 @@ public class EducationController{
     @GetMapping("/policies/{id}")
     public EducationDTO getPolicyById(@PathVariable Integer id) {
         return educationService.getPolicyById(id);
+    }
+
+    @PostMapping("/policies/{id}")
+    public Map<String, String> modify(@PathVariable Integer id, @RequestBody EducationDTO educationDTO) {
+        educationDTO.setPolicyId(id);
+
+        log.info("프론트에서 수정되기 원하는 정책 ID " + id);
+
+        log.info("Before Modify:" + educationDTO);
+
+        educationService.modify(educationDTO);
+
+        log.info("After Modify:" + educationDTO);
+
+        return Map.of("RESULT", "SUCCESS");
+    }
+
+    @DeleteMapping("/policies/{id}")
+    public Map<String, String> remove(@PathVariable("id") Integer id) {
+        educationService.remove(id);
+        return Map.of("RESULT", "SUCCESS");
     }
 }
