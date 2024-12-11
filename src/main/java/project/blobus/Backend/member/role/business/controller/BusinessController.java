@@ -11,17 +11,17 @@ import project.blobus.Backend.member.role.business.service.BusinessService;
 @RequestMapping("/member/business")
 public class BusinessController {
     @Autowired
-    private BusinessService businessService;
+    private BusinessService service;
 
     // 기업계정 회원가입
     @PostMapping("/register")
     public Long register(@RequestBody BusinessDTO dTO) {
-        return businessService.register(dTO);
+        return service.register(dTO);
     }
 
     // 기업계정 회원가입 - 중복 확인
     @GetMapping("/dup/{userId}")
     public boolean duplicate(@PathVariable String userId) {
-        return businessService.duplicate(userId);
+        return service.duplicate(userId);
     }
 }

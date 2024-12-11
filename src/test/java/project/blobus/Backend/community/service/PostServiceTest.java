@@ -11,7 +11,6 @@ import project.blobus.Backend.common.dto.PageResponseDTO;
 import project.blobus.Backend.community.dto.PostDTO;
 
 import java.time.LocalDateTime;
-import java.util.Random;
 
 @SpringBootTest
 class PostServiceTest {

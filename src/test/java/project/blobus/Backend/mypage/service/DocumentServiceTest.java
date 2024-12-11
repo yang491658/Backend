@@ -96,7 +96,7 @@ class DocumentServiceTest {
     public void test6() {
         String email = "test1@test.com";
         String boardType = "자유";
-        String category = "기업";
+        String category = "지역";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)

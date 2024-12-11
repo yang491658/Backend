@@ -17,8 +17,28 @@ class BookmarkServiceTest {
     private BookmarkService service;
 
     @Test
-    @DisplayName("즐겨찾기 조회 테스트 - 전체")
+    @DisplayName("즐겨찾기 여부 확인 테스트")
     public void test1() {
+        String userId = "test2@test.com";
+        String main = "청년";
+        String sub = "일자리";
+        Long targetId = 1L;
+        log.info(String.valueOf(service.check(userId, main, sub, targetId)));
+    }
+
+    @Test
+    @DisplayName("즐겨찾기 변경 테스트")
+    public void test2() {
+        String userId = "test2@test.com";
+        String main = "청년";
+        String sub = "일자리";
+        Long targetId = 1L;
+        service.change(userId, main, sub, targetId);
+    }
+
+    @Test
+    @DisplayName("즐겨찾기 목록 조회 테스트 - 전체")
+    public void test3() {
         String userId = "test2@test.com";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
@@ -30,8 +50,8 @@ class BookmarkServiceTest {
     }
 
     @Test
-    @DisplayName("즐겨찾기 조회 테스트 - 청년")
-    public void test2() {
+    @DisplayName("즐겨찾기 목록 조회 테스트 - 청년")
+    public void test4() {
         String userId = "test2@test.com";
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()

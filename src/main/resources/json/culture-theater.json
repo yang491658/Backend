@@ -1,0 +1,276 @@
+{
+  "_declaration": {
+    "_attributes": {
+      "version": "1.0",
+      "encoding": "UTF-8"
+    }
+  },
+  "response": {
+    "header": {
+      "resultCode": {
+        "_text": "00"
+      },
+      "resultMsg": {
+        "_text": "NORMAL_CODE"
+      }
+    },
+    "body": {
+      "items": {
+        "item": [
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-03"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-07"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "부산아시아드주경기장"
+            },
+            "title": {
+              "_text": "한국 명작 희곡 윤조병 특별전: ㅉㅅㅉㅅ"
+            },
+            "res_no": {
+              "_text": "2024110115"
+            },
+            "image": {
+              "_url": "https://i.ibb.co/CQDBhvS/image.gif"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-05"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-08"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "일터 소극장"
+            },
+            "title": {
+              "_text": "난쟁이들"
+            },
+            "res_no": {
+              "_text": "2024110126"
+            },
+            "image": {
+              "_url": "https://i.ibb.co/4T6m1P9/image.jpg"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-30"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-08"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "어댑터씨어터"
+            },
+            "title": {
+              "_text": "마이 디어, 헬렌"
+            },
+            "res_no": {
+              "_text": "2024110129"
+            },
+            "image": {
+              "_url": "https://i.ibb.co/Br8MzTT/image.jpg"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-11-01"
+            },
+            "op_ed_dt": {
+              "_text": "2025-01-05"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "부산메트로홀 (구. AN아트홀 광안)"
+            },
+            "title": {
+              "_text": "크리스마스 특별공연, 이프온리"
+            },
+            "res_no": {
+              "_text": "2024110136"
+            },
+            "image": {
+              "_url": "https://i.ibb.co/GMcGLv9/image.jpg"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-05"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-08"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "어댑터씨어터"
+            },
+            "title": {
+              "_text": "제갈옥남"
+            },
+            "res_no": {
+              "_text": "2024110158"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-06"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-07"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "부산시민회관"
+            },
+            "title": {
+              "_text": "국립정동극장 연극시리즈, 더 드레서"
+            },
+            "res_no": {
+              "_text": "2024110159"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-12"
+            },
+            "op_ed_dt": {
+              "_text": "2025-01-05"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "어댑터씨어터"
+            },
+            "title": {
+              "_text": "나는 쇼팽의 녹턴 B플랫 단조에 순결을 잃었다 "
+            },
+            "res_no": {
+              "_text": "2024110167"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-01"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-01"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "영산대학교 성심오디토리움"
+            },
+            "title": {
+              "_text": "랜턴: 환영을 만드는 등불 "
+            },
+            "res_no": {
+              "_text": "2024110201"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-25"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-29"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "공간소극장"
+            },
+            "title": {
+              "_text": "행인두부의 마음 "
+            },
+            "res_no": {
+              "_text": "2024120012"
+            }
+          },
+          {
+            "op_at": {
+              "_text": "N"
+            },
+            "op_st_dt": {
+              "_text": "2024-12-24"
+            },
+            "op_ed_dt": {
+              "_text": "2024-12-31"
+            },
+            "pay_at": {
+              "_text": "Y"
+            },
+            "place_nm": {
+              "_text": "나다소극장"
+            },
+            "title": {
+              "_text": "이게, 로맨스?! "
+            },
+            "res_no": {
+              "_text": "2024120016"
+            }
+          }
+        ]
+      },
+      "numOfRows": {
+        "_text": "10"
+      },
+      "pageNo": {
+        "_text": "96"
+      },
+      "totalCount": {
+        "_text": "961"
+      }
+    },
+    "numOfRows": "200"
+  }
+}
