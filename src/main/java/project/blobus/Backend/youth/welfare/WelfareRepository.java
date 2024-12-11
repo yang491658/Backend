@@ -33,12 +33,13 @@ public interface WelfareRepository extends JpaRepository<WelfareEntity, Integer>
 
     @Query("SELECT e FROM WelfareEntity e WHERE e.delFlag = false AND " +
             "(:category = '유형전체' OR (CASE WHEN :category = '제목' THEN e.policyName LIKE %:keyword% ELSE e.policyOverview LIKE %:keyword% END)) AND " +
-            "(:progress = '상태전체' OR (CASE WHEN :progress = '진행중' THEN (e.policyApplicationEndPeriod >= :currentDate OR e.policyApplicationEndPeriod IS NULL) ELSE e.policyApplicationEndPeriod < :currentDate END))")
+            "(:progress = '상태전체' OR (CASE WHEN :progress = '진행중' THEN (e.policyApplicationEndPeriod >= :currentDate OR e.policyApplicationEndPeriod IS NULL) ELSE e.policyApplicationEndPeriod < :currentDate END)) AND " +
+            "(e.policyName LIKE %:keyword% OR e.policyOverview LIKE %:keyword%)")
     Page<WelfareEntity> findByCategoryAndProgress(@Param("keyword") String keyword,
-                                                    @Param("category") String category,
-                                                    @Param("progress") String progress,
-                                                    @Param("currentDate") LocalDate currentDate,
-                                                    Pageable pageable);
+                                                  @Param("category") String category,
+                                                  @Param("progress") String progress,
+                                                  @Param("currentDate") LocalDate currentDate,
+                                                  Pageable pageable);
 
     @Modifying
     @Query("UPDATE WelfareEntity w SET w.delFlag = :flag WHERE w.policyId = :id")
