@@ -21,9 +21,12 @@ import project.blobus.Backend.youth.house.dto.PageResponseDTO;
 import project.blobus.Backend.youth.house.entity.HouseEntity;
 import project.blobus.Backend.youth.house.repository.HouseRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -38,6 +41,9 @@ public class HouseServiceImpl implements HouseService{
     private final HouseRepository houseRepository;
     private final RestTemplate restTemplate;
 
+    // BLOBUS > 청년관 > 주거
+    // 1.정책현황
+
     // 서버 시작 시 데이터 초기화
     @PostConstruct
     public void init() {
@@ -47,13 +53,19 @@ public class HouseServiceImpl implements HouseService{
 
     // 정책 오픈 API
     public void getPolicyApi() {
-        // 필수 파라미터
-        int display = 100;   // 출력건수 : 기본값 10, 최대 100까지 가능
-        int pageIndex = 1;  // 조회할 페이지 : 기본값 1
+        // ● 필수 파라미터
+        // 출력건수 : 기본값 10, 최대 100까지 가능
+        int display = 100;
+        // 조회할 페이지 : 기본값 1
+        int pageIndex = 1;
 
-        // 선택 파라미터
-        String bizTycdSel = "023020";           // 정책유형 - 일자리 분야(023010) / 주거 분야(023020)
-        String srchPolyBizSecd = "003002002,003001001,003001003,003001004,003001007,003001016,003001017,003001018,003001022,003001053";   // 지역코드 - 부산(003002002)
+        // ● 선택 파라미터
+        //   1)정책유형
+        //      - 일자리 분야(023010) / 주거 분야(023020)
+        String bizTycdSel = "023020";
+        //   2)지역코드
+        //      - 부산(003002002)
+        String srchPolyBizSecd = "003002002,003001001,003001003,003001004,003001007,003001016,003001017,003001018,003001022,003001053";
 
         List<HouseEntity> entityList = new ArrayList<>();
 
@@ -82,8 +94,6 @@ public class HouseServiceImpl implements HouseService{
                 JsonNode policyList =  rootNode.path("youthPolicy");   // 'youthPolicy' 키 기준으로 데이터 추출
 
                 log.info("주거 정책 API 데이터 추출 =============================");
-                log.info("현재 페이지: " + pageIndex + ", 총 데이터 수: " + totalCnt);
-                log.info("API: " + policyList);
 
                 // 4. 중복 체크 후 데이터 추가
                 for(JsonNode node : policyList) {
@@ -91,6 +101,11 @@ public class HouseServiceImpl implements HouseService{
 
                     // 중복 체크
                     if (!houseRepository.existsByBizId(bizId)) {
+                        String[] results = extractDates(node.path("rqutPrdCn").asText());
+                        // 날짜가 null이 아니고 유효한 경우만 처리
+                        LocalDate rqutPrdStart = (results != null && results.length > 0 && results[0] != null) ? LocalDate.parse(results[0]) : null;
+                        LocalDate rqutPrdEnd = (results != null && results.length > 1 && results[1] != null) ? LocalDate.parse(results[1]) : null;
+
                         HouseEntity houseEntity = HouseEntity.builder()
                                 .polyRlmCd(node.path("polyRlmCd").asText())
                                 .bizId(node.path("bizId").asText())
@@ -98,11 +113,15 @@ public class HouseServiceImpl implements HouseService{
                                 .polyItcnCn(node.path("polyItcnCn").asText())
                                 .polyBizTy(node.path("polyBizTy").asText())
                                 .mngtMson(node.path("mngtMson").asText())
+                                .cherCtpcCn(node.path("cherCtpcCn").asText())
                                 .cnsgNmor(node.path("cnsgNmor").asText())
+                                .tintCherCtpcCn(node.path("tintCherCtpcCn").asText())
                                 .sporCn(node.path("sporCn").asText())
                                 .bizPrdCn(node.path("bizPrdCn").asText())
                                 .prdRpttSecd(node.path("prdRpttSecd").asText())
                                 .rqutPrdCn(node.path("rqutPrdCn").asText())
+                                .rqutPrdStart(rqutPrdStart)
+                                .rqutPrdEnd(rqutPrdEnd)
                                 .sporScvl(node.path("sporScvl").asText())
                                 .ageInfo(node.path("ageInfo").asText())
                                 .prcpCn(node.path("prcpCn").asText())
@@ -119,6 +138,7 @@ public class HouseServiceImpl implements HouseService{
                                 .rfcSiteUrla2(node.path("rfcSiteUrla2").asText())
                                 .pstnPaprCn(node.path("pstnPaprCn").asText())
                                 .etct(node.path("etct").asText())
+                                .delFlag(false)
                                 .build();
 
                         entityList.add(houseEntity);
@@ -138,11 +158,30 @@ public class HouseServiceImpl implements HouseService{
         }
     }
 
+    // 정책기간 Start / End 분리시키기
+    public static String[] extractDates(String input) {
+        // 정규식 패턴: "YYYY-MM-DD~YYYY-MM-DD" 형태의 날짜 범위를 찾음
+        String regex = "(\\d{4}-\\d{2}-\\d{2})~(\\d{4}-\\d{2}-\\d{2})";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            // 매칭된 날짜 반환(시작일, 종료일)
+            return new String[]{matcher.group(1), matcher.group(2)};
+        } else {
+            // 날짜 범위를 찾지 못하면 null 반환
+            return null;
+        }
+    }
+
+    // 정책현황 - 생성
+
     // 정책현황 - 리스트
     @Override
     public PageResponseDTO<HouseDTO> getPolicyList(PageRequestDTO pageRequestDTO,
-                                         String searchTerm,
-                                         String filterType) {
+                                                   String policyStsType,
+                                                   String searchTerm,
+                                                   String filterType) {
         log.info("HouseServiceImpl - getPolicyList 호출 --------------------------- ");
 
         Pageable pageable = PageRequest.of(
@@ -153,24 +192,7 @@ public class HouseServiceImpl implements HouseService{
 
         Page<HouseEntity> result;
 
-        // 검색어와 필터 타입이 있을 경우 조건 처리
-        if (searchTerm != null && !searchTerm.isEmpty()) {
-            switch (filterType) {
-                case "polyBizSjnm":
-                    result = houseRepository.findByPolyBizSjnmContaining(searchTerm, pageable);
-                    break;
-                case "polyItcnCn":
-                    result = houseRepository.findByPolyItcnCnContaining(searchTerm, pageable);
-                    break;
-                case "both":
-                    result = houseRepository.findByPolyBizSjnmContainingOrPolyItcnCnContaining(searchTerm, searchTerm, pageable);
-                    break;
-                default:
-                    result = houseRepository.findAll(pageable);
-            }
-        } else {
-            result = houseRepository.findAll(pageable); // 검색어가 없으면 전체 조회
-        }
+        result = houseRepository.findByFilterTypeAndPolicyStsType(policyStsType, searchTerm, filterType, pageable); // 전체 조회
 
         List<HouseDTO> dtoList = result.getContent().stream()
                 .map(entity -> modelMapper.map(entity, HouseDTO.class))
@@ -190,5 +212,53 @@ public class HouseServiceImpl implements HouseService{
         HouseEntity houseEntity = result.orElseThrow();
         HouseDTO houseDTO = modelMapper.map(houseEntity, HouseDTO.class);
         return houseDTO;
+    }
+
+    // 정책현황 - 수정
+    @Override
+    public void policyModify(HouseDTO houseDTO) {
+        Optional<HouseEntity> result = houseRepository.findById(houseDTO.getPolicyId());
+        HouseEntity houseEntity = result.orElseThrow();
+
+        // 날짜가 null이 아니고 유효한 경우만 처리
+        String[] results = extractDates(houseDTO.getRqutPrdCn());
+        LocalDate rqutPrdStart = (results != null && results.length > 0 && results[0] != null) ? LocalDate.parse(results[0]) : null;
+        LocalDate rqutPrdEnd = (results != null && results.length > 1 && results[1] != null) ? LocalDate.parse(results[1]) : null;
+
+        // 정책명
+        houseEntity.setPolyBizSjnm(houseDTO.getPolyBizSjnm());          // 정책명
+        houseEntity.setPolyItcnCn(houseDTO.getPolyItcnCn());            // 정책소개(부제목)
+        // 정책설명
+        houseEntity.setSporCn(houseDTO.getSporCn());                    // 지원내용
+        houseEntity.setRqutPrdCn(houseDTO.getRqutPrdCn());              // 사업신청기간
+        houseEntity.setRqutPrdStart(rqutPrdStart);                    // 사업신청 시작일
+        houseEntity.setRqutPrdEnd(rqutPrdEnd);                        // 사업신청 종료일
+        houseEntity.setSporScvl(houseDTO.getSporScvl());                // 지원규모
+        // 지원대상
+        houseEntity.setAgeInfo(houseDTO.getAgeInfo());                  // 연령
+        houseEntity.setPrcpCn(houseDTO.getPrcpCn());                    // 거주지 및 소득
+        houseEntity.setAccrRqisCn(houseDTO.getAccrRqisCn());            // 학력요건
+        houseEntity.setMajrRqisCn(houseDTO.getMajrRqisCn());            // 전공요건
+        houseEntity.setEmpmSttsCn(houseDTO.getEmpmSttsCn());            // 취업상태
+        houseEntity.setAditRscn(houseDTO.getAditRscn());                // 추가 단서사항
+        houseEntity.setPrcpLmttTrgtCn(houseDTO.getPrcpLmttTrgtCn());    // 참여제한대상
+        // 신청방법
+        houseEntity.setRqutProcCn(houseDTO.getRqutProcCn());            // 신청절차
+        houseEntity.setJdgnPresCn(houseDTO.getJdgnPresCn());            // 신청 및 발표
+        houseEntity.setRqutUrla(houseDTO.getRqutUrla());                // 신청사이트 주소
+        houseEntity.setPstnPaprCn(houseDTO.getPstnPaprCn());            // 제출서류
+        // 기타
+        houseEntity.setMngtMson(houseDTO.getMngtMson());                // 주관기관
+        houseEntity.setCnsgNmor(houseDTO.getCnsgNmor());                // 운영기관
+        houseEntity.setRfcSiteUrla1(houseDTO.getRfcSiteUrla1());        // 참고사이트 url1
+        houseEntity.setRfcSiteUrla2(houseDTO.getRfcSiteUrla2());        // 참고사이트 url2
+
+        houseRepository.save(houseEntity);
+    }
+
+    // 정책현황 - 삭제
+    @Override
+    public void policyRemove(Long policyId) {
+        houseRepository.delFlagById(policyId);
     }
 }
