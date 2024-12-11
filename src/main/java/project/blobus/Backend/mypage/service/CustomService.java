@@ -101,7 +101,7 @@ public class CustomService {
 
         List<CustomDTO> newCustomList = customList.stream()
                 .distinct()
-                .sorted((dto1, dto2) -> dto2.getTitle().compareTo(dto1.getTitle()))
+                .sorted((dto1, dto2) -> dto1.getTitle().compareTo(dto2.getTitle()))
                 .collect(Collectors.toList());
 
         int totalCount = newCustomList.size();
@@ -131,7 +131,7 @@ public class CustomService {
             customList.addAll(jobRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            || (keyward == null || searchByKeyward(data, keyward)))
+                            && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             data,
                             null,
@@ -145,7 +145,7 @@ public class CustomService {
             customList.addAll(houseRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산")))
-                            || (keyward == null || searchByKeyward(data, keyward)))
+                            && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             data,
@@ -159,7 +159,7 @@ public class CustomService {
             customList.addAll(welfareRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            || (keyward == null || searchByKeyward(data, keyward)))
+                            && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             null,
@@ -173,7 +173,7 @@ public class CustomService {
             customList.addAll(educationRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            || (keyward == null || searchByKeyward(data, keyward)))
+                            && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             null,
@@ -187,7 +187,7 @@ public class CustomService {
             customList.addAll(cultureRepository.findAll().stream()
                     .filter(data -> (!address.contains("부산")
                             || (searchByKeyward(data, "부산") && searchByKeyward(data, city)))
-                            || (keyward == null || searchByKeyward(data, keyward)))
+                            && (keyward == null || searchByKeyward(data, keyward)))
                     .map(data -> toDTO(
                             null,
                             null,
