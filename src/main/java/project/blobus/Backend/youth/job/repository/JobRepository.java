@@ -35,5 +35,4 @@ public interface JobRepository extends JpaRepository<JobEntity, Long> {
     @Modifying
     @Query("UPDATE JobEntity j SET j.delFlag = TRUE WHERE j.id = :policyId")
     void delFlagById(@Param("policyId") Long policyId);
-
 }

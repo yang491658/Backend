@@ -190,9 +190,7 @@ public class JobServiceImpl implements JobService{
                 Sort.by("policyId").descending()
         );
 
-        Page<JobEntity> result;
-
-        result = jobRepository.findByFilterTypeAndPolicyStsType(policyStsType, searchTerm, filterType, pageable); // 전체 조회
+        Page<JobEntity> result = jobRepository.findByFilterTypeAndPolicyStsType(policyStsType, searchTerm, filterType, pageable); // 전체 조회
 
         List<JobDTO> dtoList = result.getContent().stream()
                 .map(entity -> modelMapper.map(entity, JobDTO.class))
@@ -249,7 +247,9 @@ public class JobServiceImpl implements JobService{
         jobEntity.setPstnPaprCn(jobDTO.getPstnPaprCn());            // 제출서류
         // 기타
         jobEntity.setMngtMson(jobDTO.getMngtMson());                // 주관기관
+        jobEntity.setCherCtpcCn(jobDTO.getCherCtpcCn());            // 주관기관 담당자 연락처
         jobEntity.setCnsgNmor(jobDTO.getCnsgNmor());                // 운영기관
+        jobEntity.setTintCherCtpcCn(jobDTO.getTintCherCtpcCn());    // 운영기관 담당자 연락처
         jobEntity.setRfcSiteUrla1(jobDTO.getRfcSiteUrla1());        // 참고사이트 url1
         jobEntity.setRfcSiteUrla2(jobDTO.getRfcSiteUrla2());        // 참고사이트 url2
 

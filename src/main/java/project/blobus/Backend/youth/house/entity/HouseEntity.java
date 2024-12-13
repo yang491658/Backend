@@ -127,8 +127,16 @@ public class HouseEntity {
         this.mngtMson = mngtMson;
     }
 
+    public void setCherCtpcCn(String cherCtpcCn) {
+        this.cherCtpcCn = cherCtpcCn;
+    }
+
     public void setCnsgNmor(String cnsgNmor) {
         this.cnsgNmor = cnsgNmor;
+    }
+
+    public void setTintCherCtpcCn(String tintCherCtpcCn) {
+        this.tintCherCtpcCn = tintCherCtpcCn;
     }
 
     public void setSporCn(String sporCn) {
