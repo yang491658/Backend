@@ -38,8 +38,19 @@ public class AllSearchService {
             if(totalItem2 % 10 != 0) {
                 totalPage2 += 1;
             }
-            List<String> result = policyTitles.stream()
-                    .map(AllSearchDTO::getTitle)
+
+            //            List<String> result = policyTitles.stream()
+//                    .map(AllSearchDTO::getTitle)
+//                    .collect(Collectors.toList());
+
+            List<Map<String, Object>> result = policyTitles.stream()
+                    .map(dto -> {
+                        Map<String, Object> map2 = new HashMap<>();
+                        map2.put("id", dto.getId());
+                        map2.put("title", dto.getTitle());
+                        map2.put("category", dto.getCategory());
+                        return map2;
+                    })
                     .collect(Collectors.toList());
 
             map.put("list", result);
@@ -54,6 +65,8 @@ public class AllSearchService {
 
             map.put("policy", policyData);   // 예시 값 (실제 총 페이지 수 계산 필요)
             map.put("community", communityData);   // 예시 값 (실제 총 페이지 수 계산 필요)
+
+
 
         } else if ("community".equalsIgnoreCase(category)) {
 
@@ -71,8 +84,19 @@ public class AllSearchService {
                 totalPage2 += 1;
             }
 
-            List<String> result = communityPosts.stream()
-                    .map(AllSearchDTO::getTitle)
+//            List<String> result = communityPosts.stream()
+//                    .map(AllSearchDTO::getTitle)
+//                    .collect(Collectors.toList());
+
+            List<Map<String, Object>> result = communityPosts.stream()
+                    .map(dto -> {
+                        Map<String, Object> map2 = new HashMap<>();
+                        map2.put("id", dto.getId());
+                        map2.put("title", dto.getTitle());
+                        map2.put("visibility",dto.getVisibility());
+                        map2.put("author_id",dto.getAuthorId());
+                        return map2;
+                    })
                     .collect(Collectors.toList());
 
             map.put("list", result);

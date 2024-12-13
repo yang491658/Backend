@@ -51,8 +51,9 @@ public class HouseController {
     @PostMapping("/policyRead/{policyId}")
     public Map<String, String> policyModify(@PathVariable(name="policyId") Long policyId,
                                             @RequestBody HouseDTO houseDTO){
-        houseDTO.setPolicyId(policyId);
+        log.info("HouseController - policyModify 호출 : --------------------------- ");
         log.info(houseDTO.toString());
+        houseDTO.setPolicyId(policyId);
         service.policyModify(houseDTO);
         return Map.of("result", "SUCCESS");
     }
@@ -60,6 +61,7 @@ public class HouseController {
     // 정책현황 - 삭제
     @DeleteMapping("/policyRead/{policyId}")
     public Map<String, String> policyRemove(@PathVariable(name = "policyId") Long policyId) {
+        log.info("HouseController - policyRemove 호출 : --------------------------- ");
         log.info("policyId : " + policyId);
         service.policyRemove(policyId);
         return Map.of("result", "SUCCESS");

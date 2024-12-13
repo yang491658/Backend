@@ -132,6 +132,7 @@ public class PostService {
         post.setId(dto.getId());
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
+        post.setCategory(dto.getCategory());
         post.setVisibility(dto.isVisibility());
         post.setUpdatedAt(LocalDateTime.now());
 
