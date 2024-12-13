@@ -101,7 +101,7 @@ public class CustomService {
 
         List<CustomDTO> newCustomList = customList.stream()
                 .distinct()
-                .sorted((dto1, dto2) -> dto1.getTitle().compareTo(dto2.getTitle()))
+                .sorted(Comparator.comparing(CustomDTO::getTitle))
                 .collect(Collectors.toList());
 
         int totalCount = newCustomList.size();
@@ -201,7 +201,7 @@ public class CustomService {
     }
 
     // 키워드 검색 함수
-    private boolean searchByKeyward(Object data, String keyword) {
+    private Boolean searchByKeyward(Object data, String keyword) {
         if (data == null || keyword == null || keyword.isEmpty()) {
             return false;
         }
