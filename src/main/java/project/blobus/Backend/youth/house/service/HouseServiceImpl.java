@@ -91,7 +91,7 @@ public class HouseServiceImpl implements HouseService{
                 JsonNode rootNode = xmlMapper.readTree(response);
 
                 int totalCnt = rootNode.path("totalCnt").asInt();       // api에서 가져온 데이터 갯수 추출
-                JsonNode policyList =  rootNode.path("youthPolicy");   // 'youthPolicy' 키 기준으로 데이터 추출
+                JsonNode policyList =  rootNode.path("youthPolicy");    // 'youthPolicy' 키 기준으로 데이터 추출
 
                 log.info("주거 정책 API 데이터 추출 =============================");
 
@@ -190,9 +190,7 @@ public class HouseServiceImpl implements HouseService{
                 Sort.by("policyId").descending()
         );
 
-        Page<HouseEntity> result;
-
-        result = houseRepository.findByFilterTypeAndPolicyStsType(policyStsType, searchTerm, filterType, pageable); // 전체 조회
+        Page<HouseEntity> result = houseRepository.findByFilterTypeAndPolicyStsType(policyStsType, searchTerm, filterType, pageable); // 전체 조회
 
         List<HouseDTO> dtoList = result.getContent().stream()
                 .map(entity -> modelMapper.map(entity, HouseDTO.class))
@@ -231,27 +229,29 @@ public class HouseServiceImpl implements HouseService{
         // 정책설명
         houseEntity.setSporCn(houseDTO.getSporCn());                    // 지원내용
         houseEntity.setRqutPrdCn(houseDTO.getRqutPrdCn());              // 사업신청기간
-        houseEntity.setRqutPrdStart(rqutPrdStart);                    // 사업신청 시작일
-        houseEntity.setRqutPrdEnd(rqutPrdEnd);                        // 사업신청 종료일
+        houseEntity.setRqutPrdStart(rqutPrdStart);                      // 사업신청 시작일
+        houseEntity.setRqutPrdEnd(rqutPrdEnd);                          // 사업신청 종료일
         houseEntity.setSporScvl(houseDTO.getSporScvl());                // 지원규모
         // 지원대상
         houseEntity.setAgeInfo(houseDTO.getAgeInfo());                  // 연령
         houseEntity.setPrcpCn(houseDTO.getPrcpCn());                    // 거주지 및 소득
-        houseEntity.setAccrRqisCn(houseDTO.getAccrRqisCn());            // 학력요건
-        houseEntity.setMajrRqisCn(houseDTO.getMajrRqisCn());            // 전공요건
+        houseEntity.setAccrRqisCn(houseDTO.getAccrRqisCn());            // 학력
+        houseEntity.setMajrRqisCn(houseDTO.getMajrRqisCn());            // 전공
         houseEntity.setEmpmSttsCn(houseDTO.getEmpmSttsCn());            // 취업상태
-        houseEntity.setAditRscn(houseDTO.getAditRscn());                // 추가 단서사항
+        houseEntity.setAditRscn(houseDTO.getAditRscn());                // 추가 세부 사항
         houseEntity.setPrcpLmttTrgtCn(houseDTO.getPrcpLmttTrgtCn());    // 참여제한대상
         // 신청방법
-        houseEntity.setRqutProcCn(houseDTO.getRqutProcCn());            // 신청절차
-        houseEntity.setJdgnPresCn(houseDTO.getJdgnPresCn());            // 신청 및 발표
-        houseEntity.setRqutUrla(houseDTO.getRqutUrla());                // 신청사이트 주소
+        houseEntity.setRqutProcCn(houseDTO.getRqutProcCn());            // 신청 절차
+        houseEntity.setJdgnPresCn(houseDTO.getJdgnPresCn());            // 심사 및 발표
+        houseEntity.setRqutUrla(houseDTO.getRqutUrla());                // 신청 사이트
         houseEntity.setPstnPaprCn(houseDTO.getPstnPaprCn());            // 제출서류
         // 기타
         houseEntity.setMngtMson(houseDTO.getMngtMson());                // 주관기관
+        houseEntity.setCherCtpcCn(houseDTO.getCherCtpcCn());            // 주관기관 담당자 연락처
         houseEntity.setCnsgNmor(houseDTO.getCnsgNmor());                // 운영기관
-        houseEntity.setRfcSiteUrla1(houseDTO.getRfcSiteUrla1());        // 참고사이트 url1
-        houseEntity.setRfcSiteUrla2(houseDTO.getRfcSiteUrla2());        // 참고사이트 url2
+        houseEntity.setTintCherCtpcCn(houseDTO.getTintCherCtpcCn());    // 운영기관 담당자 연락처
+        houseEntity.setRfcSiteUrla1(houseDTO.getRfcSiteUrla1());        // 참고사이트1
+        houseEntity.setRfcSiteUrla2(houseDTO.getRfcSiteUrla2());        // 참고사이트2
 
         houseRepository.save(houseEntity);
     }

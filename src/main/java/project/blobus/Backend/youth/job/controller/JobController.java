@@ -51,8 +51,9 @@ public class JobController {
     @PostMapping("/policyRead/{policyId}")
     public Map<String, String> policyModify(@PathVariable(name="policyId") Long policyId,
                                             @RequestBody JobDTO jobDTO){
-        jobDTO.setPolicyId(policyId);
+        log.info("JobController - policyModify 호출 : --------------------------- ");
         log.info(jobDTO.toString());
+        jobDTO.setPolicyId(policyId);
         service.policyModify(jobDTO);
         return Map.of("result", "SUCCESS");
     }
@@ -60,6 +61,7 @@ public class JobController {
     // 정책현황 - 삭제
     @DeleteMapping("/policyRead/{policyId}")
     public Map<String, String> policyRemove(@PathVariable(name = "policyId") Long policyId) {
+        log.info("JobController - policyRemove 호출 : --------------------------- ");
         log.info("policyId : " + policyId);
         service.policyRemove(policyId);
         return Map.of("result", "SUCCESS");
