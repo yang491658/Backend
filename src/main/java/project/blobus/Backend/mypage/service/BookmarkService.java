@@ -160,7 +160,7 @@ public class BookmarkService {
             endDate = entity.getPolicyApplicationEndPeriod();
             link = "/youth/education/" + targetId;
         } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
-            ResourceCulture entity = cultureRepository.findById(targetId).orElseThrow();
+            ResourceCulture entity = cultureRepository.findByResNum(targetId).orElseThrow();
             title = entity.getTitle();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
