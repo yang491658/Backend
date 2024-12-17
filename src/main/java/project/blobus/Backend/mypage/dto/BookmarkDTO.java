@@ -18,8 +18,12 @@ public class BookmarkDTO {
     private String subCategory;
     private Long targetId;
     private String title;
+    private String content;
+
     private LocalDate startDate;
     private LocalDate endDate;
+    private String place;
+
     private LocalDateTime atTime;
     private String link;
 }
