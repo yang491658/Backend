@@ -17,8 +17,12 @@ public class CustomDTO {
     private String mainCategory;
     private String subCategory;
     private String title;
+    private String content;
+
     private LocalDate startDate;
     private LocalDate endDate;
+    private String place;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String link;

@@ -20,6 +20,8 @@ public class CommuntiyComment {
     private String authorName;
     private String authorEmail;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 
     private boolean visibility;

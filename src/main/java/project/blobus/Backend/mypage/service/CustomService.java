@@ -236,10 +236,12 @@ public class CustomService {
         String mainCategory = null;
         String subCategory = null;
         String title = null;
+        String content = null;
         LocalDate startDate = null;
         LocalDate endDate = null;
         LocalDateTime createdAt = null;
         LocalDateTime updatedAt = null;
+        String place = null;
         String link = null;
 
         if (jobPolicy != null) {
@@ -247,11 +249,13 @@ public class CustomService {
             mainCategory = "청년";
             subCategory = "일자리";
             title = jobPolicy.getPolyBizSjnm();
+            content = jobPolicy.getPolyItcnCn();
             String[] dueDate = jobPolicy.getRqutPrdCn().split("\n")[0].split("~");
             if (dueDate.length > 1) {
                 startDate = LocalDate.parse(dueDate[0].trim());
                 endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
             }
+            place = jobPolicy.getMngtMson().replace("□ ","");
 //            createdAt = jobPolicy.getCreatedAt();
 //            updatedAt = jobPolicy.getUpdatedAt();
             link = "/youth/job/policyRead/" + targetId;
@@ -260,11 +264,13 @@ public class CustomService {
             mainCategory = "청년";
             subCategory = "주거";
             title = housePolicy.getPolyBizSjnm();
+            content = housePolicy.getPolyItcnCn();
             String[] dueDate = housePolicy.getRqutPrdCn().split("\n")[0].split("~");
             if (dueDate.length > 1) {
                 startDate = LocalDate.parse(dueDate[0].trim());
                 endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
             }
+            place = housePolicy.getMngtMson().replace("□ ","");
 //            createdAt = housePolicy.getCreatedAt();
 //            updatedAt = housePolicy.getUpdatedAt();
             link = "/youth/house/policyRead/" + targetId;
@@ -273,8 +279,10 @@ public class CustomService {
             mainCategory = "청년";
             subCategory = "복지";
             title = welfarePolicy.getPolicyName();
+            content = welfarePolicy.getPolicyOverview();
             startDate = welfarePolicy.getPolicyApplicationStartPeriod();
             endDate = welfarePolicy.getPolicyApplicationEndPeriod();
+            place = welfarePolicy.getOperatingAgency().replace("□ ","");
 //            createdAt = welfarePolicy.getCreatedAt();
 //            updatedAt = welfarePolicy.getUpdatedAt();
             link = "/youth/welfare/" + targetId;
@@ -283,8 +291,10 @@ public class CustomService {
             mainCategory = "청년";
             subCategory = "교육";
             title = educationPolicy.getPolicyName();
+            content = educationPolicy.getPolicyOverview();
             startDate = educationPolicy.getPolicyApplicationStartPeriod();
             endDate = educationPolicy.getPolicyApplicationEndPeriod();
+            place = educationPolicy.getOperatingAgency().replace("□ ","");
 //            createdAt = educationPolicy.getCreatedAt();
 //            updatedAt = educationPolicy.getUpdatedAt();
             link = "/youth/education/" + targetId;
@@ -295,6 +305,7 @@ public class CustomService {
             title = culture.getTitle();
             startDate = culture.getStartDate();
             endDate = culture.getEndDate();
+            place = culture.getPlace();
             createdAt = culture.getCreatedAt();
 //            updatedAt = culture.getUpdatedAt();
             link = culture.getLink();
@@ -305,8 +316,10 @@ public class CustomService {
                 .mainCategory(mainCategory)
                 .subCategory(subCategory)
                 .title(title)
+                .content(content)
                 .startDate(startDate)
                 .endDate(endDate)
+                .place(place)
                 .createdAt(createdAt)
                 .updatedAt(updatedAt)
                 .link(link)
