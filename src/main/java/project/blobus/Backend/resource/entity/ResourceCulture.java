@@ -24,9 +24,13 @@ public class ResourceCulture {
 
     private Long resNum;
     private String title;
-    private String address;
+
     private LocalDate startDate;
     private LocalDate endDate;
+
+    private String place;
+    private String address;
+
     private String imgUrl;
     private String link;
 

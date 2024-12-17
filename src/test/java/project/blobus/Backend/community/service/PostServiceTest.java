@@ -46,7 +46,7 @@ class PostServiceTest {
                     .authorName("김테스트")
                     .authorEmail("test@test.com")
                     .boardType(i == 3 ? "건의" : "자유")
-                    .category(i == 2 ? "청년" : "지역")
+                    .category( "청년" )
                     .title("등록 테스트" + i)
                     .content("이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고"
                             + "\n지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다."
@@ -66,6 +66,7 @@ class PostServiceTest {
     public void test4() {
         PostDTO dto = PostDTO.builder()
                 .id(102L)
+                .category("지역")
                 .title("수정 테스트")
                 .content("미안하다 이거 보여주려고 어그로끌었다.."
                         + "\n나루토 사스케 싸움수준 ㄹㅇ실화냐? 진짜 세계관최강자들의 싸움이다..")

@@ -123,47 +123,59 @@ public class BookmarkService {
         String mainCategory = bookmark.getMainCategory();
         String subCategory = bookmark.getSubCategory();
         String title = "임시 제목";
+        String content = null;
 
         LocalDate startDate = null;
         LocalDate endDate = null;
+        String place = null;
+
         LocalDateTime atTime = bookmark.getAtTime();
         String link = null;
 
         if (mainCategory.equals("청년") && subCategory.equals("일자리")) {
             JobEntity entity = jobRepository.findById(targetId).orElseThrow();
             title = entity.getPolyBizSjnm();
+            content = entity.getPolyItcnCn();
             String[] dueDate = entity.getRqutPrdCn().split("\n")[0].split("~");
             if (dueDate.length > 1) {
                 startDate = LocalDate.parse(dueDate[0].trim());
                 endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
             }
+            place=entity.getMngtMson().replace("□ ","");
             link = "/youth/job/policyRead/" + targetId;
         } else if (mainCategory.equals("청년") && subCategory.equals("주거")) {
             HouseEntity entity = houseRepository.findById(targetId).orElseThrow();
             title = entity.getPolyBizSjnm();
+            content = entity.getPolyItcnCn();
             String[] dueDate = entity.getRqutPrdCn().split("\n")[0].split("~");
             if (dueDate.length > 1) {
                 startDate = LocalDate.parse(dueDate[0].trim());
                 endDate = LocalDate.parse(dueDate[dueDate.length - 1].trim());
             }
+            place=entity.getMngtMson().replace("□ ","");
             link = "/youth/house/policyRead/" + targetId;
         } else if (mainCategory.equals("청년") && subCategory.equals("복지")) {
             WelfareEntity entity = welfareRepository.findById(Math.toIntExact(targetId)).orElseThrow();
             title = entity.getPolicyName();
+            content = entity.getPolicyOverview();
             startDate = entity.getPolicyApplicationStartPeriod();
             endDate = entity.getPolicyApplicationEndPeriod();
+            place=entity.getOperatingAgency().replace("□ ","");
             link = "/youth/welfare/" + targetId;
         } else if (mainCategory.equals("청년") && subCategory.equals("교육")) {
             EducationEntity entity = educationRepository.findById(Math.toIntExact(targetId)).orElseThrow();
             title = entity.getPolicyName();
+            content = entity.getPolicyOverview();
             startDate = entity.getPolicyApplicationStartPeriod();
             endDate = entity.getPolicyApplicationEndPeriod();
+            place=entity.getOperatingAgency().replace("□ ","");
             link = "/youth/education/" + targetId;
         } else if (mainCategory.equals("지역") && subCategory.equals("문화")) {
             ResourceCulture entity = cultureRepository.findByResNum(targetId).orElseThrow();
             title = entity.getTitle();
             startDate = entity.getStartDate();
             endDate = entity.getEndDate();
+            place=entity.getPlace();
             link = entity.getLink();
         }
 
@@ -173,8 +185,10 @@ public class BookmarkService {
                 .mainCategory(mainCategory)
                 .subCategory(subCategory)
                 .title(title)
+                .content(content)
                 .startDate(startDate)
                 .endDate(endDate)
+                .place(place)
                 .atTime(atTime)
                 .link(link)
                 .build();
