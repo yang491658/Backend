@@ -30,8 +30,8 @@ class CommentServiceTest {
     @Test
     @DisplayName("댓글 등록 테스트")
     public void test2() {
-        String name = "양성규";
-        String userId = "bell4916@naver.com";
+        String name = "김테스트";
+        String userId = "test@test.com";
 
         for (int i = 1; i <= 3; i++) {
             CommentDTO dto = CommentDTO.builder()

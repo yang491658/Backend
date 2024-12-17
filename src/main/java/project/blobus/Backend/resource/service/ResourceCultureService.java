@@ -57,8 +57,11 @@ public class ResourceCultureService {
             itemList.forEach(item -> {
                 String resNum = (String) ((Map<String, Object>) item.get("res_no")).get("_text");
                 String title = (String) ((Map<String, Object>) item.get("title")).get("_text");
-                String place = (String) ((Map<String, Object>) item.get("place_nm")).get("_text");
 
+                String startDate = (String) ((Map<String, Object>) item.get("op_st_dt")).get("_text");
+                String endDatee = (String) ((Map<String, Object>) item.get("op_ed_dt")).get("_text");
+
+                String place = (String) ((Map<String, Object>) item.get("place_nm")).get("_text");
                 String address = switch (place) {
                     case "어댑터씨어터" -> "부산광역시-수영구";
                     case "신세계센텀시티 9층 문화홀" -> getAddressFromPlace("신세계센텀시티");
@@ -66,9 +69,6 @@ public class ResourceCultureService {
                     case "나다소극장" -> "부산광역시-남구";
                     default -> getAddressFromPlace(place);
                 };
-
-                String startDate = (String) ((Map<String, Object>) item.get("op_st_dt")).get("_text");
-                String endDatee = (String) ((Map<String, Object>) item.get("op_ed_dt")).get("_text");
 
                 String imgUrl = item.get("image") != null
                         ? (String) ((Map<String, Object>) item.get("image")).get("_url")
@@ -83,9 +83,10 @@ public class ResourceCultureService {
                 ResourceCulture res = ResourceCulture.builder()
                         .resNum(Long.valueOf(resNum))
                         .title(title)
-                        .address(address)
                         .startDate(LocalDate.parse(startDate))
                         .endDate(LocalDate.parse(endDatee))
+                        .place(place)
+                        .address(address)
                         .imgUrl(imgUrl)
                         .link(link)
                         .category(category)
