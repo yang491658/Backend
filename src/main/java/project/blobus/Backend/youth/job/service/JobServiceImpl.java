@@ -161,7 +161,7 @@ public class JobServiceImpl implements JobService{
     // 정책기간 Start / End 분리시키기
     public static String[] extractDates(String input) {
         // 정규식 패턴: "YYYY-MM-DD~YYYY-MM-DD" 형태의 날짜 범위를 찾음
-        String regex = "(\\d{4}-\\d{2}-\\d{2})~(\\d{4}-\\d{2}-\\d{2})";
+        String regex = "(\\d{4}-\\d{2}-\\d{2}).*?~\\s*(\\d{4}-\\d{2}-\\d{2})";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
