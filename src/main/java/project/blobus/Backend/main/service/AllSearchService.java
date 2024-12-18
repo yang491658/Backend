@@ -21,21 +21,23 @@ public class AllSearchService {
         // end = page 1 * 10 = 10개
         // start = 10 - 9 - 1;
         // 페이지 번호 계산 (0부터 시작하므로 -1)
-        int end = page * 10;
-        int start = end - 9 - 1;
+
+        int show = 12;
+        int end = page * show;  // 1 * 12  = 12
+        int start = end - show;  // 12 - 12 = 0
 
 
         if ("policy".equalsIgnoreCase(category)) {
             // 정책 관련 데이터 검색
             List<AllSearchDTO> policyTitles = allSearchRepository.getPolicyTitles(search, start);
             Integer totalItem = allSearchRepository.countPolicyTitles(search);
-            Integer totalPage = totalItem / 10; // 계산 공식 작성
-            if(totalItem % 10 != 0) {
+            Integer totalPage = totalItem / show; // 계산 공식 작성
+            if(totalItem % show != 0) {
                 totalPage += 1;
             }
             Integer totalItem2 = allSearchRepository.countCommunityPostTitles(search);
-            Integer totalPage2 = totalItem2 / 10; // 계산 공식 작성
-            if(totalItem2 % 10 != 0) {
+            Integer totalPage2 = totalItem2 / show; // 계산 공식 작성
+            if(totalItem2 % show != 0) {
                 totalPage2 += 1;
             }
 
@@ -73,14 +75,14 @@ public class AllSearchService {
             // 커뮤니티 게시글 검색
             List<AllSearchDTO> communityPosts = allSearchRepository.findAllCommunityPostTitles(search, start);
             Integer totalItem = allSearchRepository.countCommunityPostTitles(search);
-            Integer totalPage = totalItem / 10; // 계산 공식 작성
-            if(totalItem % 10 != 0) {
+            Integer totalPage = totalItem / show; // 계산 공식 작성
+            if(totalItem % show != 0) {
                 totalPage += 1;
             }
 
             Integer totalItem2 = allSearchRepository.countPolicyTitles(search);
-            Integer totalPage2 = totalItem2 / 10; // 계산 공식 작성
-            if(totalItem2 % 10 != 0) {
+            Integer totalPage2 = totalItem2 / show; // 계산 공식 작성
+            if(totalItem2 % show != 0) {
                 totalPage2 += 1;
             }
 
