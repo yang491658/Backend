@@ -29,7 +29,7 @@ public interface AllSearchRepository extends JpaRepository<CommunityPost,Long> {
             ") AS t\n" +
             "WHERE t.title LIKE CONCAT('%', ?1, '%')\n" +
             "ORDER BY title ASC\n" +
-            "LIMIT ?2, 10")
+            "LIMIT ?2, 12")
     List<AllSearchDTO> getPolicyTitles(String search, int start);
 
     @Query(nativeQuery = true, value = "SELECT count(1) FROM (\n" +
@@ -51,7 +51,7 @@ public interface AllSearchRepository extends JpaRepository<CommunityPost,Long> {
 
 
     @Query(nativeQuery = true, value = "SELECT title,id,visibility, author_id " +
-            "FROM community_post WHERE title LIKE CONCAT('%', ?1, '%') ORDER BY title ASC LIMIT ?2, 10")
+            "FROM community_post WHERE title LIKE CONCAT('%', ?1, '%') ORDER BY title ASC LIMIT ?2, 12")
     List<AllSearchDTO> findAllCommunityPostTitles(String search, int start);
 
     @Query(nativeQuery = true, value = "SELECT count(1) " +
