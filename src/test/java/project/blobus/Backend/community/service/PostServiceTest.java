@@ -42,9 +42,9 @@ class PostServiceTest {
     public void test3() {
         for (int i = 1; i <= 3; i++) {
             PostDTO dto = PostDTO.builder()
-                    .authorId("test@test.com")
-                    .authorName("김테스트")
-                    .authorEmail("test@test.com")
+                    .authorId("bell4916@naver.com")
+                    .authorName("양성규")
+                    .authorEmail("bell4916@naver.com")
                     .boardType(i == 3 ? "건의" : "자유")
                     .category( "청년" )
                     .title("등록 테스트" + i)
